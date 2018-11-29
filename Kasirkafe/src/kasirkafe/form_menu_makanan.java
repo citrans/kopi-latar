@@ -4,6 +4,8 @@ package kasirkafe;
  *
  * @author Citra
  */
+import java.awt.HeadlessException;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
@@ -24,18 +26,18 @@ public class form_menu_makanan extends javax.swing.JFrame {
         tabel_menu.setModel(tabmode);
         String sql = "SELECT menu.id_menu, menu.nama_menu, menu.harga, kategori.kategori_menu FROM menu, kategori WHERE menu.id_kategori=kategori.id_kategori order by kategori_menu asc";
         try{
-            Connection konek = new Koneksi_mysql().getConnection();
-            Statement stat= konek.createStatement();
-            ResultSet hasil = stat.executeQuery(sql);
-            while(hasil.next()){
-                String id_menu = hasil.getString("id_menu");
-                String nama_menu = hasil.getString("nama_menu");
-                String harga = hasil.getString("harga");
-                String kategori = hasil.getString("kategori_menu");
-                String[]data= {id_menu,nama_menu,harga,kategori};
-                tabmode.addRow(data);
+            try (Connection konek = new Koneksi_mysql().getConnection()) {
+                Statement stat= konek.createStatement();
+                ResultSet hasil = stat.executeQuery(sql);
+                while(hasil.next()){
+                    String id_menu = hasil.getString("id_menu");
+                    String nama_menu = hasil.getString("nama_menu");
+                    String harga = hasil.getString("harga");
+                    String kategori = hasil.getString("kategori_menu");
+                    String[]data= {id_menu,nama_menu,harga,kategori};
+                    tabmode.addRow(data);
+                }
             }
-            konek.close();
         } catch(SQLException e){
             JOptionPane.showMessageDialog(null, "menampilkan data gagal", "informasi", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -44,40 +46,38 @@ public class form_menu_makanan extends javax.swing.JFrame {
     
     private void tampil_kategori(){
         try{
-            Connection konek = new Koneksi_mysql().getConnection();
-            String sql = "SELECT * FROM kategori";
-            PreparedStatement stat = (PreparedStatement) konek.prepareStatement(sql);
-            ResultSet hasil = stat.executeQuery();
-            while(hasil.next()){
-                String kategori = hasil.getString("kategori_menu");
-                cb_kategori.addItem(kategori);
-                ambil_id();
+            try (Connection konek = new Koneksi_mysql().getConnection()) {
+                String sql = "SELECT * FROM kategori";
+                PreparedStatement stat = (PreparedStatement) konek.prepareStatement(sql);
+                ResultSet hasil = stat.executeQuery();
+                while(hasil.next()){
+                    String kategori = hasil.getString("kategori_menu");
+                    cb_kategori.addItem(kategori);
+                    ambil_id();
+                }
             }
-            konek.close();
         }catch(SQLException e){
         JOptionPane.showMessageDialog(null, "menampilkan data gagal", "informasi", JOptionPane.INFORMATION_MESSAGE);
         }
     }
     
-    public void id_auto(){
+    private void id_auto(){
         try{
-            Connection konek = new Koneksi_mysql().getConnection();
-            Statement stat= konek.createStatement();
-            String sql = "SELECT id_menu as no FROM menu order by id_menu asc";
-            ResultSet hasil = stat.executeQuery(sql);
-            while(hasil.next()){
-                if(hasil.first() == false){
-                    tf_id_menu.setText("1");
-                }else{
+            try (Connection konek = new Koneksi_mysql().getConnection()) {
+                Statement stat= konek.createStatement();
+                String sql = "SELECT id_menu as no FROM menu order by id_menu asc";
+                ResultSet hasil = stat.executeQuery(sql);
+                if(hasil.next()){
                     hasil.last();
                     int set_id = hasil.getInt(1)+1;
-                    String no = String.valueOf(set_id);
-                    tf_id_menu.setText(no);
+                    String nomer = String.valueOf(set_id);
+                    tf_id_menu.setText(nomer); 
+                }else{
+                    tf_id_menu.setText("1");
                 }
             }
-            konek.close();
         } catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "menampilkan data gagal", "informasi", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "menampilkan id menu gagal", "informasi", JOptionPane.INFORMATION_MESSAGE);
         }
     }
     
@@ -85,20 +85,20 @@ public class form_menu_makanan extends javax.swing.JFrame {
         
         try{
             String kategori = cb_kategori.getSelectedItem().toString();
-            Connection konek = new Koneksi_mysql().getConnection();
-            Statement stat= konek.createStatement();
-            String sql = "SELECT id_kategori as id FROM kategori WHERE `kategori_menu`='"+kategori+"'";
-            ResultSet hasil = stat.executeQuery(sql);
-            
-            while(hasil.next()){
-              //  hasil.first();
-                int id = hasil.getInt(1);
-                no = String.valueOf(id);
-                                          
+            try (Connection konek = new Koneksi_mysql().getConnection()) {
+                Statement stat= konek.createStatement();
+                String sql = "SELECT id_kategori as id FROM kategori WHERE `kategori_menu`='"+kategori+"'";
+                ResultSet hasil = stat.executeQuery(sql);
+                
+                while(hasil.next()){
+                    //  hasil.first();
+                    int id = hasil.getInt(1);
+                    no = String.valueOf(id);
+                    
+                }
             }
-            konek.close();
         } catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "menampilkan data gagal", "informasi", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "menampilkan id kategori gagal", "informasi", JOptionPane.INFORMATION_MESSAGE);
         }
     }
     
@@ -109,6 +109,72 @@ public class form_menu_makanan extends javax.swing.JFrame {
         cb_kategori.setSelectedIndex(0);
         id_auto();
         
+    }
+    
+    public void tambah_data(){
+        String id_menu, nama_menu, id_kategori;
+        int harga ;
+        ambil_id();
+        id_menu = tf_id_menu.getText();
+        nama_menu = tf_nama_menu.getText();
+        id_kategori = no;
+        harga = Integer.parseInt(tf_harga.getText());
+        try{
+            try (Connection konek = new Koneksi_mysql().getConnection()) {
+                String sql = "INSERT INTO `menu`(`id_menu`, `nama_menu`, `harga`, `id_kategori`) VALUES ('"+id_menu+"','"+nama_menu+"','"+harga+"','"+id_kategori+"')";
+                PreparedStatement stat = (PreparedStatement) konek.prepareStatement(sql);
+                stat.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Berhasil Menyimpan Data", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+                tampil_menu();
+                reset();
+                konek.close();
+            }
+        }catch(HeadlessException | SQLException e){
+            JOptionPane.showMessageDialog(null, "Gagal Menyimpan Data", "Informasi", JOptionPane.INFORMATION_MESSAGE);    
+        }
+    }
+    
+    public void update_data(){
+        String id_menu, nama_menu, id_kategori;
+        int harga ;
+        ambil_id();
+        id_menu = tf_id_menu.getText();
+        nama_menu = tf_nama_menu.getText();
+        id_kategori = no;
+        harga = Integer.parseInt(tf_harga.getText());
+        try{
+            try (Connection konek = new Koneksi_mysql().getConnection()) {
+                String sql = "UPDATE `menu` SET `nama_menu`='"+nama_menu+"',`harga`='"+harga+"',`id_kategori`='"+id_kategori+"' WHERE `id_menu`='"+id_menu+"'";
+                PreparedStatement stat = (PreparedStatement) konek.prepareStatement(sql);
+                stat.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Berhasil Merubah Data", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+                tampil_menu();
+                reset();
+                konek.close();
+            }
+        }catch(HeadlessException | SQLException e){
+            JOptionPane.showMessageDialog(null, "Gagal Merubah Data", "Informasi", JOptionPane.INFORMATION_MESSAGE);    
+        }
+    }
+    
+    public void delete_data(){
+         String id_menu;
+        int harga = 0;
+        id_menu = tf_id_menu.getText();
+       
+        harga = Integer.parseInt(tf_harga.getText());
+        try{
+             try (Connection konek = new Koneksi_mysql().getConnection()) {
+                 String sql = "DELETE FROM `menu` WHERE `id_menu` = '"+id_menu+"'";
+                 PreparedStatement stat = (PreparedStatement) konek.prepareStatement(sql);
+                 stat.executeUpdate();
+                 JOptionPane.showMessageDialog(null, "Berhasil Menghapus Data", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+                 tampil_menu();
+                 reset();
+             }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Gagal Menghapus Data", "Informasi", JOptionPane.INFORMATION_MESSAGE);    
+        }
     }
     
     public form_menu_makanan() {
@@ -184,18 +250,33 @@ public class form_menu_makanan extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+        jButton1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton1KeyPressed(evt);
+            }
+        });
 
-        btdelete.setText("Delete");
+        btdelete.setText("Hapus");
         btdelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btdeleteActionPerformed(evt);
             }
         });
+        btdelete.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btdeleteKeyPressed(evt);
+            }
+        });
 
-        tbupdate.setText("Update");
+        tbupdate.setText("Ubah");
         tbupdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tbupdateActionPerformed(evt);
+            }
+        });
+        tbupdate.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tbupdateKeyPressed(evt);
             }
         });
 
@@ -214,10 +295,21 @@ public class form_menu_makanan extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("Reset");
+        tf_harga.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tf_hargaKeyTyped(evt);
+            }
+        });
+
+        jButton4.setText("bersihkan");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
+            }
+        });
+        jButton4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton4KeyPressed(evt);
             }
         });
 
@@ -225,6 +317,11 @@ public class form_menu_makanan extends javax.swing.JFrame {
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
+            }
+        });
+        jButton5.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton5KeyPressed(evt);
             }
         });
 
@@ -301,7 +398,7 @@ public class form_menu_makanan extends javax.swing.JFrame {
                     .addComponent(jButton4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton5)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -313,25 +410,7 @@ public class form_menu_makanan extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-String id_menu="", nama_menu="", id_kategori="";
-        int harga = 0;
-        ambil_id();
-        id_menu = tf_id_menu.getText();
-        nama_menu = tf_nama_menu.getText();
-        id_kategori = no;
-        harga = Integer.parseInt(tf_harga.getText());
-        try{
-            Connection konek = new Koneksi_mysql().getConnection();
-            String sql = "INSERT INTO `menu`(`id_menu`, `nama_menu`, `harga`, `id_kategori`) VALUES ('"+id_menu+"','"+nama_menu+"','"+harga+"','"+id_kategori+"')";
-            PreparedStatement stat = (PreparedStatement) konek.prepareStatement(sql);
-            stat.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Berhasil Menyimpan Data", "Informasi", JOptionPane.INFORMATION_MESSAGE);
-            tampil_menu();
-            reset();
-            konek.close();
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Gagal Menyimpan Data", "Informasi", JOptionPane.INFORMATION_MESSAGE);    
-        }
+        tambah_data();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void tabel_menuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabel_menuMouseClicked
@@ -344,29 +423,10 @@ String id_menu="", nama_menu="", id_kategori="";
     }//GEN-LAST:event_tabel_menuMouseClicked
 
     private void tbupdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbupdateActionPerformed
-        // TODO add your handling code here:
-         String id_menu="", nama_menu="", id_kategori="";
-        int harga = 0;
-        ambil_id();
-        id_menu = tf_id_menu.getText();
-        nama_menu = tf_nama_menu.getText();
-        id_kategori = no;
-        harga = Integer.parseInt(tf_harga.getText());
-        try{
-            Connection konek = new Koneksi_mysql().getConnection();
-                String sql = "UPDATE `menu` SET `nama_menu`='"+nama_menu+"',`harga`='"+harga+"',`id_kategori`='"+id_kategori+"' WHERE `id_menu`='"+id_menu+"'";
-            PreparedStatement stat = (PreparedStatement) konek.prepareStatement(sql);
-            stat.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Berhasil Merubah Data", "Informasi", JOptionPane.INFORMATION_MESSAGE);
-            tampil_menu();
-            reset();
-            konek.close();
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Gagal Merubah Data", "Informasi", JOptionPane.INFORMATION_MESSAGE);    
-        }
-//        Update_menu n = new Update_menu();
-//        n.setVisible(true);
-//        this.setVisible(false);
+        int hapusselected = JOptionPane.showConfirmDialog(null, "Hapus Data?","Close Message", JOptionPane.YES_NO_OPTION);
+         if(hapusselected == JOptionPane.YES_OPTION){
+        update_data();
+         }
     }//GEN-LAST:event_tbupdateActionPerformed
 
     private void cb_kategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_kategoriActionPerformed
@@ -380,23 +440,10 @@ String id_menu="", nama_menu="", id_kategori="";
 
     private void btdeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btdeleteActionPerformed
         // TODO add your handling code here:
-        String id_menu="";
-        int harga = 0;
-        id_menu = tf_id_menu.getText();
-       
-        harga = Integer.parseInt(tf_harga.getText());
-        try{
-            Connection konek = new Koneksi_mysql().getConnection();
-            String sql = "DELETE FROM `menu` WHERE `id_menu` = '"+id_menu+"'";
-            PreparedStatement stat = (PreparedStatement) konek.prepareStatement(sql);
-            stat.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Berhasil Menghapus Data", "Informasi", JOptionPane.INFORMATION_MESSAGE);
-            tampil_menu();
-            reset();
-            konek.close();
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Gagal Menghapus Data", "Informasi", JOptionPane.INFORMATION_MESSAGE);    
-        }
+        int hapusselected = JOptionPane.showConfirmDialog(null, "Hapus Data?","Close Message", JOptionPane.YES_NO_OPTION);
+         if(hapusselected == JOptionPane.YES_OPTION){
+        delete_data();
+         }
     }//GEN-LAST:event_btdeleteActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -409,6 +456,51 @@ String id_menu="", nama_menu="", id_kategori="";
     private void tabel_menuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabel_menuMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_tabel_menuMouseEntered
+
+    private void tf_hargaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_hargaKeyTyped
+        // TODO add your handling code here:
+        char enter= evt.getKeyChar();
+         if(!(Character.isDigit(enter))){
+             evt.consume();
+         }
+    }//GEN-LAST:event_tf_hargaKeyTyped
+
+    private void jButton1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyPressed
+        // TODO add your handling code here:
+          if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+             tambah_data();
+        }
+    }//GEN-LAST:event_jButton1KeyPressed
+
+    private void tbupdateKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbupdateKeyPressed
+         // TODO add your handling code here:
+          if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+             update_data();
+        }
+    }//GEN-LAST:event_tbupdateKeyPressed
+
+    private void btdeleteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btdeleteKeyPressed
+        // TODO add your handling code here:
+         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+             delete_data();
+        }
+    }//GEN-LAST:event_btdeleteKeyPressed
+
+    private void jButton4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton4KeyPressed
+        // TODO add your handling code here:
+         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+             reset();
+        }
+    }//GEN-LAST:event_jButton4KeyPressed
+
+    private void jButton5KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton5KeyPressed
+        // TODO add your handling code here:
+         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+             Input_kategori n = new Input_kategori();
+             n.setVisible(true);
+             this.setVisible(false);
+        }
+    }//GEN-LAST:event_jButton5KeyPressed
 
     /**
      * @param args the command line arguments
@@ -426,22 +518,16 @@ String id_menu="", nama_menu="", id_kategori="";
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(form_menu_makanan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(form_menu_makanan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(form_menu_makanan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(form_menu_makanan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        
+        //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new form_menu_makanan().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new form_menu_makanan().setVisible(true);
         });
     }
 
