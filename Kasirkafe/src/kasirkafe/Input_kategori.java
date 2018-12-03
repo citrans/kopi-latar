@@ -125,6 +125,7 @@ public class Input_kategori extends javax.swing.JFrame {
     public Input_kategori() {
         initComponents();
         tampil_kategori();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         ambil_id();
     }
 

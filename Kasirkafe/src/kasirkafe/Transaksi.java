@@ -39,32 +39,29 @@ public class Transaksi extends javax.swing.JFrame {
             initComponents();
             this.setExtendedState(JFrame.MAXIMIZED_BOTH);
             tanggal_jam_sekarang();
+            cb_barang.requestFocus();
             cb_barang.getEditor().getEditorComponent().addKeyListener(new KeyAdapter() {
 
                @Override
                 public void keyReleased(KeyEvent evt) {
 
-                    String cadenaEscrita = cb_barang.getEditor().getItem().toString();
+                    String barang = cb_barang.getEditor().getItem().toString();
 
                     if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-                       if(comparar(cadenaEscrita)){// compara si el texto escrito se ecuentra en la lista
-                           // busca el texto escrito en la base de datos
-                           buscar(cadenaEscrita);
-                       }else{// en caso contrario toma como default el elemento 0 o sea el primero de la lista y lo busca.
-                        buscar(cb_barang.getItemAt(0));
-                        cb_barang.setSelectedIndex(0);
-                        }
+                       dapil(cb_barang.getEditor().getItem().toString());
+                        String menu = cb_barang.getEditor().getItem().toString();
+                       cb_barang.setSelectedItem(menu);
                     }
 
 
                     if (evt.getKeyCode() >= 65 && evt.getKeyCode() <= 90 || evt.getKeyCode() >= 96 && evt.getKeyCode() <= 105 || evt.getKeyCode() == 8) {
-                        cb_barang.setModel(operasi.getLista(cadenaEscrita));
+                        cb_barang.setModel(operasi.getLista(barang));
                         if (cb_barang.getItemCount() > 0) {
-                            cb_barang.getEditor().setItem(cadenaEscrita);
+                            cb_barang.getEditor().setItem(barang);
                             cb_barang.showPopup();                     
 
                         } else {
-                            cb_barang.addItem(cadenaEscrita);
+                            cb_barang.addItem(barang);
                         }
                     }
                 }
@@ -83,25 +80,16 @@ public class Transaksi extends javax.swing.JFrame {
             tf_kembali.disable();
             
         }  
-       public void buscar(String nombre) {
-        String datos[] = operasi.buscar(nombre);
-        if (datos[0] != null) {
-            tf_harga.setText(datos[2]);
+       public void dapil(String nombre) {
+        String data[] = operasi.buscar(nombre);
+        if (data[0] != null) {
+            tf_harga.setText(data[2]);
         } else {
-            JOptionPane.showMessageDialog(rootPane, "No se encontro ningun archivo", "Error", JOptionPane.WARNING_MESSAGE);
+            dapil(cb_barang.getItemAt(0));
+                    cb_barang.setSelectedIndex(0);
         }
     }
-       private boolean comparar(String cadena){
-    Object [] lista=cb_barang.getComponents();
-    boolean encontrado=false;
-        for (Object object : lista) {
-            if(cadena.equals(object)){
-                encontrado=true;
-              break;
-            }
-        }
-       return encontrado;
-    }
+     
        private void tampil_pesanan(){
         String id_tr = lb_transaksi.getText();
         Object[]baris={"no transaksi","nama menu", "harga","jumlah barang", "total",};
@@ -236,6 +224,7 @@ public class Transaksi extends javax.swing.JFrame {
         tf_total.setText("");
         tf_unit.setText("");
         cb_barang.setSelectedItem("");
+        cb_barang.requestFocus();
         tampil_pesanan();
     
     }
@@ -244,6 +233,7 @@ public class Transaksi extends javax.swing.JFrame {
            tf_total_tampil.setText("");
            tf_bayar.setText("");
            tf_kembali.setText("");
+           cb_barang.requestFocus();
            id_auto();
         
        }
@@ -309,7 +299,6 @@ public class Transaksi extends javax.swing.JFrame {
                     Prstat.executeUpdate();
                     JOptionPane.showMessageDialog(null, "Berhasil Menyimpan Data", "Informasi", JOptionPane.INFORMATION_MESSAGE);
                     reset();
-                    //konek.close();
                     }catch(HeadlessException | SQLException e){
                         JOptionPane.showMessageDialog(null, "update Data", "Informasi", JOptionPane.INFORMATION_MESSAGE);    
                     }
@@ -392,6 +381,9 @@ public class Transaksi extends javax.swing.JFrame {
                     else
                     {
                         day_night = "AM";
+                    }
+                    if(jam == 0){
+                        jam=12;
                     }
                     String waktu = jam + ":" + menit + ":" + detik + "" + day_night;
                     jammm.setText(waktu);
@@ -591,6 +583,11 @@ public class Transaksi extends javax.swing.JFrame {
                 cb_barangActionPerformed(evt);
             }
         });
+        cb_barang.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cb_barangKeyPressed(evt);
+            }
+        });
 
         jLabel4.setText("Jumlah");
 
@@ -774,7 +771,12 @@ public class Transaksi extends javax.swing.JFrame {
         mb_keluar.setText("Keluar");
         mb_keluar.add(jSeparator1);
 
-        jMenuItem8.setText("jMenuItem8");
+        jMenuItem8.setText("Keluar");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
         mb_keluar.add(jMenuItem8);
 
         jMenuBar1.add(mb_keluar);
@@ -1013,10 +1015,16 @@ public class Transaksi extends javax.swing.JFrame {
 
     private void bt_satuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_satuActionPerformed
          // TODO add your handling code here:
+         Transaksi a = new Transaksi();
+         a.setVisible(true);
+         this.setVisible(false);
     }//GEN-LAST:event_bt_satuActionPerformed
 
     private void bt_DUAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_DUAActionPerformed
         // TODO add your handling code here:
+         Transaksi1 a = new Transaksi1();
+         a.setVisible(true);
+         this.setVisible(false);
     }//GEN-LAST:event_bt_DUAActionPerformed
 
     private void bt_tujuhbelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_tujuhbelasActionPerformed
@@ -1132,6 +1140,9 @@ public class Transaksi extends javax.swing.JFrame {
           if(evt.getKeyCode() == KeyEvent.VK_ENTER){
              tambah_data();
         }
+           if(evt.getKeyCode() == KeyEvent.VK_E){
+             tf_bayar.requestFocus();
+        }
     }//GEN-LAST:event_bt_tambahKeyPressed
 
     private void bt_simpanKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bt_simpanKeyPressed
@@ -1197,6 +1208,16 @@ public class Transaksi extends javax.swing.JFrame {
         n.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void cb_barangKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cb_barangKeyPressed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_cb_barangKeyPressed
 
     /**
      * @param args the command line arguments
