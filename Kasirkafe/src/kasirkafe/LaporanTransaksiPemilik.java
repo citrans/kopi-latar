@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 package kasirkafe;
-import Koneksi.koneksi;
-import cls.ClassDB;
+//import Koneksi.koneksi;
+//import cls.ClassDB;
 import com.mysql.jdbc.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -51,7 +51,8 @@ public void getData( ){
 
      try{
            //membuat statemen pemanggilan data pada table tblGaji dari database
-           Statement stat = (Statement) koneksi.GetConnection( ).createStatement( );
+           Connection konek = new Koneksi_mysql().getConnection();
+           Statement stat = konek.createStatement();
            String sql        = "Select * from transaksi ";
          
            ResultSet res   = stat.executeQuery(sql);

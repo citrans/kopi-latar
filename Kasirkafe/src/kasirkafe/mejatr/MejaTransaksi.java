@@ -10,24 +10,41 @@ import java.awt.GridBagLayout;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import kasirkafe.Input_kategori;
-import kasirkafe.Transaksi;
+import Belum_terpakai.Transaksi;
+import kasirkafe.LaporanTransaksiKasir;
+import kasirkafe.crud;
 import kasirkafe.form_menu_makanan;
-import kasirkafe.mejatr.panelmeja.meja1;
+import kasirkafe.mejatr.panelmeja.meja1b;
 import kasirkafe.mejatr.panelmeja.meja2;
+import kasirkafe.mejatr.panelmeja.meja3;
 
 /**
  *
  * @author Citra
  */
-public class MejaTransaksi extends javax.swing.JFrame {
+public final class MejaTransaksi extends javax.swing.JFrame {
     GridBagLayout layout = new GridBagLayout();
-    meja1 m1 =new meja1();
+    meja1b m1 =new meja1b();
     meja2 m2 = new meja2();
+    meja3 m3 =new meja3();
+    String user,status;
     /**
      * Creates new form 
+     * @param user
+     * @param status
      */
-    public MejaTransaksi() {
+    public MejaTransaksi(String user,String status){
         initComponents();
+         if("Pegawai".equals(status)|| "pegawai".equals(status)){
+            dt_pegawai.hide();
+        }
+//         else if("Pemilik".equals(status)){
+//             
+//         }
+        this.user = user;
+        this.status=status;
+        //jLabel1.setText(status);
+        m1 = new meja1b(user);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         p_dinamic.setLayout(layout);
         GridBagConstraints c = new GridBagConstraints();
@@ -37,17 +54,19 @@ public class MejaTransaksi extends javax.swing.JFrame {
         c.gridx = 0;
         c.gridy = 0;
         p_dinamic.add(m2, c);
+        c.gridx = 0;
+        c.gridy = 0;
+        p_dinamic.add(m3, c);
         m1.setVisible(true);
         m2.setVisible(false);
+        m3.setVisible(false);
         p_dinamic.requestFocus();
+     //   lb_pegawai.setText(user);
     }
-    public void pd(){
-//        System.out.print("a");
-        p_dinamic.requestFocus();
+    public MejaTransaksi() {
+        initComponents();
     }
-     public void pt(){
-        p_tombol.requestFocus();
-    }
+    
       
     /**
      * This method is called from within the constructor to initialize the form.
@@ -80,14 +99,15 @@ public class MejaTransaksi extends javax.swing.JFrame {
         bt_sepuluh = new javax.swing.JButton();
         bt_limabelas = new javax.swing.JButton();
         bt_duapuluh = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         p_dinamic = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         mb_transaksi = new javax.swing.JMenu();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem9 = new javax.swing.JMenuItem();
+        mi_mj1 = new javax.swing.JMenuItem();
+        mi_mj2 = new javax.swing.JMenuItem();
         mb_data_menu = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        dt_pegawai = new javax.swing.JMenuItem();
         mb_tr_today = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -185,6 +205,8 @@ public class MejaTransaksi extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("jLabel1");
+
         javax.swing.GroupLayout p_tombolLayout = new javax.swing.GroupLayout(p_tombol);
         p_tombol.setLayout(p_tombolLayout);
         p_tombolLayout.setHorizontalGroup(
@@ -196,9 +218,11 @@ public class MejaTransaksi extends javax.swing.JFrame {
                         .addGroup(p_tombolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(bt_enambelas)
                             .addComponent(bt_sebelas)
-                            .addGroup(p_tombolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(bt_enam, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(bt_satu, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(p_tombolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel1)
+                                .addGroup(p_tombolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(bt_enam, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(bt_satu, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(p_tombolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(bt_tujuhbelas)
@@ -235,7 +259,9 @@ public class MejaTransaksi extends javax.swing.JFrame {
         p_tombolLayout.setVerticalGroup(
             p_tombolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(p_tombolLayout.createSequentialGroup()
-                .addGap(111, 111, 111)
+                .addGap(29, 29, 29)
+                .addComponent(jLabel1)
+                .addGap(68, 68, 68)
                 .addComponent(jLabel2)
                 .addGap(40, 40, 40)
                 .addGroup(p_tombolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -303,26 +329,26 @@ public class MejaTransaksi extends javax.swing.JFrame {
             }
         });
 
-        jMenuItem7.setText("Transaksi Meja 1");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+        mi_mj1.setText("Transaksi Meja 1");
+        mi_mj1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
+                mi_mj1ActionPerformed(evt);
             }
         });
-        mb_transaksi.add(jMenuItem7);
+        mb_transaksi.add(mi_mj1);
 
-        jMenuItem9.setText("Transaksi Meja 2");
-        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+        mi_mj2.setText("Transaksi Meja 2");
+        mi_mj2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem9ActionPerformed(evt);
+                mi_mj2ActionPerformed(evt);
             }
         });
-        mb_transaksi.add(jMenuItem9);
+        mb_transaksi.add(mi_mj2);
 
         jMenuBar1.add(mb_transaksi);
 
         mb_data_menu.setIcon(new javax.swing.ImageIcon("C:\\Users\\Citra\\Desktop\\menu.png")); // NOI18N
-        mb_data_menu.setText("Data Menu");
+        mb_data_menu.setText("Data Utama");
         mb_data_menu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mb_data_menuActionPerformed(evt);
@@ -337,13 +363,13 @@ public class MejaTransaksi extends javax.swing.JFrame {
         });
         mb_data_menu.add(jMenuItem1);
 
-        jMenuItem6.setText("Kategori Menu");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        dt_pegawai.setText("Data Pegawai");
+        dt_pegawai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                dt_pegawaiActionPerformed(evt);
             }
         });
-        mb_data_menu.add(jMenuItem6);
+        mb_data_menu.add(dt_pegawai);
 
         jMenuBar1.add(mb_data_menu);
 
@@ -351,6 +377,11 @@ public class MejaTransaksi extends javax.swing.JFrame {
         mb_tr_today.setText("Laporan");
 
         jMenuItem3.setText("Laporan Hari ini");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         mb_tr_today.add(jMenuItem3);
 
         jMenuItem4.setText("Laporan Favorit");
@@ -398,17 +429,17 @@ public class MejaTransaksi extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+    private void mi_mj1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_mj1ActionPerformed
         // TODO add your handling code here:
         m1.setVisible(true);
         m2.setVisible(false);
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
+    }//GEN-LAST:event_mi_mj1ActionPerformed
 
-    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+    private void mi_mj2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_mj2ActionPerformed
         // TODO add your handling code here:
         m1.setVisible(false);
         m2.setVisible(true);
-    }//GEN-LAST:event_jMenuItem9ActionPerformed
+    }//GEN-LAST:event_mi_mj2ActionPerformed
 
     private void mb_transaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mb_transaksiActionPerformed
         // TODO add your handling code here:
@@ -424,12 +455,12 @@ public class MejaTransaksi extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+    private void dt_pegawaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dt_pegawaiActionPerformed
         // TODO add your handling code here:
-        Input_kategori n = new Input_kategori();
+        crud n = new crud();
         n.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
+    }//GEN-LAST:event_dt_pegawaiActionPerformed
 
     private void mb_data_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mb_data_menuActionPerformed
         // TODO add your handling code here:
@@ -443,14 +474,17 @@ public class MejaTransaksi extends javax.swing.JFrame {
 
     private void bt_satuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_satuActionPerformed
         // TODO add your handling code here:
+        
         m1.setVisible(true);
         m2.setVisible(false);
+        m3.setVisible(false);
     }//GEN-LAST:event_bt_satuActionPerformed
 
     private void bt_DUAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_DUAActionPerformed
         // TODO add your handling code here:
          m2.setVisible(true);
         m1.setVisible(false);
+        m3.setVisible(false);
     }//GEN-LAST:event_bt_DUAActionPerformed
 
     private void bt_tujuhbelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_tujuhbelasActionPerformed
@@ -459,6 +493,9 @@ public class MejaTransaksi extends javax.swing.JFrame {
 
     private void bt_tigaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_tigaActionPerformed
         // TODO add your handling code here:
+        m2.setVisible(false);
+        m1.setVisible(false);
+        m3.setVisible(true);
     }//GEN-LAST:event_bt_tigaActionPerformed
 
     private void bt_delapanbelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_delapanbelasActionPerformed
@@ -480,6 +517,13 @@ public class MejaTransaksi extends javax.swing.JFrame {
     private void bt_duapuluhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_duapuluhActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_bt_duapuluhActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        LaporanTransaksiKasir n =new LaporanTransaksiKasir(user, status);
+        n.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -552,21 +596,22 @@ public class MejaTransaksi extends javax.swing.JFrame {
     private javax.swing.JButton bt_tigabelas;
     private javax.swing.JButton bt_tujuh;
     private javax.swing.JButton bt_tujuhbelas;
+    private javax.swing.JMenuItem dt_pegawai;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenu mb_data_menu;
     private javax.swing.JMenu mb_keluar;
     private javax.swing.JMenu mb_tr_today;
     private javax.swing.JMenu mb_transaksi;
+    private javax.swing.JMenuItem mi_mj1;
+    private javax.swing.JMenuItem mi_mj2;
     private javax.swing.JPanel p_dinamic;
     private javax.swing.JPanel p_tombol;
     // End of variables declaration//GEN-END:variables

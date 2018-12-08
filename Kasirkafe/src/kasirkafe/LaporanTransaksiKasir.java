@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 package kasirkafe;
-import Koneksi.koneksi;
-import cls.ClassDB;
+//import Koneksi.koneksi;
+//import cls.ClassDB;
 import com.mysql.jdbc.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,6 +27,7 @@ public class LaporanTransaksiKasir extends javax.swing.JFrame {
      */
       private DefaultTableModel model;
     private String kode;
+    String user, status,id_pegawai;
     public LaporanTransaksiKasir() {
         initComponents();
            model = new DefaultTableModel ( );
@@ -42,15 +43,54 @@ public class LaporanTransaksiKasir extends javax.swing.JFrame {
 
              getData(); 
     }
+    
+     public LaporanTransaksiKasir(String User, String Status) {
+        initComponents();
+           model = new DefaultTableModel ( );
+             tblLapBul.setModel(model);
+             model.addColumn("ID_Transaksi");
+             model.addColumn("ID_Pegawai");
+             model.addColumn("Tgl_Transaksi");
+             model.addColumn("Jumlah_Pesanan");
+             model.addColumn("Total_Harga");
+             model.addColumn("Bayar");
+             model.addColumn("Kembalian");
+            ambil_id_peg();
+            jLabel2.setText(id_pegawai);
+             getData(); 
+    }
+     public void ambil_id_peg(){
+        
+        try{
+            
+            try (java.sql.Connection konek = new Koneksi_mysql().getConnection()) {
+                Statement stat= konek.createStatement();
+                String sql = "SELECT id_pegawai as id FROM pegawai WHERE `nama_pegawai`='"+user+"'";
+                ResultSet hasil = stat.executeQuery(sql);
+                
+                while(hasil.next()){
+                    int id = hasil.getInt(1);
+                    id_pegawai = String.valueOf(id);                       
+                }
+            }
+        } catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "menampilkan data gagal", "informasi", JOptionPane.INFORMATION_MESSAGE);
+        }
+     }
+    
     public void getData( ){
      //menghapus isi table tblGaji
      model.getDataVector( ).removeAllElements( );
      model.fireTableDataChanged( );
+     ambil_id_peg();
 
      try{
            //membuat statemen pemanggilan data pada table tblGaji dari database
-           Statement stat = (Statement) koneksi.GetConnection( ).createStatement( );
-           String sql        = "Select * from transaksi";
+            Connection konek = new Koneksi_mysql().getConnection();
+            Statement stat = konek.createStatement();
+            String sql = "SELECT * from transaksi WHERE `id_pegawai`='"+id_pegawai+"'";
+            //ResultSet hasil = stat.executeQuery(sql);
+          // String sql        = "Select ";
          
            ResultSet res   = stat.executeQuery(sql);
           
@@ -87,6 +127,7 @@ public class LaporanTransaksiKasir extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblLapBul = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -109,6 +150,8 @@ public class LaporanTransaksiKasir extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblLapBul);
 
+        jLabel2.setText("jLabel2");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -120,13 +163,17 @@ public class LaporanTransaksiKasir extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(315, 315, 315)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(125, 125, 125))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(31, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23))
@@ -187,6 +234,7 @@ public class LaporanTransaksiKasir extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblLapBul;

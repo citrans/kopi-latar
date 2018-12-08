@@ -8,6 +8,7 @@ package kasirkafe.mejatr.panelmeja;
 import java.awt.HeadlessException;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.print.PrinterException;
 import static java.lang.Thread.sleep;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -201,6 +202,7 @@ public class meja2 extends javax.swing.JPanel {
            tf_total_tampil.setText("");
            tf_bayar.setText("");
            tf_kembali.setText("");
+           ta_nota.setText("");
            cb_barang.setSelectedItem("");
            cb_barang.requestFocus();
            id_auto();
@@ -324,6 +326,24 @@ public class meja2 extends javax.swing.JPanel {
         tf_total_bayar.setText("0");
         tf_total_tampil.setText("0");
        }
+        public void generate_data(){
+           ta_nota.setText("\tKOPI LATAR\n\n\n");
+           ta_nota.setText(ta_nota.getText()+"no\t: " + lb_transaksi.getText()+"\n");
+           ta_nota.setText(ta_nota.getText()+"kasir\t: " + lb_pegawai.getText()+"\n");
+           ta_nota.setText(ta_nota.getText()+"tanggal\t: " + tanggal.getText()+jammm.getText()+"\n\n");
+           ta_nota.setText(ta_nota.getText()+"--------------------" +"\n");
+           int jumlah_baris = tb_barang.getRowCount();
+           TableModel tabelModel;
+           tabelModel = tb_barang.getModel();
+           for(int i = 0; i<jumlah_baris;i++){
+               ta_nota.setText(ta_nota.getText()+tabelModel.getValueAt(i, 1)+"\t"+tabelModel.getValueAt(i, 3)+"\t"+tabelModel.getValueAt(i, 2)+"\t"+tabelModel.getValueAt(i, 4)+"\n");
+           }
+           ta_nota.setText(ta_nota.getText()+"total\t: " + tf_total_bayar.getText()+"\n");
+           ta_nota.setText(ta_nota.getText()+"bayar\t: " + tf_bayar.getText()+"\n");
+           ta_nota.setText(ta_nota.getText()+"kembali\t: " + tf_kembali.getText()+"\n\n");
+            ta_nota.setText(ta_nota.getText()+"Terimakasih Atas Kunjungan Anda" +"\n");
+           
+       }    
        private void tanggal_jam_sekarang(){
         Thread p;
         p = new Thread(){
@@ -407,6 +427,8 @@ public class meja2 extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         tf_total_tampil = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        ta_nota = new javax.swing.JTextArea();
 
         bt_simpan.setText("Simpan");
         bt_simpan.addActionListener(new java.awt.event.ActionListener() {
@@ -421,6 +443,11 @@ public class meja2 extends javax.swing.JPanel {
         });
 
         bt_keluar.setText("Keluar");
+        bt_keluar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_keluarActionPerformed(evt);
+            }
+        });
         bt_keluar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 bt_keluarKeyPressed(evt);
@@ -550,6 +577,10 @@ public class meja2 extends javax.swing.JPanel {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("TRANSAKSI MEJA 2");
 
+        ta_nota.setColumns(20);
+        ta_nota.setRows(5);
+        jScrollPane2.setViewportView(ta_nota);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -558,7 +589,9 @@ public class meja2 extends javax.swing.JPanel {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1016, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(195, 195, 195)
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -636,35 +669,40 @@ public class meja2 extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(lb_jam))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(11, 11, 11)
-                                .addComponent(tf_total_tampil, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(lb_transaksi)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addGap(11, 11, 11)
+                                        .addComponent(tf_total_tampil, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(lb_transaksi)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(lb_pegawai)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(tanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jammm, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(23, 23, 23)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel3)
+                                            .addComponent(jLabel4))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(cb_barang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(tf_harga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(tb_hapus)
+                                            .addComponent(bt_tambah)
+                                            .addComponent(tf_unit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(tf_total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(13, 13, 13)
+                                .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lb_pegawai)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jammm, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(23, 23, 23)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(cb_barang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tf_harga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tb_hapus)
-                                    .addComponent(bt_tambah)
-                                    .addComponent(tf_unit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tf_total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(13, 13, 13)
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(120, 120, 120)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
                             .addComponent(tf_total_bayar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -891,6 +929,16 @@ public class meja2 extends javax.swing.JPanel {
        
     }//GEN-LAST:event_bt_keluarKeyPressed
 
+    private void bt_keluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_keluarActionPerformed
+        // TODO add your handling code here:
+        generate_data();
+        
+        try {
+            ta_nota.print();
+        } catch (PrinterException e) {
+        }
+    }//GEN-LAST:event_bt_keluarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_keluar;
@@ -908,11 +956,13 @@ public class meja2 extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel jammm;
     private javax.swing.JLabel lb_jam;
     private javax.swing.JLabel lb_pegawai;
     private javax.swing.JLabel lb_tanggal;
     private javax.swing.JLabel lb_transaksi;
+    private javax.swing.JTextArea ta_nota;
     private javax.swing.JLabel tanggal;
     private javax.swing.JTable tb_barang;
     private javax.swing.JButton tb_hapus;

@@ -4,6 +4,7 @@ package kasirkafe;
  *
  * @author Citra
  */
+import Belum_terpakai.Transaksi;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
@@ -14,6 +15,7 @@ import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import kasirkafe.mejatr.MejaTransaksi;
 
 public class form_menu_makanan extends javax.swing.JFrame {
 
@@ -184,6 +186,7 @@ public class form_menu_makanan extends javax.swing.JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         id_auto();
         tf_nama_menu.requestFocus();
+        mi_mj1.hide();
     }
 
     /**
@@ -215,7 +218,7 @@ public class form_menu_makanan extends javax.swing.JFrame {
         tf_id_menu = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         mb_transaksi = new javax.swing.JMenu();
-        jMenuItem7 = new javax.swing.JMenuItem();
+        mi_mj1 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         mb_data_menu = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -355,13 +358,13 @@ public class form_menu_makanan extends javax.swing.JFrame {
             }
         });
 
-        jMenuItem7.setText("Transaksi Meja 1");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+        mi_mj1.setText("Transaksi Meja 1");
+        mi_mj1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
+                mi_mj1ActionPerformed(evt);
             }
         });
-        mb_transaksi.add(jMenuItem7);
+        mb_transaksi.add(mi_mj1);
 
         jMenuItem9.setText("Transaksi Meja 2");
         jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
@@ -606,12 +609,12 @@ public class form_menu_makanan extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton5KeyPressed
 
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+    private void mi_mj1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_mj1ActionPerformed
         // TODO add your handling code here:
-        Transaksi a = new Transaksi();
+        MejaTransaksi a = new MejaTransaksi();
         a.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
+    }//GEN-LAST:event_mi_mj1ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
         // TODO add your handling code here:
@@ -703,7 +706,6 @@ public class form_menu_makanan extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JScrollPane jScrollPane1;
@@ -712,6 +714,7 @@ public class form_menu_makanan extends javax.swing.JFrame {
     private javax.swing.JMenu mb_keluar;
     private javax.swing.JMenu mb_tr_today;
     private javax.swing.JMenu mb_transaksi;
+    private javax.swing.JMenuItem mi_mj1;
     private javax.swing.JTable tabel_menu;
     private javax.swing.JButton tbupdate;
     private javax.swing.JTextField tf_harga;

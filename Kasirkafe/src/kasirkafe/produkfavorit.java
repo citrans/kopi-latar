@@ -9,8 +9,8 @@ package kasirkafe;
  *
  * @author Mar
  */
-import Koneksi.koneksi;
-import cls.ClassDB;
+//import Koneksi.koneksi;
+//import cls.ClassDB;
 import com.mysql.jdbc.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -34,7 +34,16 @@ public class produkfavorit extends javax.swing.JFrame {
     public produkfavorit() {
         initComponents();
            
-           model = new DefaultTableModel ( );
+           
+        
+        
+        
+        
+        
+        
+        
+        
+        model = new DefaultTableModel ( );
              tblLapBul.setModel(model);
              model.addColumn("ID_Transaksi");
              model.addColumn("JUMLAH_LAKU");
@@ -50,7 +59,9 @@ public void getData( ){
 
      try{
            //membuat statemen pemanggilan data pada table tblGaji dari database
-           Statement stat = (Statement) koneksi.GetConnection( ).createStatement( );
+           //Statement stat = (Statement) koneksi.GetConnection( ).createStatement( );
+           Connection konek = new Koneksi_mysql().getConnection();
+           Statement stat = konek.createStatement();
            String sql        = "Select * from produk_fav  ";
          
            ResultSet res   = stat.executeQuery(sql);
