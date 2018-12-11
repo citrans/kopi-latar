@@ -26,7 +26,7 @@ import kasirkafe.mejatr.MejaTransaksi;
  *
  * @author Samsung
  */
-public class crud extends javax.swing.JFrame {
+public final class crud extends javax.swing.JFrame {
     private DefaultTableModel tabmode;
     String no = null;
     String user,setatus;
@@ -43,9 +43,6 @@ public class crud extends javax.swing.JFrame {
         tampilkan();
         id_auto();
         reset();
-        
-        hp.disable();
-        hp.setText("+62");
     }
     public crud(String User, String Status) {
         initComponents();
@@ -59,9 +56,6 @@ public class crud extends javax.swing.JFrame {
         tampilkan();
         id_auto();
         reset();
-        
-        hp.disable();
-        hp.setText("+62");
     }
     
 
@@ -83,7 +77,6 @@ public class crud extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         nama = new javax.swing.JTextField();
         alamat = new javax.swing.JTextField();
-        hp = new javax.swing.JTextField();
         username = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -128,18 +121,6 @@ public class crud extends javax.swing.JFrame {
         jLabel6.setText("Username");
 
         jLabel7.setText("Password");
-
-        hp.setText("+62");
-        hp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hpActionPerformed(evt);
-            }
-        });
-        hp.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                hpKeyTyped(evt);
-            }
-        });
 
         username.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -336,7 +317,7 @@ public class crud extends javax.swing.JFrame {
                         .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nama)))
+                            .addComponent(nama, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
@@ -344,12 +325,9 @@ public class crud extends javax.swing.JFrame {
                             .addComponent(jLabel5))
                         .addGap(58, 58, 58)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(hp, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(hp2, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(alamat)
-                            .addComponent(status, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(status, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(hp2, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addGap(121, 121, 121)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 536, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(145, 145, 145))
@@ -400,7 +378,6 @@ public class crud extends javax.swing.JFrame {
                             .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(hp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(hp2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))
                         .addGap(20, 20, 20)
@@ -428,12 +405,11 @@ public class crud extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        String ID="",nama_pegawai="",alamatt="",user="",pass="",statuss="";
-        int no_hp = 0;
+        String ID,nama_pegawai,alamatt,user,pass,statuss,no_hp;
         ID = id.getText();
         nama_pegawai = nama.getText();
         alamatt = alamat.getText();
-        no_hp = Integer.parseInt(hp.getText());
+        no_hp = hp2.getText();
         user = nama.getText();
         pass = password.getText();
         statuss = status.getSelectedItem().toString();
@@ -458,7 +434,6 @@ public class crud extends javax.swing.JFrame {
         ID = id.getText();
         nama_pegawai = nama.getText();
         alamatt = alamat.getText();
-        hp0 = hp.getText();
         no_hp = hp2.getText();
         //hpp = no_hp; 
         user = username.getText();
@@ -472,7 +447,6 @@ public class crud extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Berhasil menyimpan data","informasi",JOptionPane.INFORMATION_MESSAGE);
             tampilkan();
             reset();
-            hp.setText("+62");
             konek.close();
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Gagal menyimpan data","informasi",JOptionPane.INFORMATION_MESSAGE);
@@ -499,10 +473,8 @@ public class crud extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        String ID="";
-        int no_hp = 0;
+        String ID;
         ID = id.getText();
-        no_hp = Integer.parseInt(hp.getText());
         
         try{
             Connection konek = new Koneksi_mysql().getConnection();
@@ -523,19 +495,6 @@ public class crud extends javax.swing.JFrame {
         new pemilik().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void hpKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_hpKeyTyped
-        // TODO add your handling code here:
-        //char karakter = evt.getKeyChar();
-        //if(!(((karakter >= '0') && (karakter <= '9') || (karakter == KeyEvent.VK_BACK_SPACE) || (karakter == KeyEvent.VK_DELETE)))){
-        //getToolkit().beep();
-        //evt.consume();
-        //}
-    }//GEN-LAST:event_hpKeyTyped
-
-    private void hpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hpActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_hpActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
@@ -637,7 +596,6 @@ public class crud extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField alamat;
-    private javax.swing.JTextField hp;
     private javax.swing.JTextField hp2;
     private javax.swing.JLabel id;
     private javax.swing.JButton jButton1;
@@ -690,7 +648,6 @@ public class crud extends javax.swing.JFrame {
                 String nama_pegawai = hasil.getString("nama_pegawai");
                 String alamat = hasil.getString("alamat");
                 String no_hp = hasil.getString("no_hp");
-                no_hp="+62"+no_hp;
                 String username = hasil.getString("username");
                 String password = hasil.getString("password");
                 String status = hasil.getString("status");

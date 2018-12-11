@@ -13,6 +13,8 @@ import java.sql.Statement;
 import java.text.*;
 import java.awt.print.*;
 import java.sql.Connection;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -25,12 +27,17 @@ public class LaporanTransaksiKasir extends javax.swing.JFrame {
     /**
      * Creates new form LaporanTransaksiKasir
      */
-      private DefaultTableModel model;
+    private DefaultTableModel model;
     private String kode;
     String user, status,id_pegawai;
+    Calendar cal = new GregorianCalendar();
+                    int hari = cal.get(Calendar.DAY_OF_MONTH);
+                    int bulan = cal.get(Calendar.MONTH);
+                    int tahun = cal.get(Calendar.YEAR);
     public LaporanTransaksiKasir() {
         initComponents();
-           model = new DefaultTableModel ( );
+            ambil_id_peg();
+             model = new DefaultTableModel ( );
              tblLapBul.setModel(model);
              model.addColumn("ID_Transaksi");
              model.addColumn("ID_Pegawai");
@@ -41,31 +48,32 @@ public class LaporanTransaksiKasir extends javax.swing.JFrame {
              model.addColumn("Kembalian");
             
 
-             getData(); 
-    }
-    
-     public LaporanTransaksiKasir(String User, String Status) {
-        initComponents();
-           model = new DefaultTableModel ( );
-             tblLapBul.setModel(model);
-             model.addColumn("ID_Transaksi");
-             model.addColumn("ID_Pegawai");
-             model.addColumn("Tgl_Transaksi");
-             model.addColumn("Jumlah_Pesanan");
-             model.addColumn("Total_Harga");
-             model.addColumn("Bayar");
-             model.addColumn("Kembalian");
-            ambil_id_peg();
             jLabel2.setText(id_pegawai);
              getData(); 
     }
+    
+//     public LaporanTransaksiKasir(String User, String Status) {
+//        initComponents();
+//           model = new DefaultTableModel ( );
+//             tblLapBul.setModel(model);
+//             model.addColumn("ID_Transaksi");
+//             model.addColumn("ID_Pegawai");
+//             model.addColumn("Tgl_Transaksi");
+//             model.addColumn("Jumlah_Pesanan");
+//             model.addColumn("Total_Harga");
+//             model.addColumn("Bayar");
+//             model.addColumn("Kembalian");
+//            ambil_id_peg();
+//            jLabel2.setText(id_pegawai);
+//             getData(); 
+//    }
      public void ambil_id_peg(){
         
         try{
             
             try (java.sql.Connection konek = new Koneksi_mysql().getConnection()) {
                 Statement stat= konek.createStatement();
-                String sql = "SELECT id_pegawai as id FROM pegawai WHERE `nama_pegawai`='"+user+"'";
+                String sql = "SELECT id_pegawai as id FROM pegawai WHERE `nama_pegawai`=citra";
                 ResultSet hasil = stat.executeQuery(sql);
                 
                 while(hasil.next()){

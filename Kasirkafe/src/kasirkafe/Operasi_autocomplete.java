@@ -32,6 +32,7 @@ public class Operasi_autocomplete {
             while (res.next()) {
                 modelo.addElement(res.getString("nama_menu"));
             }
+           
         } catch (SQLException ex) {
             Logger.getLogger(Operasi_autocomplete.class.getName()).log(Level.SEVERE, null, ex);
         }

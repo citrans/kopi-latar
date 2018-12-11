@@ -146,141 +146,331 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
-              <Component id="p_dinamic" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-          </Group>
           <Component id="p_tombol" alignment="1" max="32767" attributes="0"/>
+          <Component id="p_dinamic" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JPanel" name="p_tombol">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="26" green="65" red="cd" type="rgb"/>
+        </Property>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
+              <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="bt_enambelas" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="bt_sebelas" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="bt_enam" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="bt_satu" alignment="0" min="-2" pref="43" max="-2" attributes="0"/>
+                                      <Component id="bt_56" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="bt_51" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="bt_41" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="bt_46" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="bt_57" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="bt_52" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="bt_42" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="bt_47" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="bt_58" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="bt_53" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="bt_43" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="bt_48" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="bt_59" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="bt_54" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="bt_49" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="bt_44" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="bt_60" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="bt_55" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="bt_50" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="bt_45" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="bt_36" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="bt_31" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="bt_26" alignment="0" max="32767" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <Component id="bt_21" max="32767" attributes="0"/>
+                                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="bt_37" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="bt_32" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="bt_22" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="bt_27" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="bt_38" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="bt_33" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="bt_23" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="bt_28" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="bt_39" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="bt_34" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="bt_24" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="bt_29" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="bt_40" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="bt_35" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="bt_30" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="bt_25" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="bt_16" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="bt_11" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="bt_6" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="bt_1" alignment="0" min="-2" pref="43" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="bt_17" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="bt_12" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="bt_7" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="bt_2" alignment="0" min="-2" pref="43" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="bt_18" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="bt_13" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="bt_8" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="bt_3" alignment="0" min="-2" pref="43" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="bt_19" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="bt_14" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="bt_9" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="bt_4" alignment="0" min="-2" pref="43" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="bt_20" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="bt_15" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="bt_10" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="bt_5" alignment="0" min="-2" pref="43" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="bt_tujuhbelas" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="bt_duabelas" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="bt_tujuh" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="bt_DUA" alignment="0" min="-2" pref="43" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="bt_delapanbelas" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="bt_tigabelas" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="bt_delapan" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="bt_tiga" alignment="0" min="-2" pref="43" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="bt_sembilanbelas" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="bt_empatbelas" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="bt_sembilan" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="bt_empat" alignment="0" min="-2" pref="43" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="bt_duapuluh" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="bt_limabelas" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="bt_sepuluh" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="bt_lima" alignment="0" min="-2" pref="43" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="103" max="-2" attributes="0"/>
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="79" max="32767" attributes="0"/>
+                  <EmptySpace pref="80" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="bt_empat" min="-2" pref="33" max="-2" attributes="0"/>
+                              <Component id="bt_4" min="-2" pref="33" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="bt_sembilan" min="-2" pref="33" max="-2" attributes="0"/>
+                              <Component id="bt_9" min="-2" pref="33" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                              <Component id="bt_empatbelas" min="-2" pref="33" max="-2" attributes="0"/>
+                              <Component id="bt_14" min="-2" pref="33" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="bt_sembilanbelas" min="-2" pref="33" max="-2" attributes="0"/>
+                              <Component id="bt_19" min="-2" pref="33" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="bt_tiga" min="-2" pref="33" max="-2" attributes="0"/>
+                              <Component id="bt_3" min="-2" pref="33" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="bt_delapan" min="-2" pref="33" max="-2" attributes="0"/>
+                              <Component id="bt_8" min="-2" pref="33" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                              <Component id="bt_tigabelas" min="-2" pref="33" max="-2" attributes="0"/>
+                              <Component id="bt_13" min="-2" pref="33" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="bt_delapanbelas" min="-2" pref="33" max="-2" attributes="0"/>
+                              <Component id="bt_18" min="-2" pref="33" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="bt_satu" min="-2" pref="33" max="-2" attributes="0"/>
+                              <Component id="bt_1" min="-2" pref="33" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="bt_enam" min="-2" pref="33" max="-2" attributes="0"/>
+                              <Component id="bt_6" min="-2" pref="33" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                              <Component id="bt_sebelas" min="-2" pref="33" max="-2" attributes="0"/>
+                              <Component id="bt_11" min="-2" pref="33" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="bt_enambelas" min="-2" pref="33" max="-2" attributes="0"/>
+                              <Component id="bt_16" min="-2" pref="33" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="bt_DUA" min="-2" pref="33" max="-2" attributes="0"/>
+                              <Component id="bt_2" min="-2" pref="33" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="bt_tujuh" min="-2" pref="33" max="-2" attributes="0"/>
+                              <Component id="bt_7" min="-2" pref="33" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                              <Component id="bt_duabelas" min="-2" pref="33" max="-2" attributes="0"/>
+                              <Component id="bt_12" min="-2" pref="33" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="bt_tujuhbelas" min="-2" pref="33" max="-2" attributes="0"/>
+                              <Component id="bt_17" min="-2" pref="33" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="bt_lima" min="-2" pref="33" max="-2" attributes="0"/>
+                          <Component id="bt_5" min="-2" pref="33" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="bt_sepuluh" min="-2" pref="33" max="-2" attributes="0"/>
+                          <Component id="bt_10" min="-2" pref="33" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                          <Component id="bt_limabelas" min="-2" pref="33" max="-2" attributes="0"/>
+                          <Component id="bt_15" min="-2" pref="33" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="bt_duapuluh" min="-2" pref="33" max="-2" attributes="0"/>
+                          <Component id="bt_20" min="-2" pref="33" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="502" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="bt_24" min="-2" pref="33" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="bt_29" min="-2" pref="33" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                              <Component id="bt_34" min="-2" pref="33" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="bt_39" min="-2" pref="33" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="bt_23" min="-2" pref="33" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="bt_28" min="-2" pref="33" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                              <Component id="bt_33" min="-2" pref="33" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="bt_38" min="-2" pref="33" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="bt_21" min="-2" pref="33" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="bt_26" min="-2" pref="33" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                              <Component id="bt_31" min="-2" pref="33" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="bt_36" min="-2" pref="33" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="bt_22" min="-2" pref="33" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="bt_27" min="-2" pref="33" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                              <Component id="bt_32" min="-2" pref="33" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="bt_37" min="-2" pref="33" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="bt_25" min="-2" pref="33" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="bt_30" min="-2" pref="33" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                          <Component id="bt_35" min="-2" pref="33" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="bt_40" min="-2" pref="33" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="bt_44" min="-2" pref="33" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="bt_49" min="-2" pref="33" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                              <Component id="bt_54" min="-2" pref="33" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="bt_59" min="-2" pref="33" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="bt_43" min="-2" pref="33" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="bt_48" min="-2" pref="33" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                              <Component id="bt_53" min="-2" pref="33" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="bt_58" min="-2" pref="33" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="bt_41" min="-2" pref="33" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="bt_46" min="-2" pref="33" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                              <Component id="bt_51" min="-2" pref="33" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="bt_56" min="-2" pref="33" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="bt_42" min="-2" pref="33" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="bt_47" min="-2" pref="33" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                              <Component id="bt_52" min="-2" pref="33" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="bt_57" min="-2" pref="33" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="bt_45" min="-2" pref="33" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="bt_50" min="-2" pref="33" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                          <Component id="bt_55" min="-2" pref="33" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="bt_60" min="-2" pref="33" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace pref="227" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -288,134 +478,137 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="24" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="NOMOR MEJA"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="bt_satu">
+        <Component class="javax.swing.JButton" name="bt_1">
           <Properties>
             <Property name="text" type="java.lang.String" value="1"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_satuActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_1ActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="bt_enam">
+        <Component class="javax.swing.JButton" name="bt_6">
           <Properties>
             <Property name="text" type="java.lang.String" value="6"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="bt_sebelas">
+        <Component class="javax.swing.JButton" name="bt_11">
           <Properties>
             <Property name="text" type="java.lang.String" value="11"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="bt_enambelas">
+        <Component class="javax.swing.JButton" name="bt_16">
           <Properties>
             <Property name="text" type="java.lang.String" value="16"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="bt_DUA">
+        <Component class="javax.swing.JButton" name="bt_2">
           <Properties>
             <Property name="text" type="java.lang.String" value="2"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_DUAActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_2ActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="bt_tujuh">
+        <Component class="javax.swing.JButton" name="bt_7">
           <Properties>
             <Property name="text" type="java.lang.String" value="7"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="bt_duabelas">
+        <Component class="javax.swing.JButton" name="bt_12">
           <Properties>
             <Property name="text" type="java.lang.String" value="12"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="bt_tujuhbelas">
+        <Component class="javax.swing.JButton" name="bt_17">
           <Properties>
             <Property name="text" type="java.lang.String" value="17"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_tujuhbelasActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_17ActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="bt_tiga">
+        <Component class="javax.swing.JButton" name="bt_3">
           <Properties>
             <Property name="text" type="java.lang.String" value="3"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_tigaActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_3ActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="bt_delapan">
+        <Component class="javax.swing.JButton" name="bt_8">
           <Properties>
             <Property name="text" type="java.lang.String" value="8"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="bt_tigabelas">
+        <Component class="javax.swing.JButton" name="bt_13">
           <Properties>
             <Property name="text" type="java.lang.String" value="13"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="bt_delapanbelas">
+        <Component class="javax.swing.JButton" name="bt_18">
           <Properties>
             <Property name="text" type="java.lang.String" value="18"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_delapanbelasActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_18ActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="bt_empat">
+        <Component class="javax.swing.JButton" name="bt_4">
           <Properties>
             <Property name="text" type="java.lang.String" value="4"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_empatActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_4ActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="bt_sembilan">
+        <Component class="javax.swing.JButton" name="bt_9">
           <Properties>
             <Property name="text" type="java.lang.String" value="9"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="bt_empatbelas">
+        <Component class="javax.swing.JButton" name="bt_14">
           <Properties>
             <Property name="text" type="java.lang.String" value="14"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="bt_sembilanbelas">
+        <Component class="javax.swing.JButton" name="bt_19">
           <Properties>
             <Property name="text" type="java.lang.String" value="19"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_sembilanbelasActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_19ActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="bt_lima">
+        <Component class="javax.swing.JButton" name="bt_5">
           <Properties>
             <Property name="text" type="java.lang.String" value="5"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_limaActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_5ActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="bt_sepuluh">
+        <Component class="javax.swing.JButton" name="bt_10">
           <Properties>
             <Property name="text" type="java.lang.String" value="10"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="bt_limabelas">
+        <Component class="javax.swing.JButton" name="bt_15">
           <Properties>
             <Property name="text" type="java.lang.String" value="15"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="bt_duapuluh">
+        <Component class="javax.swing.JButton" name="bt_20">
           <Properties>
             <Property name="text" type="java.lang.String" value="20"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_duapuluhActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_20ActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
@@ -423,19 +616,278 @@
             <Property name="text" type="java.lang.String" value="jLabel1"/>
           </Properties>
         </Component>
+        <Component class="javax.swing.JButton" name="bt_21">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="21"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_21ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_22">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="22"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_22ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_23">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="23"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_23ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_24">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="24"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_24ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_25">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="25"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_25ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_30">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="30"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_29">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="29"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_28">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="28"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_27">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="27"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_26">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="26"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_31">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="31"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_32">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="32"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_33">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="33"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_34">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="34"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_35">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="35"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_40">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="40"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_40ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_39">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="39"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_39ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_38">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="38"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_38ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_37">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="37"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_37ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_36">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="36"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_41">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="41"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_41ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_42">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="42"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_42ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_43">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="43"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_43ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_44">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="44"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_44ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_45">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="45"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_45ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_50">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="50"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_49">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="49"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_48">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="48"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_47">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="47"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_46">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="46"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_51">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="51"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_52">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="52"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_53">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="53"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_54">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="54"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_55">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="55"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_60">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="60"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_60ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_59">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="59"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_59ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_58">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="58"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_58ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_57">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="57"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_57ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_56">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="56"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="p_dinamic">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="3f" green="85" red="cd" type="rgb"/>
+        </Property>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="1006" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="1015" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="821" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>

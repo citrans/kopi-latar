@@ -21,11 +21,11 @@ public class Halaman_utama extends javax.swing.JFrame {
     
     public Halaman_utama() {
         initComponents();
-         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        // this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
     public Halaman_utama(String User, String Status) {
         initComponents();
-         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+//         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
          this.user = User;
          this.status=Status;
          jLabel1.setText(status);
@@ -59,9 +59,9 @@ public class Halaman_utama extends javax.swing.JFrame {
         setBackground(new java.awt.Color(255, 255, 51));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jPanel1.setBackground(new java.awt.Color(51, 255, 204));
+        jPanel1.setBackground(new java.awt.Color(205, 101, 38));
 
-        jp_kl.setBackground(new java.awt.Color(153, 255, 255));
+        jp_kl.setBackground(new java.awt.Color(255, 222, 173));
         jp_kl.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jp_klMouseClicked(evt);
@@ -105,7 +105,7 @@ public class Halaman_utama extends javax.swing.JFrame {
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        jp_du.setBackground(new java.awt.Color(153, 255, 255));
+        jp_du.setBackground(new java.awt.Color(255, 222, 173));
         jp_du.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jp_duMouseClicked(evt);
@@ -150,7 +150,7 @@ public class Halaman_utama extends javax.swing.JFrame {
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        jp_lp.setBackground(new java.awt.Color(153, 255, 255));
+        jp_lp.setBackground(new java.awt.Color(255, 222, 173));
 
         jlb_gb_lp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/lapo.png"))); // NOI18N
 
@@ -179,7 +179,7 @@ public class Halaman_utama extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jp_tr.setBackground(new java.awt.Color(153, 255, 255));
+        jp_tr.setBackground(new java.awt.Color(255, 222, 173));
         jp_tr.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jp_trMouseClicked(evt);
@@ -233,6 +233,8 @@ public class Halaman_utama extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jLabel1.setText("jLabel1");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -250,11 +252,17 @@ public class Halaman_utama extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jp_kl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(63, 63, 63))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(51, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(13, 13, 13)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jp_lp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jp_tr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -265,32 +273,21 @@ public class Halaman_utama extends javax.swing.JFrame {
                 .addGap(50, 50, 50))
         );
 
-        jLabel1.setText("jLabel1");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(412, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(408, 408, 408))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(111, 111, 111)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(91, 91, 91)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(125, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        pack();
+        setSize(new java.awt.Dimension(499, 440));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jp_trKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jp_trKeyPressed
