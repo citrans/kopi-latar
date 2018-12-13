@@ -350,7 +350,6 @@ public class form_menu_makanan extends javax.swing.JFrame {
 
         tf_id_menu.setText("1");
 
-        mb_transaksi.setIcon(new javax.swing.ImageIcon("C:\\Users\\Citra\\Desktop\\tr.png")); // NOI18N
         mb_transaksi.setText("Transaksi");
         mb_transaksi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -376,7 +375,6 @@ public class form_menu_makanan extends javax.swing.JFrame {
 
         jMenuBar1.add(mb_transaksi);
 
-        mb_data_menu.setIcon(new javax.swing.ImageIcon("C:\\Users\\Citra\\Desktop\\menu.png")); // NOI18N
         mb_data_menu.setText("Data Menu");
         mb_data_menu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -402,21 +400,34 @@ public class form_menu_makanan extends javax.swing.JFrame {
 
         jMenuBar1.add(mb_data_menu);
 
-        mb_tr_today.setIcon(new javax.swing.ImageIcon("C:\\Users\\Citra\\Desktop\\laporan.png")); // NOI18N
         mb_tr_today.setText("Laporan");
 
         jMenuItem3.setText("Laporan Hari ini");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         mb_tr_today.add(jMenuItem3);
 
         jMenuItem4.setText("Laporan Favorit");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         mb_tr_today.add(jMenuItem4);
 
         jMenuItem5.setText("Laporan Transaksi");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         mb_tr_today.add(jMenuItem5);
 
         jMenuBar1.add(mb_tr_today);
 
-        mb_keluar.setIcon(new javax.swing.ImageIcon("C:\\Users\\Citra\\Desktop\\keluar.png")); // NOI18N
         mb_keluar.setText("Keluar");
         mb_keluar.add(jSeparator1);
 
@@ -657,6 +668,27 @@ public class form_menu_makanan extends javax.swing.JFrame {
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // TODO add your handling code here:
+        LaporanTransaksiPemilik n = new LaporanTransaksiPemilik();
+        n.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        produkfavorit n = new produkfavorit();
+        n.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        LaporanHarian n = new LaporanHarian();
+        n.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
