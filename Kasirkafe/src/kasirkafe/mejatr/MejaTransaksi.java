@@ -908,8 +908,8 @@ public final class MejaTransaksi extends javax.swing.JFrame {
     private void bt_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_3ActionPerformed
         // TODO add your handling code here:
         m1.setVisible(false);
-        m2.setVisible(true);
-        m3.setVisible(false);
+        m2.setVisible(false);
+        m3.setVisible(true);
         m4.setVisible(false);
         m5.setVisible(false);
     }//GEN-LAST:event_bt_3ActionPerformed
@@ -945,9 +945,9 @@ public final class MejaTransaksi extends javax.swing.JFrame {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
-        LaporanTransaksiKasir n =new LaporanTransaksiKasir(user, status);
-        n.setVisible(true);
-        this.setVisible(false);
+//        LaporanTransaksiKasir n =new LaporanTransaksiKasir(user, status);
+//        n.setVisible(true);
+//        this.setVisible(false);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void bt_21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_21ActionPerformed

@@ -23,7 +23,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import kasirkafe.Koneksi_mysql;
 import kasirkafe.Operasi_autocomplete;
-import kasirkafe.mejatr.MejaTransaksi;
 
 /**
  *
@@ -255,6 +254,7 @@ public class meja4b extends javax.swing.JPanel {
            ta_nota.setText("");
            cb_barang.setSelectedItem("");
            cb_barang.requestFocus();
+           tf_p_meja.setText("");
            id_auto();
         
        }
@@ -717,10 +717,21 @@ public class meja4b extends javax.swing.JPanel {
 
         jLabel2.setText("pindah ke meja");
 
+        tf_p_meja.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tf_p_mejaKeyTyped(evt);
+            }
+        });
+
         jButton1.setText("Ok");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+        jButton1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton1KeyPressed(evt);
             }
         });
 
@@ -1157,13 +1168,32 @@ public class meja4b extends javax.swing.JPanel {
         // TODO add your handling code here:
         
         pindah_meja();
-        
+        bersih();
+        reset();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void bt_refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_refreshActionPerformed
         // TODO add your handling code here:
         tampil_pesanan();
+        tampil_total();
     }//GEN-LAST:event_bt_refreshActionPerformed
+
+    private void tf_p_mejaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_p_mejaKeyTyped
+        // TODO add your handling code here:
+        char enter= evt.getKeyChar();
+        if(!(Character.isDigit(enter))){
+            evt.consume();
+        }
+    }//GEN-LAST:event_tf_p_mejaKeyTyped
+
+    private void jButton1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+        pindah_meja();
+        bersih();
+        reset();
+        }
+    }//GEN-LAST:event_jButton1KeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

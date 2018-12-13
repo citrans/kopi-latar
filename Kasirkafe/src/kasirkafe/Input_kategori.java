@@ -306,7 +306,7 @@ public class Input_kategori extends javax.swing.JFrame {
 
     private void tabel_kategoriMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabel_kategoriMouseClicked
         // TODO add your handling code here:
-         int tb_menu = tabel_kategori.getSelectedRow();
+        int tb_menu = tabel_kategori.getSelectedRow();
         tf_kategori.setText(tabel_kategori.getValueAt(tb_menu, 0).toString());
         tf_kategori_menu.setText(tabel_kategori.getValueAt(tb_menu, 1).toString());
     }//GEN-LAST:event_tabel_kategoriMouseClicked

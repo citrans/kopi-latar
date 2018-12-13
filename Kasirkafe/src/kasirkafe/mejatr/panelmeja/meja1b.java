@@ -18,6 +18,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -106,7 +107,7 @@ public class meja1b extends javax.swing.JPanel {
 
 
                         if (evt.getKeyCode() >= 65 && evt.getKeyCode() <= 90 || evt.getKeyCode() >= 96 && evt.getKeyCode() <= 105 || evt.getKeyCode() == 8) {
-                            cb_barang.setModel(operasi.getLista(barang));
+                            cb_barang.setModel(getLista(barang));
                             if (cb_barang.getItemCount() > 0) {
                                 cb_barang.getEditor().setItem(barang);
                                 cb_barang.showPopup();                     
@@ -130,8 +131,53 @@ public class meja1b extends javax.swing.JPanel {
                 tf_total_bayar.disable();
                 tf_kembali.disable();
     }
+        public DefaultComboBoxModel getLista(String cadenaEscrita){
+
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+        try {
+            java.sql.Connection konek = new Koneksi_mysql().getConnection();
+            String query = "SELECT * FROM menu WHERE nama_menu LIKE '" + cadenaEscrita + "%';";
+//            st = conexion.conectar();
+//            res = (ResultSet) st.executeQuery(query);
+            Statement stat= konek.createStatement();
+            ResultSet hasil = stat.executeQuery(query);
+            while (hasil.next()) {
+                modelo.addElement(hasil.getString("nama_menu"));
+            }
+         konek.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Operasi_autocomplete.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+     return modelo;
+
+    }
+
+    public String[] buscar(String nombre){
+
+        String[] datos = new String[4];
+        try {
+            java.sql.Connection konek = new Koneksi_mysql().getConnection();
+            String query = "SELECT * FROM menu WHERE nama_menu='" + nombre + "'";
+//            st = conexion.conectar();
+//            res = (ResultSet) st.executeQuery(query);
+            Statement stat= konek.createStatement();
+            ResultSet hasil = stat.executeQuery(query);
+            
+            while (hasil.next()) {
+                for (int i = 0; i < datos.length; i++) {
+                    datos[i] = hasil.getString(i + 1);
+                }
+            }
+            konek.close();
+        } catch (SQLException ex) {
+            return null;
+        }
+        return datos;
+    }
+
        public void dapil(String nombre) {
-        String data[] = operasi.buscar(nombre);
+        String data[] = buscar(nombre);
         if (data[0] != null) {
             tf_harga.setText(data[2]);
         } else {
@@ -255,6 +301,7 @@ public class meja1b extends javax.swing.JPanel {
            ta_nota.setText("");
            cb_barang.setSelectedItem("");
            cb_barang.requestFocus();
+           tf_p_meja.setText("");
            id_auto();
         
        }
@@ -717,10 +764,21 @@ public class meja1b extends javax.swing.JPanel {
 
         jLabel2.setText("pindah ke meja");
 
+        tf_p_meja.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tf_p_mejaKeyTyped(evt);
+            }
+        });
+
         jButton1.setText("Ok");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+        jButton1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton1KeyPressed(evt);
             }
         });
 
@@ -1156,13 +1214,32 @@ public class meja1b extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         pindah_meja();
-        
+        bersih();
+        reset();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void bt_refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_refreshActionPerformed
         // TODO add your handling code here:
         tampil_pesanan();
+        tampil_total();
     }//GEN-LAST:event_bt_refreshActionPerformed
+
+    private void tf_p_mejaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_p_mejaKeyTyped
+        // TODO add your handling code here:
+        char enter= evt.getKeyChar();
+        if(!(Character.isDigit(enter))){
+            evt.consume();
+        }
+    }//GEN-LAST:event_tf_p_mejaKeyTyped
+
+    private void jButton1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+        pindah_meja();
+        bersih();
+        reset();
+        }
+    }//GEN-LAST:event_jButton1KeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
