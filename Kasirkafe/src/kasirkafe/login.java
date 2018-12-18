@@ -87,7 +87,7 @@ public class login extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Batal");
+        jButton2.setText("Keluar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -159,7 +159,7 @@ public class login extends javax.swing.JFrame {
         String lev = "Pemilik";
         
         if(uname.equals("")||pssword.equals("")){
-           JOptionPane.showMessageDialog(rootPane, "blabla", "error", 1);
+           JOptionPane.showMessageDialog(rootPane, "Username dan Password tidak boleh kosong", "error", 1);
         } else{
             try{
                konek = DriverManager.getConnection("jdbc:mysql://localhost/kopi_latar","root","");

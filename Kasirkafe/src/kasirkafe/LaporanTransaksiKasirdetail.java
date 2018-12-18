@@ -40,12 +40,13 @@ public class LaporanTransaksiKasirdetail extends javax.swing.JFrame {
     public LaporanTransaksiKasirdetail(){
         initComponents();
     }
-    public LaporanTransaksiKasirdetail(int id_tr) {
+    public LaporanTransaksiKasirdetail(int id_tr, String User) {
         initComponents();
         this.id_trans= id_tr;
-             user = "citra";
+             this.user = User;
              lb_nama.setText(user);
              lb_tanggal.setText(hari+"-"+bulan+"-"+tahun);
+             lb_id_tr.setText(Integer.toString(id_tr));
 //             ambil_id_peg();
              this.setExtendedState(JFrame.MAXIMIZED_BOTH);
              model = new DefaultTableModel ( );
@@ -153,6 +154,7 @@ public class LaporanTransaksiKasirdetail extends javax.swing.JFrame {
         lb_tanggal = new javax.swing.JLabel();
         lb_nama = new javax.swing.JLabel();
         bt_kembali = new javax.swing.JButton();
+        lb_id_tr = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -162,7 +164,7 @@ public class LaporanTransaksiKasirdetail extends javax.swing.JFrame {
         jLabel1.setText("LAPORAN HARIAN");
         jLabel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel2.setText("jLabel2");
+        jLabel2.setText("Id Transaksi");
 
         tblLapBul.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -192,6 +194,8 @@ public class LaporanTransaksiKasirdetail extends javax.swing.JFrame {
             }
         });
 
+        lb_id_tr.setText("jLabel2");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -210,7 +214,10 @@ public class LaporanTransaksiKasirdetail extends javax.swing.JFrame {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(lb_nama, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(408, 408, 408)
-                                        .addComponent(jLabel2))
+                                        .addComponent(jLabel2)
+                                        .addGap(46, 46, 46)
+                                        .addComponent(lb_id_tr)
+                                        .addGap(0, 0, Short.MAX_VALUE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(lb_tanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 676, Short.MAX_VALUE)
@@ -235,7 +242,9 @@ public class LaporanTransaksiKasirdetail extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(lb_id_tr))
                         .addGap(16, 16, 16)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
@@ -317,6 +326,7 @@ public class LaporanTransaksiKasirdetail extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lb_id_tr;
     private javax.swing.JLabel lb_nama;
     private javax.swing.JLabel lb_tanggal;
     private javax.swing.JTable tblLapBul;

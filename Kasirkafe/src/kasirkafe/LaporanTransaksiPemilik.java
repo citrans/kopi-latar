@@ -13,9 +13,12 @@ import java.sql.Statement;
 import java.text.*;
 import java.awt.print.*;
 import java.sql.Connection;
+import java.util.Calendar;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import kasirkafe.mejatr.MejaTransaksi;
 /**
  *
  * @author Mar
@@ -26,7 +29,7 @@ public class LaporanTransaksiPemilik extends javax.swing.JFrame {
      * Creates new form LaporanTransaksiPemilik
      */
     private DefaultTableModel model;
-    private String kode;
+    private String kode, user, status;
     public LaporanTransaksiPemilik() {
         initComponents();
          
@@ -34,15 +37,33 @@ public class LaporanTransaksiPemilik extends javax.swing.JFrame {
              model = new DefaultTableModel ( );
              tblLapBul.setModel(model);
              model.addColumn("ID_Transaksi");
-             model.addColumn("ID_Pegawai");
-             model.addColumn("Tgl_Transaksi");
-             model.addColumn("Jumlah_Pesanan");
-             model.addColumn("Total_Harga");
-             model.addColumn("Bayar");
-             model.addColumn("Kembalian");
-            
-
+             model.addColumn("jumlah laku");
              getData(); 
+    }
+    public LaporanTransaksiPemilik(String User, String Status){
+        initComponents();
+        this.user = User;
+        this.status = Status;
+        if("Pegawai".equals(status)){
+            mi_dt_pegawai.hide();
+            mi_favorit.hide();
+            mi_hari_ini.hide();
+            mi_lap_tr.hide();
+        }
+        model = new DefaultTableModel ( );
+        tblLapBul.setModel(model);
+        model.addColumn("ID_Transaksi");
+        model.addColumn("jumlah laku");
+        getData(); 
+    }
+    
+    void tampil(){
+        int a = jm_bulan.getMonth();
+        jLabel2.setText(Integer.toString(a+1));
+        int b = jy_tahun.getYear();
+        jLabel3.setText(Integer.toString(b));
+        Calendar c = jd_tanggal.getCalendar();
+        //jLabel4.setText(c);
     }
 public void getData( ){
      //menghapus isi table tblGaji
@@ -53,7 +74,7 @@ public void getData( ){
            //membuat statemen pemanggilan data pada table tblGaji dari database
            Connection konek = new Koneksi_mysql().getConnection();
            Statement stat = konek.createStatement();
-           String sql        = "Select * from transaksi ";
+           String sql        = "Select * from produk_fav ";
          
            ResultSet res   = stat.executeQuery(sql);
           
@@ -62,12 +83,12 @@ public void getData( ){
            while(res.next ()){
                 Object[ ] obj = new Object[7];
                 obj[0] = res.getString("id_transaksi");
-                obj[1] = res.getString("id_pegawai");
-                obj[2] = res.getString("tgl_transaksi");
-                obj[3] = res.getString("jumlah_pesanan");
-                obj[4] = res.getString("total_harga");
-                obj[5] = res.getString("bayar");
-                obj[6] = res.getString("kembalian");
+                obj[1] = res.getString("jumlah_laku");
+//                obj[2] = res.getString("tgl_transaksi");
+//                obj[3] = res.getString("jumlah_pesanan");
+//                obj[4] = res.getString("total_harga");
+//                obj[5] = res.getString("bayar");
+//                obj[6] = res.getString("kembalian");
                 
 
                 model.addRow(obj);
@@ -89,13 +110,38 @@ public void getData( ){
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblLapBul = new javax.swing.JTable();
+        jd_tanggal = new com.toedter.calendar.JDateChooser();
+        jm_bulan = new com.toedter.calendar.JMonthChooser();
+        jy_tahun = new com.toedter.calendar.JYearChooser();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        tf1 = new javax.swing.JTextField();
+        tf2 = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        mb_transaksi = new javax.swing.JMenu();
+        mi_beranda = new javax.swing.JMenuItem();
+        mi_transaksi = new javax.swing.JMenuItem();
+        mb_data_menu = new javax.swing.JMenu();
+        mi_menu_kafe = new javax.swing.JMenuItem();
+        mi_dt_pegawai = new javax.swing.JMenuItem();
+        mb_tr_today = new javax.swing.JMenu();
+        mi_hari_ini = new javax.swing.JMenuItem();
+        mi_favorit = new javax.swing.JMenuItem();
+        mi_lap_tr = new javax.swing.JMenuItem();
+        mi_kasir = new javax.swing.JMenuItem();
+        mb_keluar = new javax.swing.JMenu();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        mi_keluar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(153, 204, 255));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel1.setText("LAPORAN MINGGUAN");
+        jLabel1.setText("LAPORAN BULANAN");
         jLabel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         tblLapBul.setModel(new javax.swing.table.DefaultTableModel(
@@ -109,30 +155,206 @@ public void getData( ){
                 "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7"
             }
         ));
+        tblLapBul.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblLapBulMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblLapBul);
+
+        jLabel2.setText("jLabel2");
+
+        jLabel3.setText("jLabel3");
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("jLabel4");
+
+        jButton2.setText("Laporan Harian");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(241, 241, 241)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 679, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 805, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton2)
+                .addGap(158, 158, 158)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jd_tanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(192, 192, 192)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(90, 90, 90)
+                        .addComponent(jLabel2)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jm_bulan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
+                        .addComponent(jy_tahun, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(tf2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                        .addComponent(tf1, javax.swing.GroupLayout.Alignment.LEADING)))
+                .addGap(124, 124, 124))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jLabel1)
-                .addGap(28, 28, 28)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(tf1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tf2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jd_tanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(30, 30, 30))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(jButton2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jButton1))
+                        .addGap(27, 27, 27)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jy_tahun, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jm_bulan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel4))
+                .addGap(26, 26, 26)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addGap(58, 58, 58))
         );
+
+        mb_transaksi.setText("Menu Utama");
+        mb_transaksi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mb_transaksiActionPerformed(evt);
+            }
+        });
+
+        mi_beranda.setText("Beranda");
+        mi_beranda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_berandaActionPerformed(evt);
+            }
+        });
+        mb_transaksi.add(mi_beranda);
+
+        mi_transaksi.setText("Transaksi");
+        mi_transaksi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_transaksiActionPerformed(evt);
+            }
+        });
+        mb_transaksi.add(mi_transaksi);
+
+        jMenuBar1.add(mb_transaksi);
+
+        mb_data_menu.setText("Data Utama");
+        mb_data_menu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mb_data_menuActionPerformed(evt);
+            }
+        });
+
+        mi_menu_kafe.setText("Menu Kafe");
+        mi_menu_kafe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_menu_kafeActionPerformed(evt);
+            }
+        });
+        mb_data_menu.add(mi_menu_kafe);
+
+        mi_dt_pegawai.setText("Data Pegawai");
+        mi_dt_pegawai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_dt_pegawaiActionPerformed(evt);
+            }
+        });
+        mb_data_menu.add(mi_dt_pegawai);
+
+        jMenuBar1.add(mb_data_menu);
+
+        mb_tr_today.setText("Laporan");
+
+        mi_hari_ini.setText("Laporan Hari ini");
+        mi_hari_ini.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_hari_iniActionPerformed(evt);
+            }
+        });
+        mb_tr_today.add(mi_hari_ini);
+
+        mi_favorit.setText("Laporan Favorit");
+        mi_favorit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_favoritActionPerformed(evt);
+            }
+        });
+        mb_tr_today.add(mi_favorit);
+
+        mi_lap_tr.setText("Laporan Transaksi");
+        mi_lap_tr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_lap_trActionPerformed(evt);
+            }
+        });
+        mb_tr_today.add(mi_lap_tr);
+
+        mi_kasir.setText("Laporan Kasir");
+        mi_kasir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_kasirActionPerformed(evt);
+            }
+        });
+        mb_tr_today.add(mi_kasir);
+
+        jMenuBar1.add(mb_tr_today);
+
+        mb_keluar.setText("Keluar");
+        mb_keluar.add(jSeparator1);
+
+        mi_keluar.setText("Keluar");
+        mi_keluar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_keluarActionPerformed(evt);
+            }
+        });
+        mb_keluar.add(mi_keluar);
+
+        jMenuBar1.add(mb_keluar);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -142,11 +364,114 @@ public void getData( ){
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        //tampil();
+        Date d = new Date();
+        SimpleDateFormat t = new SimpleDateFormat("yyyy");
+        SimpleDateFormat b = new SimpleDateFormat("MM");
+        SimpleDateFormat h = new SimpleDateFormat("dd");
+        String tahun = t.format(jd_tanggal.getDate());
+        String bulan = b.format(jd_tanggal.getDate());
+        String hari = h.format(jd_tanggal.getDate());
+        jLabel2.setText(hari);
+        jLabel3.setText(bulan);
+        jLabel4.setText(tahun);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tblLapBulMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLapBulMouseClicked
+        // TODO add your handling code here:
+         int tb_menu = tblLapBul.getSelectedRow();
+        tf1.setText(tblLapBul.getValueAt(tb_menu, 0).toString());
+        tf2.setText(tblLapBul.getValueAt(tb_menu, 1).toString());
+       
+    }//GEN-LAST:event_tblLapBulMouseClicked
+
+    private void mi_berandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_berandaActionPerformed
+        // TODO add your handling code here:
+        Halaman_utama n = new Halaman_utama(user, status);
+        n.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mi_berandaActionPerformed
+
+    private void mi_transaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_transaksiActionPerformed
+        // TODO add your handling code here:
+        MejaTransaksi n = new MejaTransaksi(user, status);
+        n.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mi_transaksiActionPerformed
+
+    private void mb_transaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mb_transaksiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mb_transaksiActionPerformed
+
+    private void mi_menu_kafeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_menu_kafeActionPerformed
+        // TODO add your handling code here:
+        form_menu_makanan n = new form_menu_makanan(user,status);
+        n.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mi_menu_kafeActionPerformed
+
+    private void mi_dt_pegawaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_dt_pegawaiActionPerformed
+        // TODO add your handling code here:
+        crud n = new crud(user, status);
+        n.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mi_dt_pegawaiActionPerformed
+
+    private void mb_data_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mb_data_menuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mb_data_menuActionPerformed
+
+    private void mi_hari_iniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_hari_iniActionPerformed
+        // TODO add your handling code here:
+        LaporanHarian n =new LaporanHarian(user, status);
+        n.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mi_hari_iniActionPerformed
+
+    private void mi_favoritActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_favoritActionPerformed
+        // TODO add your handling code here:
+        produkfavorit n = new produkfavorit(user, status);
+        n.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mi_favoritActionPerformed
+
+    private void mi_lap_trActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_lap_trActionPerformed
+        // TODO add your handling code here:
+        LaporanTransaksiPemilik n = new LaporanTransaksiPemilik(user, status);
+        n.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mi_lap_trActionPerformed
+
+    private void mi_kasirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_kasirActionPerformed
+        // TODO add your handling code here:
+        LaporanTransaksiKasir n = new LaporanTransaksiKasir(user,status);
+        n.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mi_kasirActionPerformed
+
+    private void mi_keluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_keluarActionPerformed
+        // TODO add your handling code here:
+        login n = new login();
+        n.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mi_keluarActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        LaporanHarian n = new LaporanHarian(user, status);
+        n.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -184,9 +509,34 @@ public void getData( ){
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private com.toedter.calendar.JDateChooser jd_tanggal;
+    private com.toedter.calendar.JMonthChooser jm_bulan;
+    private com.toedter.calendar.JYearChooser jy_tahun;
+    private javax.swing.JMenu mb_data_menu;
+    private javax.swing.JMenu mb_keluar;
+    private javax.swing.JMenu mb_tr_today;
+    private javax.swing.JMenu mb_transaksi;
+    private javax.swing.JMenuItem mi_beranda;
+    private javax.swing.JMenuItem mi_dt_pegawai;
+    private javax.swing.JMenuItem mi_favorit;
+    private javax.swing.JMenuItem mi_hari_ini;
+    private javax.swing.JMenuItem mi_kasir;
+    private javax.swing.JMenuItem mi_keluar;
+    private javax.swing.JMenuItem mi_lap_tr;
+    private javax.swing.JMenuItem mi_menu_kafe;
+    private javax.swing.JMenuItem mi_transaksi;
     private javax.swing.JTable tblLapBul;
+    private javax.swing.JTextField tf1;
+    private javax.swing.JTextField tf2;
     // End of variables declaration//GEN-END:variables
 }

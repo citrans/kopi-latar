@@ -225,6 +225,9 @@
               <Color blue="ad" green="de" red="ff" type="rgb"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jp_lpMouseClicked"/>
+          </Events>
 
           <Layout>
             <DimensionLayout dim="0">
@@ -260,11 +263,17 @@
                   <Image iconType="3" name="/gambar/lapo.png"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jlb_gb_lpMouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jlb_lp">
               <Properties>
                 <Property name="text" type="java.lang.String" value="LAPORAN"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jlb_lpMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
