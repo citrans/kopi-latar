@@ -5,8 +5,8 @@
  */
 package kasirkafe;
 
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.Statement;
+//import com.mysql.jdbc.Connection;
+//import com.mysql.jdbc.Statement;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  */
 public class Conexion {
 
-  public Statement conectar(){
+  /*public Statement conectar(){
 
         Connection conexion = null;
         Statement declaracion=null;
@@ -26,10 +26,10 @@ public class Conexion {
             Class.forName("com.mysql.jdbc.Driver");
 
              conexion = (Connection) DriverManager.getConnection(URL);
-             declaracion= (Statement) conexion.createStatement();
+             declaracion= (Statement) conexion.createStatement();*/
 
 
-        } catch (ClassNotFoundException claseNoEncontrada) {
+        /*} catch (ClassNotFoundException claseNoEncontrada) {
             JOptionPane.showMessageDialog(null, claseNoEncontrada.getMessage(),
                     "No se encontró el controlador", JOptionPane.ERROR_MESSAGE);
 
@@ -40,7 +40,7 @@ public class Conexion {
         }
 
         return declaracion;
-    }
+    }*/
 
 
 }

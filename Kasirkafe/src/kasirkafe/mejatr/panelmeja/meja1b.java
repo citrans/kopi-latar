@@ -24,7 +24,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import kasirkafe.Koneksi_mysql;
 import kasirkafe.Operasi_autocomplete;
-import kasirkafe.mejatr.MejaTransaksi;
 
 /**
  *
@@ -36,11 +35,11 @@ public class meja1b extends javax.swing.JPanel {
        String id_pegawa ="";
        String user;
        String no_meja = "1";
-       Operasi_autocomplete operasi =new Operasi_autocomplete();
+//       Operasi_autocomplete operasi =new Operasi_autocomplete();
       // MejaTransaksi m = new MejaTransaksi();
        
        /**
-     * Creates new form meja1
+     * Creates new form 
      */
        public meja1b() {
             initComponents();
@@ -62,7 +61,7 @@ public class meja1b extends javax.swing.JPanel {
 
 
                         if (evt.getKeyCode() >= 65 && evt.getKeyCode() <= 90 || evt.getKeyCode() >= 96 && evt.getKeyCode() <= 105 || evt.getKeyCode() == 8) {
-                            cb_barang.setModel(operasi.getLista(barang));
+                            cb_barang.setModel(getLista(barang));
                             if (cb_barang.getItemCount() > 0) {
                                 cb_barang.getEditor().setItem(barang);
                                 cb_barang.showPopup();                     
@@ -131,7 +130,7 @@ public class meja1b extends javax.swing.JPanel {
                 tf_total_bayar.disable();
                 tf_kembali.disable();
     }
-        public DefaultComboBoxModel getLista(String cadenaEscrita){
+       public DefaultComboBoxModel getLista(String cadenaEscrita){
 
         DefaultComboBoxModel modelo = new DefaultComboBoxModel();
         try {
@@ -152,8 +151,7 @@ public class meja1b extends javax.swing.JPanel {
      return modelo;
 
     }
-
-    public String[] buscar(String nombre){
+       public String[] buscar(String nombre){
 
         String[] datos = new String[4];
         try {
@@ -175,7 +173,6 @@ public class meja1b extends javax.swing.JPanel {
         }
         return datos;
     }
-
        public void dapil(String nombre) {
         String data[] = buscar(nombre);
         if (data[0] != null) {
@@ -299,8 +296,9 @@ public class meja1b extends javax.swing.JPanel {
            tf_bayar.setText("");
            tf_kembali.setText("");
            ta_nota.setText("");
+           tf_potongan.setText("0");
            cb_barang.setSelectedItem("");
-           cb_barang.requestFocus();
+           //cb_barang.requestFocus();
            tf_p_meja.setText("");
            id_auto();
         
@@ -458,7 +456,11 @@ public class meja1b extends javax.swing.JPanel {
         java.sql.Connection konek = new Koneksi_mysql().getConnection();
         String id_menu, id_transaksi, meja_ganti;
         meja_ganti = tf_p_meja.getText();
+        int no_mj = Integer.parseInt(meja_ganti);
         id_transaksi = lb_transaksi.getText();
+        if (no_mj > 60 || no_mj < 1){
+            JOptionPane.showMessageDialog(null, "Nomor Meja Salah", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+        }else{
         try{
                 Statement stat= konek.createStatement();
                 String query = "SELECT transaksi.id_transaksi, sementara.no_meja FROM transaksi, sementara WHERE sementara.id_transaksi = transaksi.id_transaksi AND sementara.no_meja='"+meja_ganti+"'  order by id_transaksi asc";
@@ -471,7 +473,7 @@ public class meja1b extends javax.swing.JPanel {
                     String sql = "UPDATE `sementara` SET `no_meja`='"+meja_ganti+"',`id_transaksi`='"+id+"' WHERE `no_meja`= '"+no_meja+"' AND `id_transaksi`='"+id_transaksi+"'" ;
                     PreparedStatement Prstat = (PreparedStatement) konek.prepareStatement(sql);
                     Prstat.executeUpdate();
-                    JOptionPane.showMessageDialog(null, "Berhasil Menyimpan Data", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+//                    JOptionPane.showMessageDialog(null, "Berhasil Menyimpan Data", "Informasi", JOptionPane.INFORMATION_MESSAGE);
                     reset();
                     konek.close();
                     }catch(HeadlessException | SQLException e){
@@ -483,7 +485,7 @@ public class meja1b extends javax.swing.JPanel {
                     String sql = "UPDATE `sementara` SET `no_meja`='"+meja_ganti+"',`id_transaksi`='"+meja_ganti+"' WHERE `no_meja`='"+no_meja+"' AND `id_transaksi`='"+id_transaksi+"'" ;
                     PreparedStatement Prstat = (PreparedStatement) konek.prepareStatement(sql);
                     Prstat.executeUpdate();
-                    JOptionPane.showMessageDialog(null, "Berhasil Menyimpan Data", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+//                    JOptionPane.showMessageDialog(null, "Berhasil Menyimpan Data", "Informasi", JOptionPane.INFORMATION_MESSAGE);
                     reset();
                     konek.close();
                     }catch(HeadlessException | SQLException e){
@@ -491,20 +493,60 @@ public class meja1b extends javax.swing.JPanel {
                     }
                 }
                 konek.close();
-        } catch(SQLException e){
+        }
+        catch(SQLException e){
             JOptionPane.showMessageDialog(null, "menampilkan data gagal", "informasi", JOptionPane.INFORMATION_MESSAGE);
         }
-      }
+       }
+       }
        private void tanggal_jam_sekarang(){
         Thread p;
         p = new Thread(){
             @Override
             public void run(){
                 for(;;){
+                    String month = null;
                     Calendar cal = new GregorianCalendar();
                     int hari = cal.get(Calendar.DAY_OF_MONTH);
                     int bulan = cal.get(Calendar.MONTH);
                     int tahun = cal.get(Calendar.YEAR);
+//                    if(bulan+1 == 1){
+//                        month = "jan";
+//                    }
+//                    else if (bulan+1 == 2){
+//                        month = "Feb";
+//                    }
+//                    else if (bulan+1 == 3){
+//                        month = "Mar";
+//                    }
+//                    else if (bulan+1 == 4){
+//                        month = "Apr";
+//                    }
+//                    else if (bulan+1 == 5){
+//                        month = "Mei";
+//                    }
+//                    else if (bulan+1 == 6){
+//                        month = "Jun";
+//                    }
+//                    else if (bulan+1 == 7){
+//                        month = "Jul";
+//                    }
+//                    else if (bulan+1 == 8){
+//                        month = "Agu";
+//                    }
+//                    else if (bulan+1 == 9){
+//                        month = "Sep";
+//                    }
+//                    else if (bulan+1 == 10){
+//                        month = "Okt";
+//                    }
+//                    else if (bulan+1 == 11){
+//                        month = "Nov";
+//                    }
+//                    else if (bulan+1 == 12){
+//                        month = "Des";
+//                    }
+//                    tahun = tahun-2000;
                     tanggal.setText(hari+"-"+(bulan+1)+"-"+tahun);
                    
                     
@@ -972,11 +1014,18 @@ public class meja1b extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_simpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_simpanActionPerformed
+
         // TODO add your handling code here:
         int total_harga = Integer.parseInt(tf_total_bayar.getText());
         int bayar = Integer.parseInt(tf_bayar.getText());
-        if(total_harga > bayar){
+        String bay = Integer.toString(bayar);
+        String kem = tf_kembali.getText();
+        if(bay == null){
+            JOptionPane.showMessageDialog(null, "Masukkan nilai pembayaran", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+        }else if(total_harga > bayar){
             JOptionPane.showMessageDialog(null, "Uang Pembayaran Kurang", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+        }else if(kem == null){
+            JOptionPane.showMessageDialog(null, "Uang kembalian kosong", "Informasi", JOptionPane.INFORMATION_MESSAGE);
         }else{
         int hapusselected = JOptionPane.showConfirmDialog(null, "Simpan Data Transaksi?","Close Message", JOptionPane.YES_NO_OPTION);
         if(hapusselected == JOptionPane.YES_OPTION){
@@ -987,17 +1036,23 @@ public class meja1b extends javax.swing.JPanel {
 
     private void bt_simpanKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bt_simpanKeyPressed
         // TODO add your handling code here:
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-            String kem = tf_kembali.getText();
-            if(kem == null){
-                JOptionPane.showMessageDialog(null, "Uang Pembayaran Kurang", "Informasi", JOptionPane.INFORMATION_MESSAGE);
-            }else{
+        int total_harga = Integer.parseInt(tf_total_bayar.getText());
+        int bayar = Integer.parseInt(tf_bayar.getText());
+        String bay = Integer.toString(bayar);
+        String kem = tf_kembali.getText();
+        if(bay == null){
+            JOptionPane.showMessageDialog(null, "Masukkan nilai pembayaran", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+        }else if(total_harga > bayar){
+            JOptionPane.showMessageDialog(null, "Uang Pembayaran Kurang", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+        }else if(kem == null){
+            JOptionPane.showMessageDialog(null, "Uang kembalian kosong", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+        }else{
             int hapusselected = JOptionPane.showConfirmDialog(null, "Simpan Data Transaksi?","Close Message", JOptionPane.YES_NO_OPTION);
             if(hapusselected == JOptionPane.YES_OPTION){
                 simpan_data();
             }
             }
-        }
+        
          if(evt.getKeyCode() == KeyEvent.VK_K){
             tf_bayar.requestFocus();
         }

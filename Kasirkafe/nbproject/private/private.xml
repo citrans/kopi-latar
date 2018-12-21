@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/Samsung/Documents/kopi-latarbaru/Kasirkafe/src/kasirkafe/tes.java</file>
             <file>file:/C:/Users/Samsung/Documents/kopi-latarbaru/Kasirkafe/src/kasirkafe/pemilik.java</file>
             <file>file:/C:/Users/Samsung/Documents/kopi-latarbaru/Kasirkafe/src/kasirkafe/login.java</file>
@@ -10,6 +11,13 @@
             <file>file:/C:/Users/Samsung/Documents/kopi-latarbaru/Kasirkafe/src/kasirkafe/crud.java</file>
             <file>file:/C:/Users/Samsung/Documents/kopi-latarbaru/Kasirkafe/src/kasirkafe/mejatr/panelmeja/meja1.java</file>
             <file>file:/C:/Users/Samsung/Documents/kopi-latarbaru/Kasirkafe/src/kasirkafe/Halaman_utama.java</file>
+=======
+            <file>file:/C:/Users/Citra/Documents/kopi-latar/Kasirkafe/src/kasirkafe/LaporanHarian.java</file>
+            <file>file:/C:/Users/Citra/Documents/kopi-latar/Kasirkafe/src/kasirkafe/LaporanTransaksiKasir.java</file>
+            <file>file:/C:/Users/Citra/Documents/kopi-latar/Kasirkafe/src/kasirkafe/Laporanhariandetail.java</file>
+            <file>file:/C:/Users/Citra/Documents/kopi-latar/Kasirkafe/src/kasirkafe/LaporanTransaksiPemilik.java</file>
+            <file>file:/C:/Users/Citra/Documents/kopi-latar/Kasirkafe/src/kasirkafe/mejatr/panelmeja/meja1b.java</file>
+>>>>>>> f8d5e89546de9268a259e83802f96dba2c159782
         </group>
     </open-files>
 </project-private>

@@ -48,6 +48,12 @@ public final class crud extends javax.swing.JFrame {
         initComponents();
         this.user = User;
         this.setatus=Status;
+        if("Pegawai".equals(status)){
+            mi_dt_pegawai.hide();
+            mi_favorit.hide();
+            mi_hari_ini.hide();
+            mi_lap_tr.hide();
+        }
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         Toolkit tk = Toolkit.getDefaultToolkit();
         int xsize = (int) tk.getScreenSize().getWidth();
@@ -93,18 +99,19 @@ public final class crud extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         mb_transaksi = new javax.swing.JMenu();
-        mi_mj1 = new javax.swing.JMenuItem();
-        jMenuItem9 = new javax.swing.JMenuItem();
+        mi_beranda = new javax.swing.JMenuItem();
+        mi_transaksi = new javax.swing.JMenuItem();
         mb_data_menu = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        mi_menu_kafe = new javax.swing.JMenuItem();
+        mi_dt_pegawai = new javax.swing.JMenuItem();
         mb_tr_today = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        mi_hari_ini = new javax.swing.JMenuItem();
+        mi_favorit = new javax.swing.JMenuItem();
+        mi_lap_tr = new javax.swing.JMenuItem();
+        mi_kasir = new javax.swing.JMenuItem();
         mb_keluar = new javax.swing.JMenu();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem8 = new javax.swing.JMenuItem();
+        mi_keluar = new javax.swing.JMenuItem();
 
         jLabel10.setText("jLabel10");
 
@@ -213,83 +220,102 @@ public final class crud extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Menu Pegawai");
 
-        mb_transaksi.setIcon(new javax.swing.ImageIcon("C:\\Users\\Citra\\Desktop\\tr.png")); // NOI18N
-        mb_transaksi.setText("Transaksi");
+        mb_transaksi.setText("Menu Utama");
         mb_transaksi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mb_transaksiActionPerformed(evt);
             }
         });
 
-        mi_mj1.setText("Transaksi Meja 1");
-        mi_mj1.addActionListener(new java.awt.event.ActionListener() {
+        mi_beranda.setText("Beranda");
+        mi_beranda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mi_mj1ActionPerformed(evt);
+                mi_berandaActionPerformed(evt);
             }
         });
-        mb_transaksi.add(mi_mj1);
+        mb_transaksi.add(mi_beranda);
 
-        jMenuItem9.setText("Transaksi Meja 2");
-        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+        mi_transaksi.setText("Transaksi");
+        mi_transaksi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem9ActionPerformed(evt);
+                mi_transaksiActionPerformed(evt);
             }
         });
-        mb_transaksi.add(jMenuItem9);
+        mb_transaksi.add(mi_transaksi);
 
         jMenuBar1.add(mb_transaksi);
 
-        mb_data_menu.setIcon(new javax.swing.ImageIcon("C:\\Users\\Citra\\Desktop\\menu.png")); // NOI18N
-        mb_data_menu.setText("Data Menu");
+        mb_data_menu.setText("Data Utama");
         mb_data_menu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mb_data_menuActionPerformed(evt);
             }
         });
 
-        jMenuItem1.setText("Menu Kafe");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        mi_menu_kafe.setText("Menu Kafe");
+        mi_menu_kafe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                mi_menu_kafeActionPerformed(evt);
             }
         });
-        mb_data_menu.add(jMenuItem1);
+        mb_data_menu.add(mi_menu_kafe);
 
-        jMenuItem6.setText("Kategori Menu");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        mi_dt_pegawai.setText("Data Pegawai");
+        mi_dt_pegawai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                mi_dt_pegawaiActionPerformed(evt);
             }
         });
-        mb_data_menu.add(jMenuItem6);
+        mb_data_menu.add(mi_dt_pegawai);
 
         jMenuBar1.add(mb_data_menu);
 
-        mb_tr_today.setIcon(new javax.swing.ImageIcon("C:\\Users\\Citra\\Desktop\\laporan.png")); // NOI18N
         mb_tr_today.setText("Laporan");
 
-        jMenuItem3.setText("Laporan Hari ini");
-        mb_tr_today.add(jMenuItem3);
+        mi_hari_ini.setText("Laporan Hari ini");
+        mi_hari_ini.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_hari_iniActionPerformed(evt);
+            }
+        });
+        mb_tr_today.add(mi_hari_ini);
 
-        jMenuItem4.setText("Laporan Favorit");
-        mb_tr_today.add(jMenuItem4);
+        mi_favorit.setText("Laporan Favorit");
+        mi_favorit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_favoritActionPerformed(evt);
+            }
+        });
+        mb_tr_today.add(mi_favorit);
 
-        jMenuItem5.setText("Laporan Transaksi");
-        mb_tr_today.add(jMenuItem5);
+        mi_lap_tr.setText("Laporan Transaksi");
+        mi_lap_tr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_lap_trActionPerformed(evt);
+            }
+        });
+        mb_tr_today.add(mi_lap_tr);
+
+        mi_kasir.setText("Laporan Kasir");
+        mi_kasir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_kasirActionPerformed(evt);
+            }
+        });
+        mb_tr_today.add(mi_kasir);
 
         jMenuBar1.add(mb_tr_today);
 
-        mb_keluar.setIcon(new javax.swing.ImageIcon("C:\\Users\\Citra\\Desktop\\keluar.png")); // NOI18N
         mb_keluar.setText("Keluar");
         mb_keluar.add(jSeparator1);
 
-        jMenuItem8.setText("Keluar");
-        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+        mi_keluar.setText("Keluar");
+        mi_keluar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem8ActionPerformed(evt);
+                mi_keluarActionPerformed(evt);
             }
         });
-        mb_keluar.add(jMenuItem8);
+        mb_keluar.add(mi_keluar);
 
         jMenuBar1.add(mb_keluar);
 
@@ -492,7 +518,7 @@ public final class crud extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        new pemilik().setVisible(true);
+        new Halaman_utama(user, setatus).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -520,44 +546,76 @@ public final class crud extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_usernameActionPerformed
 
-    private void mi_mj1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_mj1ActionPerformed
+    private void mi_berandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_berandaActionPerformed
         // TODO add your handling code here:
-        MejaTransaksi a = new MejaTransaksi(user, setatus);
-        a.setVisible(true);
+        Halaman_utama n = new Halaman_utama(user, setatus);
+        n.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_mi_mj1ActionPerformed
+    }//GEN-LAST:event_mi_berandaActionPerformed
 
-    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+    private void mi_transaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_transaksiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem9ActionPerformed
+        MejaTransaksi n = new MejaTransaksi(user, setatus);
+        n.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mi_transaksiActionPerformed
 
     private void mb_transaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mb_transaksiActionPerformed
         // TODO add your handling code here:
-
     }//GEN-LAST:event_mb_transaksiActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void mi_menu_kafeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_menu_kafeActionPerformed
         // TODO add your handling code here:
-        form_menu_makanan n = new form_menu_makanan();
+        form_menu_makanan n = new form_menu_makanan(user,setatus);
         n.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_mi_menu_kafeActionPerformed
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+    private void mi_dt_pegawaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_dt_pegawaiActionPerformed
         // TODO add your handling code here:
-        Input_kategori n = new Input_kategori();
+        crud n = new crud(user, setatus);
         n.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
+    }//GEN-LAST:event_mi_dt_pegawaiActionPerformed
 
     private void mb_data_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mb_data_menuActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_mb_data_menuActionPerformed
 
-    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+    private void mi_hari_iniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_hari_iniActionPerformed
         // TODO add your handling code here:
-        dispose();
-    }//GEN-LAST:event_jMenuItem8ActionPerformed
+        LaporanHarian n =new LaporanHarian(user, setatus);
+        n.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mi_hari_iniActionPerformed
+
+    private void mi_favoritActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_favoritActionPerformed
+        // TODO add your handling code here:
+        produkfavorit n = new produkfavorit(user, setatus);
+        n.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mi_favoritActionPerformed
+
+    private void mi_lap_trActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_lap_trActionPerformed
+        // TODO add your handling code here:
+        LaporanTransaksiPemilik n = new LaporanTransaksiPemilik(user, setatus);
+        n.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mi_lap_trActionPerformed
+
+    private void mi_kasirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_kasirActionPerformed
+        // TODO add your handling code here:
+        LaporanTransaksiKasir n = new LaporanTransaksiKasir(user,setatus);
+        n.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mi_kasirActionPerformed
+
+    private void mi_keluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_keluarActionPerformed
+        // TODO add your handling code here:
+        login n = new login();
+        n.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mi_keluarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -613,13 +671,6 @@ public final class crud extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JTable jTable1;
@@ -627,7 +678,15 @@ public final class crud extends javax.swing.JFrame {
     private javax.swing.JMenu mb_keluar;
     private javax.swing.JMenu mb_tr_today;
     private javax.swing.JMenu mb_transaksi;
-    private javax.swing.JMenuItem mi_mj1;
+    private javax.swing.JMenuItem mi_beranda;
+    private javax.swing.JMenuItem mi_dt_pegawai;
+    private javax.swing.JMenuItem mi_favorit;
+    private javax.swing.JMenuItem mi_hari_ini;
+    private javax.swing.JMenuItem mi_kasir;
+    private javax.swing.JMenuItem mi_keluar;
+    private javax.swing.JMenuItem mi_lap_tr;
+    private javax.swing.JMenuItem mi_menu_kafe;
+    private javax.swing.JMenuItem mi_transaksi;
     private javax.swing.JTextField nama;
     private javax.swing.JTextField password;
     private javax.swing.JComboBox<String> status;

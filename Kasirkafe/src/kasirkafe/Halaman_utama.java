@@ -151,10 +151,25 @@ public class Halaman_utama extends javax.swing.JFrame {
         );
 
         jp_lp.setBackground(new java.awt.Color(255, 222, 173));
+        jp_lp.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jp_lpMouseClicked(evt);
+            }
+        });
 
         jlb_gb_lp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/lapo.png"))); // NOI18N
+        jlb_gb_lp.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlb_gb_lpMouseClicked(evt);
+            }
+        });
 
         jlb_lp.setText("LAPORAN");
+        jlb_lp.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlb_lpMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jp_lpLayout = new javax.swing.GroupLayout(jp_lp);
         jp_lp.setLayout(jp_lpLayout);
@@ -321,8 +336,8 @@ public class Halaman_utama extends javax.swing.JFrame {
 
     private void jp_duMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jp_duMouseClicked
         // TODO add your handling code here:
-        if(status == "pegawai"){
-       form_menu_makanan n = new form_menu_makanan();
+        if("Pegawai".equals(status)){
+       form_menu_makanan n = new form_menu_makanan(user, status);
         n.setVisible(true);
         this.setVisible(false);
         }
@@ -336,8 +351,8 @@ public class Halaman_utama extends javax.swing.JFrame {
 
     private void jlb_gb_duMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlb_gb_duMouseClicked
         // TODO add your handling code here:
-        if(status == "pegawai"){
-       form_menu_makanan n = new form_menu_makanan();
+        if("Pegawai".equals(status)){
+       form_menu_makanan n = new form_menu_makanan(user, status);
         n.setVisible(true);
         this.setVisible(false);
         }
@@ -351,13 +366,13 @@ public class Halaman_utama extends javax.swing.JFrame {
 
     private void jlb_duMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlb_duMouseClicked
         // TODO add your handling code here:
-        if(status == "pegawai"){
-       form_menu_makanan n = new form_menu_makanan();
+        if("Pegawai".equals(status)){
+       form_menu_makanan n = new form_menu_makanan(user, status);
         n.setVisible(true);
         this.setVisible(false);
         }
         else  {
-             crud n = new crud(user,status);
+        crud n = new crud(user,status);
         n.setVisible(true);
         this.setVisible(false);
         
@@ -381,6 +396,48 @@ public class Halaman_utama extends javax.swing.JFrame {
         new login().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jlb_klMouseClicked
+
+    private void jp_lpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jp_lpMouseClicked
+        // TODO add your handling code here:
+        if("Pegawai".equals(status)){
+            LaporanTransaksiKasir n = new LaporanTransaksiKasir(user, status);
+            n.setVisible(true);
+            this.setVisible(false);
+        }
+        else  {
+            LaporanTransaksiPemilik n = new LaporanTransaksiPemilik(user, status);
+            n.setVisible(true);
+            this.setVisible(false);
+        }
+    }//GEN-LAST:event_jp_lpMouseClicked
+
+    private void jlb_gb_lpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlb_gb_lpMouseClicked
+        // TODO add your handling code here:
+        if("Pegawai".equals(status)){
+            LaporanTransaksiKasir n = new LaporanTransaksiKasir(user, status);
+            n.setVisible(true);
+            this.setVisible(false);
+        }
+        else  {
+            LaporanTransaksiPemilik n = new LaporanTransaksiPemilik(user, status);
+            n.setVisible(true);
+            this.setVisible(false);
+        }
+    }//GEN-LAST:event_jlb_gb_lpMouseClicked
+
+    private void jlb_lpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlb_lpMouseClicked
+        // TODO add your handling code here:
+        if("Pegawai".equals(status)){
+            LaporanTransaksiKasir n = new LaporanTransaksiKasir(user, status);
+            n.setVisible(true);
+            this.setVisible(false);
+        }
+        else  {
+            LaporanTransaksiPemilik n = new LaporanTransaksiPemilik(user, status);
+            n.setVisible(true);
+            this.setVisible(false);
+        }
+    }//GEN-LAST:event_jlb_lpMouseClicked
 
     /**
      * @param args the command line arguments
