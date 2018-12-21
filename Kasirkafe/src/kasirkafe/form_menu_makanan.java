@@ -567,7 +567,7 @@ public class form_menu_makanan extends javax.swing.JFrame {
     }//GEN-LAST:event_tabel_menuMouseClicked
 
     private void tbupdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbupdateActionPerformed
-        int hapusselected = JOptionPane.showConfirmDialog(null, "Hapus Data?","Close Message", JOptionPane.YES_NO_OPTION);
+        int hapusselected = JOptionPane.showConfirmDialog(null, "Ubah Data?","Close Message", JOptionPane.YES_NO_OPTION);
          if(hapusselected == JOptionPane.YES_OPTION){
         update_data();
          }
