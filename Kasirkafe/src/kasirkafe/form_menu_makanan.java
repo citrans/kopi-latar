@@ -707,7 +707,11 @@ public class form_menu_makanan extends javax.swing.JFrame {
 
     private void mi_lap_trActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_lap_trActionPerformed
         // TODO add your handling code here:
+//<<<<<<< HEAD
         LaporanTransaksiPemilik n = new LaporanTransaksiPemilik(user, status);
+//=======
+//        LaporanTransaksiKasir n = new LaporanTransaksiKasir();
+//>>>>>>> 5b1be186a1920aed6ddd239c2288216b4acf5e53
         n.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_mi_lap_trActionPerformed
