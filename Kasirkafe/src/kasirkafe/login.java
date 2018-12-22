@@ -17,6 +17,7 @@ import java.sql.DriverManager;
 //import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.JFrame;
 //import java.util.logging.Level;
 //import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -60,13 +61,17 @@ public class login extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(205, 133, 63));
 
+        jLabel1.setFont(new java.awt.Font("Freestyle Script", 0, 36)); // NOI18N
         jLabel1.setText("KOPI LATAR");
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Username");
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Password");
 
         pass.addActionListener(new java.awt.event.ActionListener() {
@@ -75,6 +80,7 @@ public class login extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton1.setText("Masuk");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -87,6 +93,7 @@ public class login extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton2.setText("Keluar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -98,93 +105,144 @@ public class login extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
                 .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2))
-                    .addComponent(user)
-                    .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(55, Short.MAX_VALUE))
+                    .addComponent(user, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+                    .addComponent(pass))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(127, 127, 127))
+                .addContainerGap(105, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(94, 94, 94))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jLabel1)
-                .addGap(31, 31, 31)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(53, 53, 53))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(62, 62, 62)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addContainerGap())
+                .addGap(90, 90, 90))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setSize(new java.awt.Dimension(338, 258));
+        setSize(new java.awt.Dimension(368, 326));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            String uname = user.getText();
+            String pssword = pass.getText();
+            String lvl = "Pegawai";
+            String lev = "Pemilik";
+
+            if(uname.equals("")||pssword.equals("")){
+                JOptionPane.showMessageDialog(rootPane, "blabla", "error", 1);
+            } else{
+                try{
+                    konek = DriverManager.getConnection("jdbc:mysql://localhost/kopi_latar","root","");
+                    pst = konek.prepareStatement("select * from pegawai where username = ? and password =?");
+                    pst.setString(1, uname);
+                    pst.setString(2, pssword);
+                    rs = pst.executeQuery();
+
+                    if(rs.next()){
+                        String s1 = rs.getString("status");
+                        String un = rs.getString("username");
+                        if(lvl.equalsIgnoreCase("Pegawai")&& s1.equalsIgnoreCase("pegawai")){
+                            Halaman_utama ts = new Halaman_utama(un, s1);
+                            ts.setVisible(true);
+                            this.setVisible(false);
+                        }
+                        if(lev.equalsIgnoreCase("Pemilik")&& s1.equalsIgnoreCase("pemilik")){
+                            Halaman_utama ts = new Halaman_utama(un, s1);
+                            ts.setVisible(true);
+                            this.setVisible(false);
+                        }
+                    }else{
+                        JOptionPane.showMessageDialog(rootPane, "Username atau Password salah", "Informasi", 1);
+                    }
+                }catch(Exception e){
+                    System.out.println(""+e);
+                }
+            }
+        }
+    }//GEN-LAST:event_jButton1KeyPressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String uname = user.getText();
         String pssword = pass.getText();
         String lvl = "Pegawai";
         String lev = "Pemilik";
-        
+
         if(uname.equals("")||pssword.equals("")){
-           JOptionPane.showMessageDialog(rootPane, "Username dan Password tidak boleh kosong", "error", 1);
+            JOptionPane.showMessageDialog(rootPane, "Username dan Password tidak boleh kosong", "error", 1);
         } else{
             try{
-               konek = DriverManager.getConnection("jdbc:mysql://localhost/kopi_latar","root","");
-               pst = konek.prepareStatement("select * from pegawai where username = ? and password =?");
-               pst.setString(1, uname);
-               pst.setString(2, pssword);
-               rs = pst.executeQuery();
-               
-               
-               if(rs.next()){
-                   String s1 = rs.getString("status");
-                   String un = rs.getString("username");
-                   if(lvl.equalsIgnoreCase("Pegawai")&& s1.equalsIgnoreCase("pegawai")){
-                       Halaman_utama ts = new Halaman_utama(un, s1);
-                       ts.setVisible(true);
-                       this.setVisible(false);
-                   }
-                   if(lev.equalsIgnoreCase("Pemilik")&& s1.equalsIgnoreCase("pemilik")){
-                       Halaman_utama ts = new Halaman_utama(un, s1);
-                       ts.setVisible(true);
-                       this.setVisible(false);
-                   }
-               }else{
-                   JOptionPane.showMessageDialog(rootPane, "Username atau Password salah", "Informasi", 1);
-               }
+                konek = DriverManager.getConnection("jdbc:mysql://localhost/kopi_latar","root","");
+                pst = konek.prepareStatement("select * from pegawai where username = ? and password =?");
+                pst.setString(1, uname);
+                pst.setString(2, pssword);
+                rs = pst.executeQuery();
+
+                if(rs.next()){
+                    String s1 = rs.getString("status");
+                    String un = rs.getString("username");
+                    if(lvl.equalsIgnoreCase("Pegawai")&& s1.equalsIgnoreCase("pegawai")){
+                        Halaman_utama ts = new Halaman_utama(un, s1);
+                        ts.setVisible(true);
+                        this.setVisible(false);
+                    }
+                    if(lev.equalsIgnoreCase("Pemilik")&& s1.equalsIgnoreCase("pemilik")){
+                        Halaman_utama ts = new Halaman_utama(un, s1);
+                        ts.setVisible(true);
+                        this.setVisible(false);
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(rootPane, "Username atau Password salah", "Informasi", 1);
+                }
             }catch(Exception e){
                 System.out.println(""+e);
             }
@@ -199,66 +257,19 @@ public class login extends javax.swing.JFrame {
                 //if (hak.equals("admin")){
                     //new tes().setVisible(true);
                     //this.dispose();
-                //}else if(hak.equals("petugas")){
+                    //}else if(hak.equals("petugas")){
                     //new crud().setVisible(true);
                     //this.dispose();
+                    //}
                 //}
-            //}
-        //} catch (SQLException e) {
+            //} catch (SQLException e) {
             //Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, e);
-        //}
+            //}
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_passActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyPressed
-        // TODO add your handling code here:
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-            String uname = user.getText();
-        String pssword = pass.getText();
-        String lvl = "Pegawai";
-        String lev = "Pemilik";
-        
-        if(uname.equals("")||pssword.equals("")){
-           JOptionPane.showMessageDialog(rootPane, "blabla", "error", 1);
-        } else{
-            try{
-               konek = DriverManager.getConnection("jdbc:mysql://localhost/kopi_latar","root","");
-               pst = konek.prepareStatement("select * from pegawai where username = ? and password =?");
-               pst.setString(1, uname);
-               pst.setString(2, pssword);
-               rs = pst.executeQuery();
-               
-               
-               if(rs.next()){
-                   String s1 = rs.getString("status");
-                   String un = rs.getString("username");
-                   if(lvl.equalsIgnoreCase("Pegawai")&& s1.equalsIgnoreCase("pegawai")){
-                       Halaman_utama ts = new Halaman_utama(un, s1);
-                       ts.setVisible(true);
-                       this.setVisible(false);
-                   }
-                   if(lev.equalsIgnoreCase("Pemilik")&& s1.equalsIgnoreCase("pemilik")){
-                       Halaman_utama ts = new Halaman_utama(un, s1);
-                       ts.setVisible(true);
-                       this.setVisible(false);
-                   }
-               }else{
-                   JOptionPane.showMessageDialog(rootPane, "Username atau Password salah", "Informasi", 1);
-               }
-            }catch(Exception e){
-                System.out.println(""+e);
-            }
-        }
-        }
-    }//GEN-LAST:event_jButton1KeyPressed
 
     /**
      * @param args the command line arguments

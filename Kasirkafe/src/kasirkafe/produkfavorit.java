@@ -11,7 +11,7 @@ package kasirkafe;
  */
 //import Koneksi.koneksi;
 //import cls.ClassDB;
-import com.mysql.jdbc.PreparedStatement;
+//import com.mysql.jdbc.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
