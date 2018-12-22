@@ -11,7 +11,7 @@ package kasirkafe;
  */
 //import Koneksi.koneksi;
 //import cls.ClassDB;
-import com.mysql.jdbc.PreparedStatement;
+//import com.mysql.jdbc.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -159,7 +159,7 @@ public void getData( ){
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(153, 204, 255));
+        jPanel1.setBackground(new java.awt.Color(205, 133, 63));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N

@@ -5,15 +5,22 @@
  */
 package kasirkafe;
  
-import Belum_terpakai.tes;
-import java.awt.HeadlessException;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+//import java.sql.*;
+//import java.math.*;
+//import java.security.*;
+//import java.security.MessageDigest;
+//import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+//import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+//import java.util.logging.Level;
+//import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import kasirkafe.mejatr.MejaTransaksi;
 
 public class login extends javax.swing.JFrame {
     Connection konek;
@@ -23,44 +30,20 @@ public class login extends javax.swing.JFrame {
     public login() {
         initComponents();
     }
-void verify(){
-     String uname = user.getText();
-        String pssword = pass.getText();
-        String lvl = "Pegawai";
-        String lev = "Pemilik";
-        
-        if(uname.equals("")||pssword.equals("")){
-           JOptionPane.showMessageDialog(rootPane, "Username dan Password tidak boleh kosong", "error", 1);
-        } else{
-            try{
-               konek = DriverManager.getConnection("jdbc:mysql://localhost/kopi_latar","root","");
-               pst = konek.prepareStatement("select * from pegawai where username = ? and password =?");
-               pst.setString(1, uname);
-               pst.setString(2, pssword);
-               rs = pst.executeQuery();
-               
-               
-               if(rs.next()){
-                   String s1 = rs.getString("status");
-                   String un = rs.getString("username");
-                   if(lvl.equalsIgnoreCase("Pegawai")&& s1.equalsIgnoreCase("pegawai")){
-                       Halaman_utama ts = new Halaman_utama(un, s1);
-                       ts.setVisible(true);
-                       this.setVisible(false);
-                   }
-                   if(lev.equalsIgnoreCase("Pemilik")&& s1.equalsIgnoreCase("pemilik")){
-                       Halaman_utama ts = new Halaman_utama(un, s1);
-                       ts.setVisible(true);
-                       this.setVisible(false);
-                   }
-               }else{
-                   JOptionPane.showMessageDialog(rootPane, "Username atau Password salah", "Informasi", 1);
-               }
-            }catch(HeadlessException | SQLException e){
-                System.out.println(""+e);
-            }
-        }
-}
+        //public static String MD5(String input){
+            //try{
+                //MessageDigest md = MessageDigest.getInstance("MD5");
+                //byte[] messageDigest = md.digest(input.getBytes());
+                //BigInteger number = new BigInteger(1, messageDigest);
+                //String hashtext = number.toString(16);
+                //while (hashtext.length() < 32){
+                    //hashtext = "0" + hashtext;
+                //}
+                //return hashtext;
+            //}catch(NoSuchAlgorithmException e){
+                //throw new RuntimeException(e);
+            //}
+        //}
         
     
     @SuppressWarnings("unchecked")
@@ -104,7 +87,7 @@ void verify(){
             }
         });
 
-        jButton2.setText("Keluar");
+        jButton2.setText("Batal");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -170,7 +153,60 @@ void verify(){
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        verify();
+        String uname = user.getText();
+        String pssword = pass.getText();
+        String lvl = "Pegawai";
+        String lev = "Pemilik";
+        
+        if(uname.equals("")||pssword.equals("")){
+           JOptionPane.showMessageDialog(rootPane, "blabla", "error", 1);
+        } else{
+            try{
+               konek = DriverManager.getConnection("jdbc:mysql://localhost/kopi_latar","root","");
+               pst = konek.prepareStatement("select * from pegawai where username = ? and password =?");
+               pst.setString(1, uname);
+               pst.setString(2, pssword);
+               rs = pst.executeQuery();
+               
+               
+               if(rs.next()){
+                   String s1 = rs.getString("status");
+                   String un = rs.getString("username");
+                   if(lvl.equalsIgnoreCase("Pegawai")&& s1.equalsIgnoreCase("pegawai")){
+                       Halaman_utama ts = new Halaman_utama(un, s1);
+                       ts.setVisible(true);
+                       this.setVisible(false);
+                   }
+                   if(lev.equalsIgnoreCase("Pemilik")&& s1.equalsIgnoreCase("pemilik")){
+                       Halaman_utama ts = new Halaman_utama(un, s1);
+                       ts.setVisible(true);
+                       this.setVisible(false);
+                   }
+               }else{
+                   JOptionPane.showMessageDialog(rootPane, "Username atau Password salah", "Informasi", 1);
+               }
+            }catch(Exception e){
+                System.out.println(""+e);
+            }
+        }
+        //try {
+            //Connection konek = new Koneksi_mysql().getConnection();
+            //String sql = "select * from pegawai where username = '"+user.getText()+"' and password = '"+String.valueOf(pass.getPassword())+"'";
+            //PreparedStatement stat = (PreparedStatement) konek.prepareStatement(sql);
+            //ResultSet rs = stat.executeQuery();
+            //if (rs.next()){
+                //String hak = rs.getString("hak");
+                //if (hak.equals("admin")){
+                    //new tes().setVisible(true);
+                    //this.dispose();
+                //}else if(hak.equals("petugas")){
+                    //new crud().setVisible(true);
+                    //this.dispose();
+                //}
+            //}
+        //} catch (SQLException e) {
+            //Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, e);
+        //}
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
@@ -185,7 +221,42 @@ void verify(){
     private void jButton1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyPressed
         // TODO add your handling code here:
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-           verify();
+            String uname = user.getText();
+        String pssword = pass.getText();
+        String lvl = "Pegawai";
+        String lev = "Pemilik";
+        
+        if(uname.equals("")||pssword.equals("")){
+           JOptionPane.showMessageDialog(rootPane, "blabla", "error", 1);
+        } else{
+            try{
+               konek = DriverManager.getConnection("jdbc:mysql://localhost/kopi_latar","root","");
+               pst = konek.prepareStatement("select * from pegawai where username = ? and password =?");
+               pst.setString(1, uname);
+               pst.setString(2, pssword);
+               rs = pst.executeQuery();
+               
+               
+               if(rs.next()){
+                   String s1 = rs.getString("status");
+                   String un = rs.getString("username");
+                   if(lvl.equalsIgnoreCase("Pegawai")&& s1.equalsIgnoreCase("pegawai")){
+                       Halaman_utama ts = new Halaman_utama(un, s1);
+                       ts.setVisible(true);
+                       this.setVisible(false);
+                   }
+                   if(lev.equalsIgnoreCase("Pemilik")&& s1.equalsIgnoreCase("pemilik")){
+                       Halaman_utama ts = new Halaman_utama(un, s1);
+                       ts.setVisible(true);
+                       this.setVisible(false);
+                   }
+               }else{
+                   JOptionPane.showMessageDialog(rootPane, "Username atau Password salah", "Informasi", 1);
+               }
+            }catch(Exception e){
+                System.out.println(""+e);
+            }
+        }
         }
     }//GEN-LAST:event_jButton1KeyPressed
 
@@ -205,16 +276,23 @@ void verify(){
                     break;
                 }
             }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
-        //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new login().setVisible(true);
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new login().setVisible(true);
+                
+            }
         });
     }
 
