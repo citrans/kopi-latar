@@ -5,14 +5,19 @@
  */
 package kasirkafe;
 
+import java.awt.print.PrinterException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import kasirkafe.mejatr.MejaTransaksi;
@@ -61,7 +66,7 @@ public class LaporanBulanan extends javax.swing.JFrame {
         tabelModel = tabel_lap.getModel();
         total_harga_bayar = 0;
         for (int i=0; i<jumlahBaris; i++){
-            hargaBarang = Integer.parseInt(tabelModel.getValueAt(i, 6).toString());
+            hargaBarang = Integer.parseInt(tabelModel.getValueAt(i, 5).toString());
             total_harga_bayar = total_harga_bayar + hargaBarang;
         }
         thb = Integer.toString(total_harga_bayar);
@@ -73,7 +78,8 @@ public class LaporanBulanan extends javax.swing.JFrame {
         model= new DefaultTableModel(null,baris);
         tabel_lap.setModel(model);
         String tgl = lb_tgl.getText();
-        String sql = "SELECT pegawai.*, transaksi.* FROM pegawai,transaksi WHERE transaksi.id_pegawai = pegawai.id_pegawai AND bulan= '"+(bulan+1)+"' AND tahun ='"+tahun+"' ";
+        String tanggal = Integer.toString(bulan+1)+"-"+Integer.toString(tahun);
+        String sql = "SELECT pegawai.*, transaksi.* FROM pegawai,transaksi WHERE transaksi.id_pegawai = pegawai.id_pegawai AND tgl_transaksi LIKE '%"+tanggal+"%' ";
         try{
             try (java.sql.Connection konek = new Koneksi_mysql().getConnection()) {
                 Statement stat= konek.createStatement();
@@ -102,7 +108,9 @@ public class LaporanBulanan extends javax.swing.JFrame {
         lb_jajal.setText(Integer.toString(a+1));
         int b = jy_tahun.getYear();
         lb_tgl.setText(Integer.toString(b));
-        Date d = new Date();
+        int bulan = a+1;
+        String tanggal = Integer.toString(bulan)+"-"+Integer.toString(b);
+        lb_jajal.setText(tanggal);
 //        SimpleDateFormat t = new SimpleDateFormat("yyyy");
 //        SimpleDateFormat b = new SimpleDateFormat("MM");
         SimpleDateFormat h = new SimpleDateFormat("dd");
@@ -115,7 +123,7 @@ public class LaporanBulanan extends javax.swing.JFrame {
         model= new DefaultTableModel(null,baris);
         tabel_lap.setModel(model);
         String tgl = lb_tgl.getText();
-        String sql = "SELECT pegawai.*, transaksi.* FROM pegawai,transaksi WHERE transaksi.id_pegawai = pegawai.id_pegawai AND bulan ='"+(a+1)+"' AND tahun ='"+b+"' ";
+        String sql = "SELECT pegawai.*, transaksi.* FROM pegawai,transaksi WHERE transaksi.id_pegawai = pegawai.id_pegawai AND tgl_transaksi LIKE '%"+tanggal+"%'";
         try{
             try (java.sql.Connection konek = new Koneksi_mysql().getConnection()) {
                 Statement stat= konek.createStatement();
@@ -183,17 +191,6 @@ public class LaporanBulanan extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel1.setText("LAPORAN BULANAN");
 
-        tabel_lap.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "ID Transaksi", "Menu", "Jumlah", "Total"
-            }
-        ));
         tabel_lap.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabel_lapMouseClicked(evt);
@@ -213,6 +210,11 @@ public class LaporanBulanan extends javax.swing.JFrame {
         jButton2.setText("Laporan Bulanan");
 
         jButton3.setText("Print");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         lb_tgl.setText("jLabel3");
 
@@ -507,6 +509,17 @@ public class LaporanBulanan extends javax.swing.JFrame {
         n.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        String tanggal = lb_tgl.getText();
+        MessageFormat header = new MessageFormat("Laporan Bulanan \n tanggal : '"+tanggal+"'");
+        MessageFormat footer = new MessageFormat("halaman{0,number, integer}");
+        try {
+            tabel_lap.print(JTable.PrintMode.NORMAL, header, footer);
+        } catch (PrinterException ex) {
+            Logger.getLogger(LaporanBulanan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments

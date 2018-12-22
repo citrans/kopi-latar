@@ -10,20 +10,20 @@ package kasirkafe;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.*;
-import java.awt.print.*;
+//import java.text.*;
+//import java.awt.print.*;
 import java.sql.Connection;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
+//import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Mar
  */
-public class LaporanTransaksiKasirdetail extends javax.swing.JFrame {
+public final class LaporanTransaksiKasirdetail extends javax.swing.JFrame {
 
     /**
      * Creates new form LaporanTransaksiKasir
@@ -298,23 +298,18 @@ public class LaporanTransaksiKasirdetail extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LaporanTransaksiKasirdetail.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LaporanTransaksiKasirdetail.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LaporanTransaksiKasirdetail.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(LaporanTransaksiKasirdetail.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
+        
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new LaporanTransaksiKasirdetail().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new LaporanTransaksiKasirdetail().setVisible(true);
         });
     }
 

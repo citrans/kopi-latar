@@ -108,6 +108,11 @@
                   </Group>
                   <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
               </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="lb_tgl_kemarin" min="-2" max="-2" attributes="0"/>
+                  <Component id="tahun" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -130,6 +135,11 @@
                               <Component id="jammm" min="-2" pref="25" max="-2" attributes="0"/>
                           </Group>
                           <Component id="tf_total_tampil" min="-2" pref="107" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="lb_tgl_kemarin" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="tahun" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace pref="19" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -499,5 +509,15 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JLabel" name="lb_tgl_kemarin">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="tgl_kemarin"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="tahun">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jLabel6"/>
+      </Properties>
+    </Component>
   </SubComponents>
 </Form>

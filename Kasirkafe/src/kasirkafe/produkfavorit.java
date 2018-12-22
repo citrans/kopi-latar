@@ -38,15 +38,15 @@ public final class produkfavorit extends javax.swing.JFrame {
         initComponents();
                    
         model = new DefaultTableModel ( );
-        tabel2 = new DefaultTableModel();
+//        tabel2 = new DefaultTableModel();
              tblLapBul.setModel(model);
-             tbl2.setModel(tabel2);
+//             tbl2.setModel(tabel2);
              model.addColumn("Nama Menu");
              model.addColumn("Total Terjual");
-             tabel2.addColumn("Nama Menu");
-             tabel2.addColumn("Total Terjual");
+//             tabel2.addColumn("Nama Menu");
+//             tabel2.addColumn("Total Terjual");
              getData(); 
-             tampil_total();
+//             tampil_total();
     }
     public produkfavorit(String User, String Status){
              initComponents();
@@ -61,11 +61,11 @@ public final class produkfavorit extends javax.swing.JFrame {
              model = new DefaultTableModel ( );
              tabel2 = new DefaultTableModel();
              tblLapBul.setModel(model);
-             tbl2.setModel(tabel2);
+//             tbl2.setModel(tabel2);
              model.addColumn("Nama Menu");
              model.addColumn("Total Terjual");
-             tabel2.addColumn("Nama Menu");
-             tabel2.addColumn("Total Terjual");
+//             tabel2.addColumn("Nama Menu");
+//             tabel2.addColumn("Total Terjual");
              getData(); 
 //             tampil_total();
     }
@@ -78,45 +78,45 @@ public void getData( ){
            //Statement stat = (Statement) koneksi.GetConnection( ).createStatement( );
            Connection konek = new Koneksi_mysql().getConnection();
            Statement stat = konek.createStatement();
-           String sql        = "SELECT sementara.jumlah_pesanan, menu.nama_menu FROM `sementara`,menu WHERE menu.id_menu=sementara.id_menu ORDER BY sementara.jumlah_pesanan DESC";
+           String sql        = "SELECT * FROM `menu_laku` WHERE jumlah_laku > 0 ORDER BY jumlah_laku DESC";
            ResultSet res   = stat.executeQuery(sql);
            while(res.next ()){
                 Object[ ] obj = new Object[2];
                 obj[0] = res.getString("nama_menu");
-                obj[1] = res.getString("jumlah_pesanan");
+                obj[1] = res.getString("jumlah_laku");
                 model.addRow(obj);
             }
       }catch(SQLException err){
             JOptionPane.showMessageDialog(null, err.getMessage() );
       }
 }
-private void tampil_total(){
-        int total_harga_bayar ;
-        String thb ;
-        int jumlahBaris = tblLapBul.getRowCount();
-        int hargaBarang[] = null;
-        String nama_barang[] = null;
-        int hitung=0;
-        
-        TableModel tabelModel;
-        tabelModel = tblLapBul.getModel();
-        total_harga_bayar = 0;
-        for (int i=0;i<jumlahBaris;i++){
-//            nama_barang[i]=(String) tabelModel.getValueAt(i, 0);
-            hargaBarang[i]= Integer.parseInt(tabelModel.getValueAt(i, 1).toString());
-            while(i<i+1){
-            String[]data= { nama_barang[i],Integer.toString(hargaBarang[i])};
-            tabel2.addRow(data);
-            //hitung++;
-        }
-        }
+//private void tampil_total(){
+//        int total_harga_bayar ;
+//        String thb ;
+//        int jumlahBaris = tblLapBul.getRowCount();
+//        int hargaBarang[] = null;
+//        String nama_barang[] = null;
+//        int hitung=0;
+//        
+//        TableModel tabelModel;
+//        tabelModel = tblLapBul.getModel();
+//        total_harga_bayar = 0;
+//        for (int i=0;i<jumlahBaris;i++){
+////            nama_barang[i]=(String) tabelModel.getValueAt(i, 0);
+//            hargaBarang[i]= Integer.parseInt(tabelModel.getValueAt(i, 1).toString());
+//            while(i<i+1){
+//            String[]data= { nama_barang[i],Integer.toString(hargaBarang[i])};
+//            tabel2.addRow(data);
+//            //hitung++;
+//        }
+//        }
         
 //        for (int i=0; i<jumlahBaris; i++){
 //            hargaBarang = Integer.parseInt(tabelModel.getValueAt(i, 4).toString());
 //            total_harga_bayar = total_harga_bayar + hargaBarang;
 //        }
         
-       }
+//       }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -130,8 +130,6 @@ private void tampil_total(){
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblLapBul = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tbl2 = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         mb_transaksi = new javax.swing.JMenu();
         mi_beranda = new javax.swing.JMenuItem();
@@ -171,19 +169,6 @@ private void tampil_total(){
         ));
         jScrollPane1.setViewportView(tblLapBul);
 
-        tbl2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane2.setViewportView(tbl2);
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -192,11 +177,10 @@ private void tampil_total(){
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 894, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 657, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(117, 117, 117)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -204,14 +188,9 @@ private void tampil_total(){
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         mb_transaksi.setText("Menu Utama");
@@ -440,7 +419,6 @@ private void tampil_total(){
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenu mb_data_menu;
     private javax.swing.JMenu mb_keluar;
@@ -455,7 +433,6 @@ private void tampil_total(){
     private javax.swing.JMenuItem mi_lap_tr;
     private javax.swing.JMenuItem mi_menu_kafe;
     private javax.swing.JMenuItem mi_transaksi;
-    private javax.swing.JTable tbl2;
     private javax.swing.JTable tblLapBul;
     // End of variables declaration//GEN-END:variables
 
