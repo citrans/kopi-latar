@@ -681,7 +681,7 @@ public final class crud extends javax.swing.JFrame {
 
     private void mi_lap_trActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_lap_trActionPerformed
         // TODO add your handling code here:
-        LaporanTransaksiPemilik n = new LaporanTransaksiPemilik(user, setatus);
+        LaporanBulanan n = new LaporanBulanan(user, setatus);
         n.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_mi_lap_trActionPerformed

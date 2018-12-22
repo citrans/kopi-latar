@@ -457,7 +457,7 @@ public class LaporanHarian extends javax.swing.JFrame {
 
     private void mi_lap_trActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_lap_trActionPerformed
         // TODO add your handling code here:
-        LaporanTransaksiPemilik n = new LaporanTransaksiPemilik(user, status);
+        LaporanHarian n = new LaporanHarian(user, status);
         n.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_mi_lap_trActionPerformed

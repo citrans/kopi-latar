@@ -3,17 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/Citra/Documents/kopi-latar/Kasirkafe/src/kasirkafe/LaporanHarian.java</file>
+            <file>file:/C:/Users/Citra/Documents/kopi-latar/Kasirkafe/src/kasirkafe/form_menu_makanan.java</file>
+            <file>file:/C:/Users/Citra/Documents/kopi-latar/Kasirkafe/src/kasirkafe/Input_kategori.java</file>
+            <file>file:/C:/Users/Citra/Documents/kopi-latar/Kasirkafe/src/kasirkafe/Laporanbulanandetail.java</file>
+            <file>file:/C:/Users/Citra/Documents/kopi-latar/Kasirkafe/src/kasirkafe/LaporanTransaksiKasir.java</file>
+            <file>file:/C:/Users/Citra/Documents/kopi-latar/Kasirkafe/src/kasirkafe/Laporanhariandetail.java</file>
             <file>file:/C:/Users/Citra/Documents/kopi-latar/Kasirkafe/src/kasirkafe/crud.java</file>
             <file>file:/C:/Users/Citra/Documents/kopi-latar/Kasirkafe/src/kasirkafe/login.java</file>
-            <file>file:/C:/Users/Citra/Documents/kopi-latar/Kasirkafe/src/kasirkafe/produkfavorit.java</file>
-=======
-            <file>file:/C:/Users/Samsung/Documents/kopi-latarbaru/Kasirkafe/src/kasirkafe/form_menu_makanan.java</file>
-            <file>file:/C:/Users/Samsung/Documents/kopi-latarbaru/Kasirkafe/src/kasirkafe/login.java</file>
-            <file>file:/C:/Users/Samsung/Documents/kopi-latarbaru/Kasirkafe/src/kasirkafe/crud.java</file>
-            <file>file:/C:/Users/Samsung/Documents/kopi-latarbaru/Kasirkafe/src/kasirkafe/Halaman_utama.java</file>
->>>>>>> fe0879cb51a7618f6f06966d2645f4a352326dbf
         </group>
     </open-files>
 </project-private>
