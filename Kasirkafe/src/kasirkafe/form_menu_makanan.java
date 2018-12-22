@@ -212,11 +212,11 @@ public class form_menu_makanan extends javax.swing.JFrame {
         column = tabel_menu.getColumnModel().getColumn(0); 
         column.setPreferredWidth(80);
         column = tabel_menu.getColumnModel().getColumn(1); 
-        column.setPreferredWidth(200); 
+        column.setPreferredWidth(250); 
         column = tabel_menu.getColumnModel().getColumn(2); 
         column.setPreferredWidth(100); 
         column = tabel_menu.getColumnModel().getColumn(3); 
-        column.setPreferredWidth(105);
+        column.setPreferredWidth(200);
     }
 
     /**
@@ -429,8 +429,8 @@ public class form_menu_makanan extends javax.swing.JFrame {
                                     .addComponent(tf_nama_menu, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
                                     .addComponent(tf_harga)
                                     .addComponent(cb_kategori, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(135, 135, 135)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(70, 70, 70)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 659, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(383, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
