@@ -26,7 +26,6 @@ public class login extends javax.swing.JFrame {
     Connection konek;
     PreparedStatement pst;
     ResultSet rs;
-    public tes tes;
     public login() {
         initComponents();
     }
