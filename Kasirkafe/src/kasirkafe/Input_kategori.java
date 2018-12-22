@@ -192,7 +192,6 @@ public class Input_kategori extends javax.swing.JFrame {
             }
         });
 
-        tabel_kategori.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tabel_kategori.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
