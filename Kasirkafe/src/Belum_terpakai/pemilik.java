@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package kasirkafe;
+package Belum_terpakai;
 
 import javax.swing.JOptionPane;
+import kasirkafe.crud;
+import kasirkafe.login;
 
 
 public class pemilik extends javax.swing.JFrame {

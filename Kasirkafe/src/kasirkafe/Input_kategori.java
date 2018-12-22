@@ -37,7 +37,6 @@ public class Input_kategori extends javax.swing.JFrame {
         }
         
     }
-    
     private void ambil_id(){
         try{
             try (Connection konek = new Koneksi_mysql().getConnection()) {
@@ -58,14 +57,12 @@ public class Input_kategori extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "gagal mengambil id kategori", "informasi", JOptionPane.INFORMATION_MESSAGE);
         }
     }
-    
-     public void reset(){
+    public void reset(){
         tf_kategori.setText("");
         tf_kategori_menu.setText("");
         ambil_id();
     }
-     
-     public void tambah_data(){
+    public void tambah_data(){
         
         int harga = 0;
         String id_kategori = tf_kategori.getText();
@@ -83,8 +80,7 @@ public class Input_kategori extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Gagal Menyimpan Data", "Informasi", JOptionPane.INFORMATION_MESSAGE);    
         }
      }
-     
-     public void hapus_data(){
+    public void hapus_data(){
          String id_kategori;
         int harga = 0;
         id_kategori = tf_kategori.getText();
@@ -103,8 +99,7 @@ public class Input_kategori extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Gagal Menghapus Data", "Informasi", JOptionPane.INFORMATION_MESSAGE);    
         }
      }
-     
-     public void update_data(){
+    public void update_data(){
           String id_kategori, kategori_menu;
         id_kategori = tf_kategori.getText();
         kategori_menu = tf_kategori_menu.getText();
@@ -121,7 +116,6 @@ public class Input_kategori extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Gagal Merubah Data", "Informasi", JOptionPane.INFORMATION_MESSAGE);    
         }
      }
-     
     public Input_kategori() {
         initComponents();
         tampil_kategori();
@@ -321,7 +315,7 @@ public class Input_kategori extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-         int hapusselected = JOptionPane.showConfirmDialog(null, "Hapus Data?","Close Message", JOptionPane.YES_NO_OPTION);
+         int hapusselected = JOptionPane.showConfirmDialog(null, "Ubah Data?","Close Message", JOptionPane.YES_NO_OPTION);
          if(hapusselected == JOptionPane.YES_OPTION){
              update_data();
          }

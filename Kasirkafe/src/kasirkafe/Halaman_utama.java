@@ -5,14 +5,21 @@
  */
 package kasirkafe;
 
-import javax.swing.JFrame;
+import java.awt.HeadlessException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import javax.swing.JOptionPane;
 import kasirkafe.mejatr.MejaTransaksi;
 
 /**
  *
  * @author Citra
  */
-public class Halaman_utama extends javax.swing.JFrame {
+public final class Halaman_utama extends javax.swing.JFrame {
 
     /**
      * Creates new form Halaman_utama
@@ -21,15 +28,69 @@ public class Halaman_utama extends javax.swing.JFrame {
     
     public Halaman_utama() {
         initComponents();
+        ganti_tanggal();
+        pindah_fav();
         // this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
     public Halaman_utama(String User, String Status) {
         initComponents();
-//         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
          this.user = User;
          this.status=Status;
+         ganti_tanggal();
+         pindah_fav();
          jLabel1.setText(status);
     }
+    
+    public void ganti_tanggal(){
+           java.sql.Connection konek = new Koneksi_mysql().getConnection();
+           Calendar cal = new GregorianCalendar();
+           int hari = cal.get(Calendar.DAY_OF_MONTH);
+           int year = cal.get(Calendar.YEAR);
+           String sql = "SELECT * FROM transaksi WHERE tahun = '"+year+"' ORDER BY tgl DESC LIMIT 1 ";
+           try{
+           
+                Statement stat= konek.createStatement();
+                ResultSet hasil = stat.executeQuery(sql);
+                while(hasil.next()){
+                    String date = hasil.getString("tgl");
+                    int tgl = Integer.parseInt(date);
+                    if (tgl != hari){
+                         try{
+                    String query = "DELETE FROM `menu_laku` WHERE jumlah_laku > 0";
+                    PreparedStatement Prstat = (PreparedStatement) konek.prepareStatement(query);
+                    Prstat.executeUpdate();
+                    konek.close();
+                    }catch(HeadlessException | SQLException e){
+                        JOptionPane.showMessageDialog(null, "update jumlah laku gagal", "Informasi", JOptionPane.INFORMATION_MESSAGE);    
+                    }
+                        
+                    }
+                } konek.close();
+            
+        } catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "menampilkan tanggal gagal", "informasi", JOptionPane.INFORMATION_MESSAGE);
+        }
+       }
+       public void pindah_fav(){
+        java.sql.Connection konek = new Koneksi_mysql().getConnection();
+        String sql = "SELECT * FROM penampung_fav";
+        try{
+                Statement stat= konek.createStatement();
+                ResultSet hasil = stat.executeQuery(sql);
+                while(hasil.next()){
+                     try{
+                    String query = "DELETE FROM penampung_fav WHERE 1";
+                    PreparedStatement Prstat = (PreparedStatement) konek.prepareStatement(query);
+                    Prstat.executeUpdate();
+                    konek.close();
+                    }catch(HeadlessException | SQLException e){
+                        JOptionPane.showMessageDialog(null, "pindah jumlah laku gagal", "Informasi", JOptionPane.INFORMATION_MESSAGE);    
+                    }
+                } konek.close();
+        } catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "menampilkan data laku gagal", "informasi", JOptionPane.INFORMATION_MESSAGE);
+        }
+       }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -468,6 +529,7 @@ public class Halaman_utama extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new Halaman_utama().setVisible(true);
             }

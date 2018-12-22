@@ -5,18 +5,14 @@
  */
 package kasirkafe;
 
-//import com.mysql.jdbc.Connection;
-import java.awt.Frame;
+import java.awt.HeadlessException;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
@@ -48,7 +44,7 @@ public final class crud extends javax.swing.JFrame {
         initComponents();
         this.user = User;
         this.setatus=Status;
-        if("Pegawai".equals(status)){
+         if("Pegawai".equals(setatus)){
             mi_dt_pegawai.hide();
             mi_favorit.hide();
             mi_hari_ini.hide();
@@ -63,7 +59,123 @@ public final class crud extends javax.swing.JFrame {
         id_auto();
         reset();
     }
-    
+    void update_data(){
+        String ID,nama_pegawai,alamatt,userr,pass,statuss,no_hp;
+        ID = id.getText();
+        nama_pegawai = nama.getText();
+        alamatt = alamat.getText();
+        no_hp = hp2.getText();
+        userr = nama.getText();
+        pass = password.getText();
+        statuss = status.getSelectedItem().toString();
+        try{
+            try (Connection konek = new Koneksi_mysql().getConnection()) {
+                String sql = "UPDATE pegawai SET nama_pegawai='"+nama_pegawai+"',alamat='"+alamatt+"',no_hp='"+no_hp+"',username='"+userr+"',password='"+pass+"',status='"+statuss+"' WHERE id_pegawai='"+ID+"'";
+                PreparedStatement stat = (PreparedStatement) konek.prepareStatement(sql);
+                stat.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Berhasil merubah data","informasi",JOptionPane.INFORMATION_MESSAGE);
+                tampilkan();
+                reset();
+            }
+        }catch(HeadlessException | SQLException e){
+            JOptionPane.showMessageDialog(null, "Gagal merubah data","informasi",JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+    void insert_data(){
+        String ID,nama_pegawai,hp0,alamatt,userr,pass,statuss,hpp;
+        String no_hp ;
+        id_auto();
+        ID = id.getText();
+        nama_pegawai = nama.getText();
+        alamatt = alamat.getText();
+        no_hp = hp2.getText();
+        userr = username.getText();
+        pass = password.getText();
+        statuss = status.getSelectedItem().toString();
+        try{
+            try (Connection konek = new Koneksi_mysql().getConnection()) {
+                String sql = "INSERT INTO pegawai(id_pegawai,nama_pegawai,alamat,no_hp,username,password,status) VALUES ('"+ID+"','"+nama_pegawai+"','"+alamatt+"','"+no_hp+"','"+userr+"','"+pass+"','"+statuss+"')";
+                PreparedStatement stat = (PreparedStatement) konek.prepareStatement(sql);
+                stat.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Berhasil menyimpan data","informasi",JOptionPane.INFORMATION_MESSAGE);
+                tampilkan();
+                reset();
+            }
+        }catch(HeadlessException | SQLException e){
+            JOptionPane.showMessageDialog(null, "Gagal menyimpan data","informasi",JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+    void delete_data(){
+        String ID;
+        ID = id.getText();
+        
+        try{
+            try (Connection konek = new Koneksi_mysql().getConnection()) {
+                String sql = "DELETE FROM `pegawai` WHERE `id_pegawai` = '"+ID+"'";
+                PreparedStatement stat = (PreparedStatement) konek.prepareStatement(sql);
+                stat.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Berhasil menghapus data","informasi",JOptionPane.INFORMATION_MESSAGE);
+                tampilkan();
+                reset();
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Gagal menghapus data","informasi",JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+    private void tampilkan() {
+        Object[]baris={"ID","Nama","Alamat","No Hp","Username","Password","Status"};
+        tabmode = new DefaultTableModel(null,baris);
+        jTable1.setModel(tabmode);
+        String sql = "SELECT * FROM `pegawai`";
+        try{
+            try (Connection konek = new Koneksi_mysql().getConnection()) {
+                Statement stat = konek.createStatement();
+                ResultSet hasil = stat.executeQuery(sql);
+                while(hasil.next()){
+                    String id_pegawai = hasil.getString("id_pegawai");
+                    String nama_pegawai = hasil.getString("nama_pegawai");
+                    String alamatt = hasil.getString("alamat");
+                    String no_hp = hasil.getString("no_hp");
+                    String usernamee = hasil.getString("username");
+                    String passwordd = hasil.getString("password");
+                    String statuss = hasil.getString("status");
+                    String[]data= {id_pegawai,nama_pegawai,alamatt,no_hp,usernamee,passwordd,statuss};
+                    tabmode.addRow(data);
+                }
+            }
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "menampilkan data gagal", "informasi", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+    public void id_auto(){
+        try{
+            try (Connection konek = new Koneksi_mysql().getConnection()) {
+                Statement stat = konek.createStatement();
+                String sql = "SELECT id_pegawai as no FROM pegawai order by id_pegawai asc";
+                ResultSet hasil = stat.executeQuery(sql);
+                if(hasil.next()){
+                    hasil.last();
+                    int set_id = hasil.getInt(1)+1;
+                    String noo = String.valueOf(set_id);
+                    id.setText(noo);
+                }else{
+                    id.setText("1");
+                }
+            }
+        } catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "menampilkan data gagal","informasi", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+    public void reset(){
+        id.setText("");
+        nama.setText("");
+        username.setText("");
+        alamat.setText("");
+        hp2.setText("");
+        nama.setText("");
+        password.setText("");
+        id_auto();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -431,52 +543,11 @@ public final class crud extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        String ID,nama_pegawai,alamatt,user,pass,statuss,no_hp;
-        ID = id.getText();
-        nama_pegawai = nama.getText();
-        alamatt = alamat.getText();
-        no_hp = hp2.getText();
-        user = nama.getText();
-        pass = password.getText();
-        statuss = status.getSelectedItem().toString();
-        try{
-            Connection konek = new Koneksi_mysql().getConnection();
-            String sql = "UPDATE pegawai SET nama_pegawai='"+nama_pegawai+"',alamat='"+alamatt+"',no_hp='"+no_hp+"',username='"+user+"',password='"+pass+"',status='"+statuss+"' WHERE id_pegawai='"+ID+"'";
-            PreparedStatement stat = (PreparedStatement) konek.prepareStatement(sql);
-            stat.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Berhasil merubah data","informasi",JOptionPane.INFORMATION_MESSAGE);
-            tampilkan();
-            reset();
-            konek.close();
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Gagal merubah data","informasi",JOptionPane.INFORMATION_MESSAGE);
-        }
+        update_data();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String ID="",nama_pegawai="",hp0="",alamatt="",user="",pass="",statuss="",hpp="";
-        String no_hp = "";
-        id_auto();
-        ID = id.getText();
-        nama_pegawai = nama.getText();
-        alamatt = alamat.getText();
-        no_hp = hp2.getText();
-        //hpp = no_hp; 
-        user = username.getText();
-        pass = password.getText();
-        statuss = status.getSelectedItem().toString();
-        try{
-            Connection konek = new Koneksi_mysql().getConnection();
-            String sql = "INSERT INTO pegawai(id_pegawai,nama_pegawai,alamat,no_hp,username,password,status) VALUES ('"+ID+"','"+nama_pegawai+"','"+alamatt+"','"+no_hp+"','"+user+"','"+pass+"','"+statuss+"')";
-            PreparedStatement stat = (PreparedStatement) konek.prepareStatement(sql);
-            stat.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Berhasil menyimpan data","informasi",JOptionPane.INFORMATION_MESSAGE);
-            tampilkan();
-            reset();
-            konek.close();
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Gagal menyimpan data","informasi",JOptionPane.INFORMATION_MESSAGE);
-        }
+       insert_data();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void statusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusActionPerformed
@@ -499,21 +570,7 @@ public final class crud extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        String ID;
-        ID = id.getText();
-        
-        try{
-            Connection konek = new Koneksi_mysql().getConnection();
-            String sql = "DELETE FROM `pegawai` WHERE `id_pegawai` = '"+ID+"'";
-            PreparedStatement stat = (PreparedStatement) konek.prepareStatement(sql);
-            stat.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Berhasil menghapus data","informasi",JOptionPane.INFORMATION_MESSAGE);
-            tampilkan();
-            reset();
-            konek.close();
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Gagal menghapus data","informasi",JOptionPane.INFORMATION_MESSAGE);
-        }
+          delete_data();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -633,22 +690,16 @@ public final class crud extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(crud.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(crud.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(crud.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(crud.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        
+        //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new crud().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new crud().setVisible(true);
         });
     }
 
@@ -693,59 +744,5 @@ public final class crud extends javax.swing.JFrame {
     private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
 
-    private void tampilkan() {
-        Object[]baris={"ID","Nama","Alamat","No Hp","Username","Password","Status"};
-        tabmode = new DefaultTableModel(null,baris);
-        jTable1.setModel(tabmode);
-        String sql = "SELECT * FROM `pegawai`";
-        try{
-            Connection konek = new Koneksi_mysql().getConnection();
-            Statement stat = konek.createStatement();
-            ResultSet hasil = stat.executeQuery(sql);
-            while(hasil.next()){
-                String id_pegawai = hasil.getString("id_pegawai");
-                String nama_pegawai = hasil.getString("nama_pegawai");
-                String alamat = hasil.getString("alamat");
-                String no_hp = hasil.getString("no_hp");
-                String username = hasil.getString("username");
-                String password = hasil.getString("password");
-                String status = hasil.getString("status");
-                String[]data= {id_pegawai,nama_pegawai,alamat,no_hp,username,password,status};
-                tabmode.addRow(data);
-            }
-            konek.close();
-        }catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "menampilkan data gagal", "informasi", JOptionPane.INFORMATION_MESSAGE);
-        }
-    }
-    public void id_auto(){
-        try{
-            Connection konek = new Koneksi_mysql().getConnection();
-            Statement stat = konek.createStatement();
-            String sql = "SELECT id_pegawai as no FROM pegawai order by id_pegawai asc";
-            ResultSet hasil = stat.executeQuery(sql);
-            if(hasil.next()){
-                 hasil.last();
-                    int set_id = hasil.getInt(1)+1;
-                    String no = String.valueOf(set_id);
-                    id.setText(no);
-            }else{
-                    id.setText("1");
-                }
-            
-            konek.close();
-        } catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "menampilkan data gagal","informasi", JOptionPane.INFORMATION_MESSAGE);
-        }
-    }
-    public void reset(){
-        id.setText("");
-        nama.setText("");
-        username.setText("");
-        alamat.setText("");
-        hp2.setText("");
-        nama.setText("");
-        password.setText("");
-        id_auto();
-    }
+    
 }

@@ -1,10 +1,11 @@
-package kasirkafe;
+package Belum_terpakai;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLDataException;
 import javax.swing.JOptionPane;
+import kasirkafe.Koneksi_mysql;
 public class Coba extends javax.swing.JFrame {
 
     private void coba(){

@@ -4,20 +4,14 @@
  * and open the template in the editor.
  */
 package kasirkafe;
-//import Koneksi.koneksi;
-//import cls.ClassDB;
-import com.mysql.jdbc.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.*;
-import java.awt.print.*;
 import java.sql.Connection;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import kasirkafe.mejatr.MejaTransaksi;
@@ -25,7 +19,7 @@ import kasirkafe.mejatr.MejaTransaksi;
  *
  * @author Mar
  */
-public class LaporanTransaksiKasir extends javax.swing.JFrame {
+public final class LaporanTransaksiKasir extends javax.swing.JFrame {
 
     /**
      * Creates new form LaporanTransaksiKasir
@@ -38,7 +32,7 @@ public class LaporanTransaksiKasir extends javax.swing.JFrame {
                     int bulan = cal.get(Calendar.MONTH);
                     int tahun = cal.get(Calendar.YEAR);
                     
-    public LaporanTransaksiKasir() {
+     public LaporanTransaksiKasir() {
         initComponents();
              user = "citra";
              lb_nama.setText(user);
@@ -58,7 +52,6 @@ public class LaporanTransaksiKasir extends javax.swing.JFrame {
              getData(); 
              tampil_total();
     }
-    
      public LaporanTransaksiKasir(String User, String Status) {
         initComponents();
              this.user = User;
@@ -86,7 +79,6 @@ public class LaporanTransaksiKasir extends javax.swing.JFrame {
              getData();
              tampil_total();
     }
-     
      private void tampil_total(){
         int total_harga_bayar ;
         String thb ;
@@ -103,11 +95,8 @@ public class LaporanTransaksiKasir extends javax.swing.JFrame {
         thb = Integer.toString(total_harga_bayar);
         tf_total.setText(thb);
        }
-    
      public void ambil_id_peg(){
-        
         try{
-            
             try (java.sql.Connection konek = new Koneksi_mysql().getConnection()) {
                 Statement stat= konek.createStatement();
                 String sql = "SELECT id_pegawai as id FROM pegawai WHERE `nama_pegawai`='"+user+"'";
@@ -122,14 +111,11 @@ public class LaporanTransaksiKasir extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "menampilkan data gagal", "informasi", JOptionPane.INFORMATION_MESSAGE);
         }
      }
-    
-    public void getData( ){
-     //menghapus isi table tblGaji
+     public void getData( ){
      model.getDataVector( ).removeAllElements( );
      model.fireTableDataChanged( );
      ambil_id_peg();
      String tanggal = lb_tanggal.getText();
-
      try{
            //membuat statemen pemanggilan data pada table tblGaji dari database
             Connection konek = new Koneksi_mysql().getConnection();
@@ -145,8 +131,6 @@ public class LaporanTransaksiKasir extends javax.swing.JFrame {
                 obj[4] = res.getString("diskon");
                 obj[5] = res.getString("total");
                 obj[6] = res.getString("kembalian");
-                
-
                 model.addRow(obj);
             }
       }catch(SQLException err){
@@ -531,22 +515,16 @@ public class LaporanTransaksiKasir extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LaporanTransaksiKasir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LaporanTransaksiKasir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LaporanTransaksiKasir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(LaporanTransaksiKasir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        
+        //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new LaporanTransaksiKasir().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new LaporanTransaksiKasir().setVisible(true);
         });
     }
 

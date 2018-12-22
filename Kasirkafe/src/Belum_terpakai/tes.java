@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package kasirkafe;
+package Belum_terpakai;
 
 import java.sql.DriverManager;
 import javax.swing.JOptionPane;
+import kasirkafe.login;
 
 /**
  *

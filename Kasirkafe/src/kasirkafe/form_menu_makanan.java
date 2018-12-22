@@ -4,7 +4,6 @@ package kasirkafe;
  *
  * @author Citra
  */
-import Belum_terpakai.Transaksi;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;

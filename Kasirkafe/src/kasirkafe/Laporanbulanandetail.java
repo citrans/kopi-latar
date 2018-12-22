@@ -4,26 +4,20 @@
  * and open the template in the editor.
  */
 package kasirkafe;
-//import Koneksi.koneksi;
-//import cls.ClassDB;
-import com.mysql.jdbc.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.*;
-import java.awt.print.*;
 import java.sql.Connection;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Mar
  */
-public class Laporanbulanandetail extends javax.swing.JFrame {
+public final class Laporanbulanandetail extends javax.swing.JFrame {
 
     /**
      * Creates new form LaporanTransaksiKasir
@@ -47,7 +41,6 @@ public class Laporanbulanandetail extends javax.swing.JFrame {
         lb_nama.setText(user);
         lb_tanggal.setText(hari+"-"+bulan+"-"+tahun);
         lb_id_tr.setText(Integer.toString(id_tr));
-//             ambil_id_peg();
              this.setExtendedState(JFrame.MAXIMIZED_BOTH);
              model = new DefaultTableModel ( );
              tblLapBul.setModel(model);
@@ -57,9 +50,6 @@ public class Laporanbulanandetail extends javax.swing.JFrame {
              model.addColumn("Nama Menu");
              model.addColumn("Jumlah Pesanan");
              model.addColumn("Total Harga");
-//             model.addColumn("Kembalian");
-            
-
             jLabel2.setText(id_pegawai);
              getData(); 
     }
@@ -100,7 +90,6 @@ public class Laporanbulanandetail extends javax.swing.JFrame {
      }
     
     public void getData( ){
-     //menghapus isi table tblGaji
      model.getDataVector( ).removeAllElements( );
      model.fireTableDataChanged( );
      ambil_id_peg();
@@ -110,24 +99,13 @@ public class Laporanbulanandetail extends javax.swing.JFrame {
             Connection konek = new Koneksi_mysql().getConnection();
             Statement stat = konek.createStatement();
             String sql = "SELECT sementara.*, menu.nama_menu FROM `sementara`, menu WHERE sementara.id_menu=menu.id_menu AND sementara.id_transaksi ='"+id_trans+"'";
-            //ResultSet hasil = stat.executeQuery(sql);
-          // String sql        = "Select ";
-         
            ResultSet res   = stat.executeQuery(sql);
-          
-
-           //penelusuran baris pada tabel tblGaji dari database
            while(res.next ()){
                 Object[ ] obj = new Object[7];
                 obj[0] = res.getString("no_meja");
-                //obj[1] = res.getString("id_pegawai");
-                //obj[2] = res.getString("tgl_transaksi");
                 obj[1] = res.getString("nama_menu");
                 obj[2] = res.getString("jumlah_pesanan");
                 obj[3] = res.getString("total");
-//                obj[4] = res.getString("kembalian");
-                
-
                 model.addRow(obj);
             }
       }catch(SQLException err){
@@ -298,13 +276,7 @@ public class Laporanbulanandetail extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Laporanbulanandetail.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Laporanbulanandetail.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Laporanbulanandetail.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Laporanbulanandetail.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -315,12 +287,19 @@ public class Laporanbulanandetail extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Laporanbulanandetail().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Laporanbulanandetail().setVisible(true);
         });
     }
 

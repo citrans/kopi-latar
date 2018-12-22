@@ -68,7 +68,6 @@ public class LaporanHarian extends javax.swing.JFrame {
         tf_total.setText(thb);
        }
     private void tampil_laporan(){
-//        String id_tr = lb_transaksi.getText();
         Object[]baris={"ID Transaksi","Nama Pegawai", "Jumlah Pesanan","Total Harga", "Diskon","Total", "Bayar", "Kembalian"};
         model= new DefaultTableModel(null,baris);
         tabel_lap.setModel(model);
@@ -96,16 +95,15 @@ public class LaporanHarian extends javax.swing.JFrame {
         }
         
     }
-    
     void tampil_lap_cari(){
         Date d = new Date();
         SimpleDateFormat t = new SimpleDateFormat("yyyy");
         SimpleDateFormat b = new SimpleDateFormat("MM");
         SimpleDateFormat h = new SimpleDateFormat("dd");
-        String tahun = t.format(jd_tanggal.getDate());
-        String bulan = b.format(jd_tanggal.getDate());
-        String hari = h.format(jd_tanggal.getDate());
-        String tanggal = hari+"-"+bulan+"-"+tahun;
+        String year = t.format(jd_tanggal.getDate());
+        String bln = b.format(jd_tanggal.getDate());
+        String hri = h.format(jd_tanggal.getDate());
+        String tanggal = hri+"-"+bln+"-"+year;
         lb_jajal.setText(tanggal);
         Object[]baris={"ID Transaksi","Nama Pegawai", "Jumlah Pesanan","Total Harga", "Diskon","Total", "Bayar", "Kembalian"};
         model= new DefaultTableModel(null,baris);
@@ -511,22 +509,16 @@ public class LaporanHarian extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LaporanHarian.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LaporanHarian.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LaporanHarian.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(LaporanHarian.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        
+        //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new LaporanHarian().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new LaporanHarian().setVisible(true);
         });
     }
 
