@@ -195,6 +195,7 @@ public final class form_menu_makanan extends javax.swing.JFrame {
         tampil_kategori();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         id_auto();
+        lebarkolom();
         tf_nama_menu.requestFocus();
         lebarkolom();
     }
