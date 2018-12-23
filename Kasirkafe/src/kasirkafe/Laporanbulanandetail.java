@@ -33,44 +33,24 @@ public final class Laporanbulanandetail extends javax.swing.JFrame {
                     int tahun = cal.get(Calendar.YEAR);
                     String tanggal = Integer.toString(hari)+"-"+Integer.toString(bulan+1)+"-"+Integer.toString(tahun);
     public Laporanbulanandetail(){
-        initComponents();
+//        initComponents();
     }
-    public Laporanbulanandetail(int id_tr, String User) {
+    public Laporanbulanandetail(int id_tr, String User, String Status) {
         initComponents();
         this.id_trans= id_tr;
         this.user = User;
-        lb_nama.setText(user);
-        lb_tanggal.setText(hari+"-"+bulan+"-"+tahun);
+        this.status = Status;
         lb_id_tr.setText(Integer.toString(id_tr));
              this.setExtendedState(JFrame.MAXIMIZED_BOTH);
              model = new DefaultTableModel ( );
              tblLapBul.setModel(model);
              model.addColumn("Nomor meja");
-             //model.addColumn("ID_Pegawai");
-             //model.addColumn("Tgl_Transaksi");
              model.addColumn("Nama Menu");
              model.addColumn("Jumlah Pesanan");
              model.addColumn("Total Harga");
-            jLabel2.setText(id_pegawai);
              getData(); 
-    }
-    
-//     public LaporanTransaksiKasir(String User, String Status) {
-//        initComponents();
-//           model = new DefaultTableModel ( );
-//             tblLapBul.setModel(model);
-//             model.addColumn("ID_Transaksi");
-//             model.addColumn("ID_Pegawai");
-//             model.addColumn("Tgl_Transaksi");
-//             model.addColumn("Jumlah_Pesanan");
-//             model.addColumn("Total_Harga");
-//             model.addColumn("Bayar");
-//             model.addColumn("Kembalian");
-//            ambil_id_peg();
-//            jLabel2.setText(id_pegawai);
-//             getData(); 
-//    }
-    
+             tampil_tanggal();
+    }    
      public void ambil_id_peg(){
         
         try{
@@ -89,7 +69,23 @@ public final class Laporanbulanandetail extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "menampilkan data gagal", "informasi", JOptionPane.INFORMATION_MESSAGE);
         }
      }
-    
+    public void tampil_tanggal(){
+         try{
+           //membuat statemen pemanggilan data pada table tblGaji dari database
+            Connection konek = new Koneksi_mysql().getConnection();
+            Statement stat = konek.createStatement();
+            String sql = "SELECT * FROM transaksi,pegawai WHERE transaksi.id_pegawai=pegawai.id_pegawai AND id_transaksi ='"+id_trans+"'";
+           ResultSet res   = stat.executeQuery(sql);
+           while(res.next ()){
+                 String tgl = res.getString("tgl_transaksi");
+                 String pegawai = res.getString("nama_pegawai");
+                 lb_tanggal.setText(tgl);
+                 lb_nama.setText(pegawai);
+            }
+      }catch(SQLException err){
+            JOptionPane.showMessageDialog(null, err.getMessage() );
+      }
+     }
     public void getData( ){
      model.getDataVector( ).removeAllElements( );
      model.fireTableDataChanged( );
@@ -253,7 +249,7 @@ public final class Laporanbulanandetail extends javax.swing.JFrame {
 
     private void bt_kembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_kembaliActionPerformed
         // TODO add your handling code here:
-        LaporanHarian n = new LaporanHarian(user, status);
+        LaporanBulanan n = new LaporanBulanan(user, status);
         n.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_bt_kembaliActionPerformed

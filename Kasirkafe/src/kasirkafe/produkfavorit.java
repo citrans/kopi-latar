@@ -18,12 +18,16 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.*;
 import java.awt.print.*;
+import static java.lang.Thread.sleep;
 import java.sql.Connection;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import kasirkafe.mejatr.MejaTransaksi;
 public final class produkfavorit extends javax.swing.JFrame {
 
@@ -45,18 +49,15 @@ public final class produkfavorit extends javax.swing.JFrame {
         this.setSize(xsize, ysize);
                    
         model = new DefaultTableModel ( );
-//        tabel2 = new DefaultTableModel();
-             tblLapBul.setModel(model);
-//             tbl2.setModel(tabel2);
+             tbl_fav.setModel(model);
              model.addColumn("Nama Menu");
              model.addColumn("Total Terjual");
-//             tabel2.addColumn("Nama Menu");
-//             tabel2.addColumn("Total Terjual");
              getData(); 
-//             tampil_total();
+             tanggal_jam_sekarang();
     }
     public produkfavorit(String User, String Status){
              initComponents();
+             this.setExtendedState(JFrame.MAXIMIZED_BOTH);
              this.user = User;
              this.status = Status;
              if("Pegawai".equals(status)){
@@ -67,22 +68,17 @@ public final class produkfavorit extends javax.swing.JFrame {
         }
              model = new DefaultTableModel ( );
              tabel2 = new DefaultTableModel();
-             tblLapBul.setModel(model);
-//             tbl2.setModel(tabel2);
+             tbl_fav.setModel(model);
              model.addColumn("Nama Menu");
              model.addColumn("Total Terjual");
-//             tabel2.addColumn("Nama Menu");
-//             tabel2.addColumn("Total Terjual");
-             getData(); 
-//             tampil_total();
+             getData();
+             tanggal_jam_sekarang();
     }
 public void getData( ){
      //menghapus isi table tblGaji
      model.getDataVector( ).removeAllElements( );
      model.fireTableDataChanged( );
      try{
-           //membuat statemen pemanggilan data pada table tblGaji dari database
-           //Statement stat = (Statement) koneksi.GetConnection( ).createStatement( );
            Connection konek = new Koneksi_mysql().getConnection();
            Statement stat = konek.createStatement();
            String sql        = "SELECT * FROM `menu_laku` WHERE jumlah_laku > 0 ORDER BY jumlah_laku DESC";
@@ -99,17 +95,13 @@ public void getData( ){
 }
         void tampil_lap_cari(){
         int a = jm_bulan.getMonth();
-        lb_jajal.setText(Integer.toString(a+1));
         int b = jy_tahun.getYear();
-        lb_tgl.setText(Integer.toString(b));
         int bulan = a+1;
         String tanggal = Integer.toString(b)+"-"+Integer.toString(bulan);
-        lb_jajal.setText(tanggal);
         SimpleDateFormat h = new SimpleDateFormat("dd");
         Object[]baris={"Nama Menu","Jumlah Laku"};
         model= new DefaultTableModel(null,baris);
-        tblLapBul.setModel(model);
-        String tgl = lb_tgl.getText();
+        tbl_fav.setModel(model);
         String sql = "SELECT * FROM produk_fav WHERE tanggal LIKE '%"+tanggal+"%'";
         try{
             try (java.sql.Connection konek = new Koneksi_mysql().getConnection()) {
@@ -126,6 +118,23 @@ public void getData( ){
             JOptionPane.showMessageDialog(null, "menampilkan data pesanan gagal", "informasi", JOptionPane.INFORMATION_MESSAGE);
         }
     }
+          private void tanggal_jam_sekarang(){
+        Thread p;
+        p = new Thread(){
+            @Override
+            public void run(){
+                for(;;){
+                    String month = null;
+                    Calendar cal = new GregorianCalendar();
+                    int hari = cal.get(Calendar.DAY_OF_MONTH);
+                    int bulan = cal.get(Calendar.MONTH);
+                    int tahun = cal.get(Calendar.YEAR);
+                    lb_tgl_today.setText(hari+"-"+(bulan+1)+"-"+tahun);                    
+                }
+            }
+        };
+        p.start();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -138,16 +147,15 @@ public void getData( ){
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblLapBul = new javax.swing.JTable();
+        tbl_fav = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         bt_cari = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         lb_tgl_today = new javax.swing.JLabel();
         bt_print = new javax.swing.JButton();
-        lb_jajal = new javax.swing.JLabel();
-        lb_tgl = new javax.swing.JLabel();
         jm_bulan = new com.toedter.calendar.JMonthChooser();
         jy_tahun = new com.toedter.calendar.JYearChooser();
+        bt_bulan_ini = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         mb_transaksi = new javax.swing.JMenu();
         mi_beranda = new javax.swing.JMenuItem();
@@ -174,7 +182,7 @@ public void getData( ){
         jLabel1.setText("PRODUK FAVORIT");
         jLabel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        tblLapBul.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_fav.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -185,7 +193,7 @@ public void getData( ){
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tblLapBul);
+        jScrollPane1.setViewportView(tbl_fav);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("PILIH TANGGAL");
@@ -206,10 +214,19 @@ public void getData( ){
 
         bt_print.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         bt_print.setText("PRINT");
+        bt_print.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_printActionPerformed(evt);
+            }
+        });
 
-        lb_jajal.setText("jLabel4");
-
-        lb_tgl.setText("jLabel5");
+        bt_bulan_ini.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        bt_bulan_ini.setText("Bulan Ini");
+        bt_bulan_ini.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_bulan_iniActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -220,30 +237,27 @@ public void getData( ){
                 .addGap(151, 151, 151)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2))
-                        .addGap(45, 45, 45)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jm_bulan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jy_tahun, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(47, 47, 47)
-                                .addComponent(bt_cari))
-                            .addComponent(lb_tgl_today))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lb_jajal)
-                            .addComponent(lb_tgl))
-                        .addGap(164, 164, 164))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(240, 240, 240)
-                                .addComponent(bt_print, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 716, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(47, Short.MAX_VALUE))))
+                        .addGap(240, 240, 240)
+                        .addComponent(bt_print, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel2))
+                            .addGap(45, 45, 45)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lb_tgl_today)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jm_bulan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jy_tahun, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(47, 47, 47)
+                                    .addComponent(bt_cari)
+                                    .addGap(0, 0, Short.MAX_VALUE)))
+                            .addGap(177, 177, 177)
+                            .addComponent(bt_bulan_ini))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 716, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -255,19 +269,19 @@ public void getData( ){
                         .addGap(53, 53, 53)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lb_tgl_today, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lb_jajal))
+                            .addComponent(lb_tgl_today, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(27, 27, 27)
                                 .addComponent(jLabel2))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addComponent(bt_cari))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(bt_cari)
+                                    .addComponent(bt_bulan_ini)))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lb_tgl, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jm_bulan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jy_tahun, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(28, 28, 28)
@@ -468,6 +482,22 @@ public void getData( ){
         tampil_lap_cari();
     }//GEN-LAST:event_bt_cariActionPerformed
 
+    private void bt_printActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_printActionPerformed
+        // TODO add your handling code here:
+        MessageFormat header = new MessageFormat("Laporan Favorite \n Bulan :");
+        MessageFormat footer = new MessageFormat("halaman{0,number, integer}");
+        try {
+            tbl_fav.print(JTable.PrintMode.NORMAL, header, footer);
+        } catch (PrinterException ex) {
+            Logger.getLogger(LaporanBulanan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_bt_printActionPerformed
+
+    private void bt_bulan_iniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_bulan_iniActionPerformed
+        // TODO add your handling code here:
+        getData();
+    }//GEN-LAST:event_bt_bulan_iniActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -484,26 +514,21 @@ public void getData( ){
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(produkfavorit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(produkfavorit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(produkfavorit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(produkfavorit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+         //</editor-fold>
+         
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new produkfavorit().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new produkfavorit().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bt_bulan_ini;
     private javax.swing.JButton bt_cari;
     private javax.swing.JButton bt_print;
     private javax.swing.JLabel jLabel1;
@@ -515,8 +540,6 @@ public void getData( ){
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private com.toedter.calendar.JMonthChooser jm_bulan;
     private com.toedter.calendar.JYearChooser jy_tahun;
-    private javax.swing.JLabel lb_jajal;
-    private javax.swing.JLabel lb_tgl;
     private javax.swing.JLabel lb_tgl_today;
     private javax.swing.JMenu mb_data_menu;
     private javax.swing.JMenu mb_keluar;
@@ -531,7 +554,7 @@ public void getData( ){
     private javax.swing.JMenuItem mi_lap_tr;
     private javax.swing.JMenuItem mi_menu_kafe;
     private javax.swing.JMenuItem mi_transaksi;
-    private javax.swing.JTable tblLapBul;
+    private javax.swing.JTable tbl_fav;
     // End of variables declaration//GEN-END:variables
 
    

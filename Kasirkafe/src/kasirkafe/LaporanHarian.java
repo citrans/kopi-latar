@@ -97,22 +97,22 @@ public final class LaporanHarian extends javax.swing.JFrame {
         column = tabel_lap.getColumnModel().getColumn(0); 
         column.setPreferredWidth(100);
         column = tabel_lap.getColumnModel().getColumn(1); 
-        column.setPreferredWidth(152); 
+        column.setPreferredWidth(100); 
         column = tabel_lap.getColumnModel().getColumn(2); 
-        column.setPreferredWidth(150); 
+        column.setPreferredWidth(100); 
         column = tabel_lap.getColumnModel().getColumn(3); 
-        column.setPreferredWidth(150);
+        column.setPreferredWidth(100);
         column = tabel_lap.getColumnModel().getColumn(4); 
-        column.setPreferredWidth(150);
+        column.setPreferredWidth(75);
         column = tabel_lap.getColumnModel().getColumn(5); 
-        column.setPreferredWidth(150);
+        column.setPreferredWidth(75);
         column = tabel_lap.getColumnModel().getColumn(6); 
-        column.setPreferredWidth(150);
+        column.setPreferredWidth(75);
         column = tabel_lap.getColumnModel().getColumn(7); 
-        column.setPreferredWidth(156);
+        column.setPreferredWidth(75);
     }
     private void tampil_laporan(){
-        Object[]baris={"ID Transaksi","Nama Pegawai", "Jumlah Pesanan","Total Harga", "Diskon","Total", "Bayar", "Kembalian"};
+        Object[]baris={"ID Transaksi","Nama Kasir", "Jumlah Pesan","Total Harga", "Diskon","Total", "Bayar", "Kembalian"};
         model= new DefaultTableModel(null,baris);
         tabel_lap.setModel(model);
         String tgl = lb_tgl.getText();
@@ -148,7 +148,7 @@ public final class LaporanHarian extends javax.swing.JFrame {
         String bln = b.format(jd_tanggal.getDate());
         String hri = h.format(jd_tanggal.getDate());
         String tanggal = hri+"-"+bln+"-"+year;
-        Object[]baris={"ID Transaksi","Nama Pegawai", "Jumlah Pesanan","Total Harga", "Diskon","Total", "Bayar", "Kembalian"};
+        Object[]baris={"ID Transaksi","Nama Kasir", "Jumlah Pesan","Total Harga", "Diskon","Total", "Bayar", "Kembalian"};
         model= new DefaultTableModel(null,baris);
         tabel_lap.setModel(model);
         String sql = "SELECT pegawai.*, transaksi.* FROM pegawai,transaksi WHERE transaksi.id_pegawai = pegawai.id_pegawai AND tgl_transaksi= '"+tanggal+"' ";
@@ -197,6 +197,8 @@ public final class LaporanHarian extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tabel_lap = new javax.swing.JTable();
         jd_tanggal = new com.toedter.calendar.JDateChooser();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tabel_lap_print = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         mb_transaksi = new javax.swing.JMenu();
         mi_beranda = new javax.swing.JMenuItem();
@@ -286,41 +288,61 @@ public final class LaporanHarian extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tabel_lap);
 
+        tabel_lap_print.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8"
+            }
+        ));
+        tabel_lap_print.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabel_lap_printMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(tabel_lap_print);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(125, 125, 125)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton4)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addGap(309, 309, 309)
+                        .addComponent(lb_tgl))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jd_tanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lb_id_tr)))
+                .addContainerGap(882, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(125, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 706, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(125, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(36, 36, 36)
-                                .addComponent(tf_total, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGap(125, 125, 125)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton4)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton2)
-                                .addGap(309, 309, 309)
-                                .addComponent(lb_tgl))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(jd_tanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lb_id_tr)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap(235, Short.MAX_VALUE))
+                        .addComponent(jLabel5)
+                        .addGap(36, 36, 36)
+                        .addComponent(tf_total, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(694, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 706, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(322, 322, 322))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -352,7 +374,9 @@ public final class LaporanHarian extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(tf_total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3))
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         mb_transaksi.setText("Menu Utama");
@@ -583,6 +607,10 @@ public final class LaporanHarian extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void tabel_lap_printMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabel_lap_printMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabel_lap_printMouseClicked
+
 
     /**
      * @param args the command line arguments
@@ -624,6 +652,7 @@ public final class LaporanHarian extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private com.toedter.calendar.JDateChooser jd_tanggal;
     private javax.swing.JLabel lb_id_tr;
@@ -642,6 +671,7 @@ public final class LaporanHarian extends javax.swing.JFrame {
     private javax.swing.JMenuItem mi_menu_kafe;
     private javax.swing.JMenuItem mi_transaksi;
     private javax.swing.JTable tabel_lap;
+    private javax.swing.JTable tabel_lap_print;
     private javax.swing.JTextField tf_total;
     // End of variables declaration//GEN-END:variables
 }

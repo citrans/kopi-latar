@@ -28,7 +28,7 @@ import kasirkafe.mejatr.MejaTransaksi;
  *
  * @author Siggy
  */
-public class LaporanBulanan extends javax.swing.JFrame {
+public final class LaporanBulanan extends javax.swing.JFrame {
     String user,status;
     private DefaultTableModel model;
     Calendar cal = new GregorianCalendar();
@@ -49,6 +49,8 @@ public class LaporanBulanan extends javax.swing.JFrame {
         tampil_laporan();
         tampil_total();
         lebarkolom();
+        lb_id_tr.hide();
+        lb_tgl.hide();
     }
     public LaporanBulanan(String User, String Status){
         initComponents();
@@ -69,6 +71,8 @@ public class LaporanBulanan extends javax.swing.JFrame {
         tampil_laporan();
         tampil_total();
         lebarkolom();
+        lb_id_tr.hide();
+        lb_tgl.hide();
     }
     private void tampil_total(){
         int total_harga_bayar ;
@@ -110,7 +114,6 @@ public class LaporanBulanan extends javax.swing.JFrame {
         Object[]baris={"ID Transaksi","Nama Pegawai", "Jumlah Pesanan","Total Harga", "Diskon","Total", "Bayar", "Kembalian"};
         model= new DefaultTableModel(null,baris);
         tabel_lap.setModel(model);
-        String tgl = lb_tgl.getText();
         String tanggal = Integer.toString(bulan+1)+"-"+Integer.toString(tahun);
         String sql = "SELECT pegawai.*, transaksi.* FROM pegawai,transaksi WHERE transaksi.id_pegawai = pegawai.id_pegawai AND tgl_transaksi LIKE '%"+tanggal+"%' ";
         try{
@@ -137,17 +140,14 @@ public class LaporanBulanan extends javax.swing.JFrame {
     }
     void tampil_lap_cari(){
         int a = jm_bulan.getMonth();
-        lb_jajal.setText(Integer.toString(a+1));
         int b = jy_tahun.getYear();
-        lb_tgl.setText(Integer.toString(b));
         int bln = a+1;
         String tanggal = Integer.toString(bln)+"-"+Integer.toString(b);
-        lb_jajal.setText(tanggal);
+        lb_tgl.setText(tanggal);
         SimpleDateFormat h = new SimpleDateFormat("dd");
         Object[]baris={"ID Transaksi","Nama Pegawai", "Jumlah Pesanan","Total Harga", "Diskon","Total", "Bayar", "Kembalian"};
         model= new DefaultTableModel(null,baris);
         tabel_lap.setModel(model);
-        String tgl = lb_tgl.getText();
         String sql = "SELECT pegawai.*, transaksi.* FROM pegawai,transaksi WHERE transaksi.id_pegawai = pegawai.id_pegawai AND tgl_transaksi LIKE '%"+tanggal+"%'";
         try{
             try (java.sql.Connection konek = new Koneksi_mysql().getConnection()) {
@@ -186,7 +186,6 @@ public class LaporanBulanan extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         lb_id_tr = new javax.swing.JLabel();
         lb_tgl = new javax.swing.JLabel();
-        lb_jajal = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         tf_total = new javax.swing.JTextField();
@@ -239,8 +238,6 @@ public class LaporanBulanan extends javax.swing.JFrame {
 
         lb_tgl.setText("jLabel3");
 
-        lb_jajal.setText("jLabel3");
-
         jButton4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton4.setText("DETAIL");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -280,6 +277,11 @@ public class LaporanBulanan extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8"
             }
         ));
+        tabel_lap.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabel_lapMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tabel_lap);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -293,20 +295,19 @@ public class LaporanBulanan extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton2)
+                            .addComponent(jButton4)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addGap(35, 35, 35)
                                 .addComponent(jm_bulan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jy_tahun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jButton4))
-                        .addGap(31, 31, 31)
+                                .addComponent(jy_tahun, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lb_id_tr)
-                            .addComponent(lb_tgl)
-                            .addComponent(lb_jajal))
+                            .addComponent(lb_tgl))
                         .addGap(625, 625, 625))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -337,9 +338,7 @@ public class LaporanBulanan extends javax.swing.JFrame {
                                         .addGap(18, 18, 18)))
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel2)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(lb_jajal)
-                                        .addComponent(jButton1))))
+                                    .addComponent(jButton1)))
                             .addComponent(jy_tahun, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jm_bulan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19)
@@ -547,20 +546,21 @@ public class LaporanBulanan extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         tampil_lap_cari();
+        lebarkolom();
         tampil_total();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         int id = Integer.parseInt(lb_id_tr.getText());
-        Laporanbulanandetail n = new Laporanbulanandetail(id, user);
+        Laporanbulanandetail n = new Laporanbulanandetail(id, user, status);
         n.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         String tanggal = lb_tgl.getText();
-        MessageFormat header = new MessageFormat("Laporan Bulanan \n tanggal : '"+tanggal+"'");
+        MessageFormat header = new MessageFormat("Laporan Bulanan \n Bulan : '"+tanggal+"'");
         MessageFormat footer = new MessageFormat("halaman{0,number, integer}");
         try {
             tabel_lap.print(JTable.PrintMode.NORMAL, header, footer);
@@ -575,6 +575,12 @@ public class LaporanBulanan extends javax.swing.JFrame {
         n.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void tabel_lapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabel_lapMouseClicked
+        // TODO add your handling code here:
+         int tb_menu = tabel_lap.getSelectedRow();
+        lb_id_tr.setText(tabel_lap.getValueAt(tb_menu, 0).toString());
+    }//GEN-LAST:event_tabel_lapMouseClicked
 
     /**
      * @param args the command line arguments
@@ -622,7 +628,6 @@ public class LaporanBulanan extends javax.swing.JFrame {
     private com.toedter.calendar.JMonthChooser jm_bulan;
     private com.toedter.calendar.JYearChooser jy_tahun;
     private javax.swing.JLabel lb_id_tr;
-    private javax.swing.JLabel lb_jajal;
     private javax.swing.JLabel lb_tgl;
     private javax.swing.JMenu mb_data_menu;
     private javax.swing.JMenu mb_keluar;

@@ -25,14 +25,13 @@ public final class Laporanhariandetail extends javax.swing.JFrame {
     String user, status,id_pegawai;
     int id_trans;
     public Laporanhariandetail(){
-        initComponents();
+//        initComponents();
     }
     public Laporanhariandetail(int id_tr, String User, String Status) {
         initComponents();
         this.id_trans= id_tr;
         this.user = User;
         this.status = Status;
-        lb_nama.setText(user);
         lb_id_tr.setText(Integer.toString(id_tr));
              this.setExtendedState(JFrame.MAXIMIZED_BOTH);
              model = new DefaultTableModel ( );
@@ -49,11 +48,13 @@ public final class Laporanhariandetail extends javax.swing.JFrame {
            //membuat statemen pemanggilan data pada table tblGaji dari database
             Connection konek = new Koneksi_mysql().getConnection();
             Statement stat = konek.createStatement();
-            String sql = "SELECT * FROM transaksi WHERE id_transaksi ='"+id_trans+"'";
+            String sql = "SELECT * FROM transaksi,pegawai WHERE transaksi.id_pegawai=pegawai.id_pegawai AND id_transaksi ='"+id_trans+"'";
            ResultSet res   = stat.executeQuery(sql);
            while(res.next ()){
                  String tgl = res.getString("tgl_transaksi");
+                 String pegawai = res.getString("nama_pegawai");
                  lb_tanggal.setText(tgl);
+                 lb_nama.setText(pegawai);
             }
       }catch(SQLException err){
             JOptionPane.showMessageDialog(null, err.getMessage() );
