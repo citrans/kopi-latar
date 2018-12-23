@@ -32,12 +32,13 @@ public final class LaporanTransaksiKasirdetail extends javax.swing.JFrame {
                     int tahun = cal.get(Calendar.YEAR);
                     String tanggal = Integer.toString(hari)+"-"+Integer.toString(bulan+1)+"-"+Integer.toString(tahun);
     public LaporanTransaksiKasirdetail(){
-        initComponents();
+//        initComponents();
     }
-    public LaporanTransaksiKasirdetail(int id_tr, String User) {
-        initComponents();
-        this.id_trans= id_tr;
+    public LaporanTransaksiKasirdetail(int id_tr, String User, String Status) {
+             initComponents();
+             this.id_trans= id_tr;
              this.user = User;
+             this.status= Status;
              lb_nama.setText(user);
              lb_tanggal.setText(hari+"-"+bulan+"-"+tahun);
              lb_id_tr.setText(Integer.toString(id_tr));
@@ -48,26 +49,8 @@ public final class LaporanTransaksiKasirdetail extends javax.swing.JFrame {
              model.addColumn("Nama Menu");
              model.addColumn("Jumlah Pesanan");
              model.addColumn("Total Harga");
-            jLabel2.setText(id_pegawai);
              getData(); 
-    }
-    
-//     public LaporanTransaksiKasir(String User, String Status) {
-//        initComponents();
-//           model = new DefaultTableModel ( );
-//             tblLapBul.setModel(model);
-//             model.addColumn("ID_Transaksi");
-//             model.addColumn("ID_Pegawai");
-//             model.addColumn("Tgl_Transaksi");
-//             model.addColumn("Jumlah_Pesanan");
-//             model.addColumn("Total_Harga");
-//             model.addColumn("Bayar");
-//             model.addColumn("Kembalian");
-//            ambil_id_peg();
-//            jLabel2.setText(id_pegawai);
-//             getData(); 
-//    }
-    
+    }   
      public void ambil_id_peg(){
         
         try{
@@ -203,8 +186,7 @@ public final class LaporanTransaksiKasirdetail extends javax.swing.JFrame {
                                 .addGap(323, 323, 323)
                                 .addComponent(jLabel2)
                                 .addGap(44, 44, 44)
-                                .addComponent(lb_id_tr)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(lb_id_tr))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(bt_kembali))))
@@ -252,7 +234,7 @@ public final class LaporanTransaksiKasirdetail extends javax.swing.JFrame {
 
     private void bt_kembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_kembaliActionPerformed
         // TODO add your handling code here:
-        LaporanTransaksiKasir n = new LaporanTransaksiKasir();
+        LaporanTransaksiKasir n = new LaporanTransaksiKasir(user, status);
         n.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_bt_kembaliActionPerformed

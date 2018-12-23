@@ -24,7 +24,7 @@ import kasirkafe.mejatr.MejaTransaksi;
  *
  * @author Siggy
  */
-public class LaporanHarian extends javax.swing.JFrame {
+public final class LaporanHarian extends javax.swing.JFrame {
     String user,status;
     private DefaultTableModel model;
     Calendar cal = new GregorianCalendar();
@@ -45,6 +45,8 @@ public class LaporanHarian extends javax.swing.JFrame {
         tampil_laporan();
         tampil_total();
         lebarkolom();
+        lb_id_tr.hide();
+        lb_tgl.hide();
     }
     public LaporanHarian(String User, String Status){
         initComponents();
@@ -65,6 +67,8 @@ public class LaporanHarian extends javax.swing.JFrame {
         tampil_laporan();
         tampil_total();
         lebarkolom();
+        lb_id_tr.hide();
+        lb_tgl.hide();
     }
     private void tampil_total(){
         int total_harga_bayar ;
@@ -139,11 +143,9 @@ public class LaporanHarian extends javax.swing.JFrame {
         String bln = b.format(jd_tanggal.getDate());
         String hri = h.format(jd_tanggal.getDate());
         String tanggal = hri+"-"+bln+"-"+year;
-        lb_jajal.setText(tanggal);
         Object[]baris={"ID Transaksi","Nama Pegawai", "Jumlah Pesanan","Total Harga", "Diskon","Total", "Bayar", "Kembalian"};
         model= new DefaultTableModel(null,baris);
         tabel_lap.setModel(model);
-        String tgl = lb_tgl.getText();
         String sql = "SELECT pegawai.*, transaksi.* FROM pegawai,transaksi WHERE transaksi.id_pegawai = pegawai.id_pegawai AND tgl_transaksi= '"+tanggal+"' ";
         try{
             try (java.sql.Connection konek = new Koneksi_mysql().getConnection()) {
@@ -179,18 +181,17 @@ public class LaporanHarian extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jd_tanggal = new com.toedter.calendar.JDateChooser();
         jButton1 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         lb_tgl = new javax.swing.JLabel();
         lb_id_tr = new javax.swing.JLabel();
-        lb_jajal = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         tf_total = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabel_lap = new javax.swing.JTable();
+        jd_tanggal = new com.toedter.calendar.JDateChooser();
         jMenuBar1 = new javax.swing.JMenuBar();
         mb_transaksi = new javax.swing.JMenu();
         mi_beranda = new javax.swing.JMenuItem();
@@ -242,8 +243,6 @@ public class LaporanHarian extends javax.swing.JFrame {
 
         lb_id_tr.setText("jLabel3");
 
-        lb_jajal.setText("jLabel3");
-
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setText("TOTAL PENDAPATAN");
 
@@ -270,6 +269,11 @@ public class LaporanHarian extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8"
             }
         ));
+        tabel_lap.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabel_lapMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tabel_lap);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -292,19 +296,16 @@ public class LaporanHarian extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(125, 125, 125)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lb_jajal))
+                            .addComponent(jButton4)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jButton2)
                                 .addGap(309, 309, 309)
                                 .addComponent(lb_tgl))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
-                                .addGap(40, 40, 40)
-                                .addComponent(jd_tanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(28, 28, 28)
+                                .addGap(18, 18, 18)
+                                .addComponent(jd_tanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
                                 .addComponent(jButton1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lb_id_tr)))
@@ -327,14 +328,12 @@ public class LaporanHarian extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(3, 3, 3)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                        .addComponent(lb_jajal)
-                        .addGap(14, 14, 14)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                         .addComponent(jButton4)
                         .addGap(26, 26, 26))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jd_tanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jd_tanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -537,20 +536,30 @@ public class LaporanHarian extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         tampil_lap_cari();
+        lebarkolom();
         tampil_total();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         int id = Integer.parseInt(lb_id_tr.getText());
-        Laporanhariandetail n = new Laporanhariandetail(id, user);
+        Laporanhariandetail n = new Laporanhariandetail(id, user, status);
         n.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        LaporanBulanan n = new LaporanBulanan(user, status);
+        n.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void tabel_lapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabel_lapMouseClicked
+        // TODO add your handling code here:
+         int tb_menu = tabel_lap.getSelectedRow();
+        lb_id_tr.setText(tabel_lap.getValueAt(tb_menu, 0).toString());
+    }//GEN-LAST:event_tabel_lapMouseClicked
 
     /**
      * @param args the command line arguments
@@ -595,7 +604,6 @@ public class LaporanHarian extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private com.toedter.calendar.JDateChooser jd_tanggal;
     private javax.swing.JLabel lb_id_tr;
-    private javax.swing.JLabel lb_jajal;
     private javax.swing.JLabel lb_tgl;
     private javax.swing.JMenu mb_data_menu;
     private javax.swing.JMenu mb_keluar;

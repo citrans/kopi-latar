@@ -26,20 +26,15 @@ public final class Laporanhariandetail extends javax.swing.JFrame {
     private String kode;
     String user, status,id_pegawai;
     int id_trans;
-    Calendar cal = new GregorianCalendar();
-                    int hari = cal.get(Calendar.DAY_OF_MONTH);
-                    int bulan = cal.get(Calendar.MONTH);
-                    int tahun = cal.get(Calendar.YEAR);
-                    String tanggal = Integer.toString(hari)+"-"+Integer.toString(bulan+1)+"-"+Integer.toString(tahun);
     public Laporanhariandetail(){
         initComponents();
     }
-    public Laporanhariandetail(int id_tr, String User) {
+    public Laporanhariandetail(int id_tr, String User, String Status) {
         initComponents();
         this.id_trans= id_tr;
         this.user = User;
+        this.status = Status;
         lb_nama.setText(user);
-        lb_tanggal.setText(hari+"-"+bulan+"-"+tahun);
         lb_id_tr.setText(Integer.toString(id_tr));
              this.setExtendedState(JFrame.MAXIMIZED_BOTH);
              model = new DefaultTableModel ( );
@@ -48,26 +43,24 @@ public final class Laporanhariandetail extends javax.swing.JFrame {
              model.addColumn("Nama Menu");
              model.addColumn("Jumlah Pesanan");
              model.addColumn("Total Harga");
-            jLabel2.setText(id_pegawai);
+             tampil_tanggal();
              getData(); 
     }
-    
-//     public LaporanTransaksiKasir(String User, String Status) {
-//        initComponents();
-//           model = new DefaultTableModel ( );
-//             tblLapBul.setModel(model);
-//             model.addColumn("ID_Transaksi");
-//             model.addColumn("ID_Pegawai");
-//             model.addColumn("Tgl_Transaksi");
-//             model.addColumn("Jumlah_Pesanan");
-//             model.addColumn("Total_Harga");
-//             model.addColumn("Bayar");
-//             model.addColumn("Kembalian");
-//            ambil_id_peg();
-//            jLabel2.setText(id_pegawai);
-//             getData(); 
-//    }
-    
+     public void tampil_tanggal(){
+         try{
+           //membuat statemen pemanggilan data pada table tblGaji dari database
+            Connection konek = new Koneksi_mysql().getConnection();
+            Statement stat = konek.createStatement();
+            String sql = "SELECT * FROM transaksi WHERE id_transaksi ='"+id_trans+"'";
+           ResultSet res   = stat.executeQuery(sql);
+           while(res.next ()){
+                 String tgl = res.getString("tgl_transaksi");
+                 lb_tanggal.setText(tgl);
+            }
+      }catch(SQLException err){
+            JOptionPane.showMessageDialog(null, err.getMessage() );
+      }
+     }
      public void ambil_id_peg(){
         
         try{

@@ -36,24 +36,26 @@ public final class LaporanTransaksiKasir extends javax.swing.JFrame {
                     
      public LaporanTransaksiKasir() {
         initComponents();
-             user = "citra";
-             lb_nama.setText(user);
-             lb_tanggal.setText(hari+"-"+(bulan+1)+"-"+tahun);
-             ambil_id_peg();
-             this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-             model = new DefaultTableModel ( );
-             tblLapBul.setModel(model);
-             model.addColumn("ID Transaksi");
-             model.addColumn("Jumlah Pesanan");
-             model.addColumn("Total Harga");
-             model.addColumn("Bayar");
-             model.addColumn("Diskon");
-             model.addColumn("Total Dibayar");
-             model.addColumn("Kembalian");
-             jLabel2.setText(id_pegawai);
-             getData(); 
-             tampil_total();
-             lebarkolom();
+//             user = "citra";
+//             lb_nama.setText(user);
+//             lb_tanggal.setText(hari+"-"+(bulan+1)+"-"+tahun);
+//             ambil_id_peg();
+//             this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+//             model = new DefaultTableModel ( );
+//             tblLapBul.setModel(model);
+//             model.addColumn("ID Transaksi");
+//             model.addColumn("Jumlah Pesanan");
+//             model.addColumn("Total Harga");
+//             model.addColumn("Bayar");
+//             model.addColumn("Diskon");
+//             model.addColumn("Total Dibayar");
+//             model.addColumn("Kembalian");
+//             jLabel2.setText(id_pegawai);
+//             getData(); 
+//             tampil_total();
+//             lebarkolom();
+//             jLabel2.hide();
+//             lb_id_tr.hide();
     }
      public LaporanTransaksiKasir(String User, String Status) {
         initComponents();
@@ -82,14 +84,16 @@ public final class LaporanTransaksiKasir extends javax.swing.JFrame {
              getData();
              tampil_total();
              lebarkolom();
+              jLabel2.hide();
+             lb_id_tr.hide();
     }
      public void lebarkolom(){ 
         TableColumn column;
         tblLapBul.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF); 
         column = tblLapBul.getColumnModel().getColumn(0); 
-        column.setPreferredWidth(100);
+        column.setPreferredWidth(150);
         column = tblLapBul.getColumnModel().getColumn(1); 
-        column.setPreferredWidth(171); 
+        column.setPreferredWidth(121); 
         column = tblLapBul.getColumnModel().getColumn(2); 
         column.setPreferredWidth(175);
         column = tblLapBul.getColumnModel().getColumn(3); 
@@ -263,13 +267,11 @@ public final class LaporanTransaksiKasir extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(116, 116, 116)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addGap(30, 30, 30)
-                        .addComponent(tf_total, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bt_detail))
+                        .addComponent(tf_total, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1176, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createSequentialGroup()
@@ -284,7 +286,8 @@ public final class LaporanTransaksiKasir extends javax.swing.JFrame {
                             .addGap(239, 239, 239)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(lb_id_tr)
-                                .addComponent(jLabel2)))))
+                                .addComponent(jLabel2))))
+                    .addComponent(bt_detail, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap(95, Short.MAX_VALUE))
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -303,14 +306,15 @@ public final class LaporanTransaksiKasir extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(lb_tanggal)
                     .addComponent(jLabel2))
-                .addGap(31, 31, 31)
+                .addGap(13, 13, 13)
+                .addComponent(bt_detail)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bt_detail)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tf_total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         mb_transaksi.setText("Menu Utama");
@@ -437,7 +441,7 @@ public final class LaporanTransaksiKasir extends javax.swing.JFrame {
     private void bt_detailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_detailActionPerformed
         // TODO add your handling code here:
         int id = Integer.parseInt(lb_id_tr.getText());
-        LaporanTransaksiKasirdetail n = new LaporanTransaksiKasirdetail(id, user);
+        LaporanTransaksiKasirdetail n = new LaporanTransaksiKasirdetail(id, user, status);
         n.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_bt_detailActionPerformed
