@@ -6,15 +6,20 @@
 package kasirkafe;
 
 import java.awt.Toolkit;
+import java.awt.print.PrinterException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
@@ -251,6 +256,11 @@ public final class LaporanHarian extends javax.swing.JFrame {
 
         jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton3.setText("PRINT");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setBackground(new java.awt.Color(205, 133, 63));
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
@@ -560,6 +570,19 @@ public final class LaporanHarian extends javax.swing.JFrame {
          int tb_menu = tabel_lap.getSelectedRow();
         lb_id_tr.setText(tabel_lap.getValueAt(tb_menu, 0).toString());
     }//GEN-LAST:event_tabel_lapMouseClicked
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        String tanggal = lb_tgl.getText();
+        MessageFormat header = new MessageFormat("Laporan Bulanan \n tanggal : '"+tanggal+"'");
+        MessageFormat footer = new MessageFormat("halaman{0,number, integer}");
+        try {
+            tabel_lap.print(JTable.PrintMode.NORMAL, header, footer);
+        } catch (PrinterException ex) {
+            Logger.getLogger(LaporanBulanan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
 
     /**
      * @param args the command line arguments
