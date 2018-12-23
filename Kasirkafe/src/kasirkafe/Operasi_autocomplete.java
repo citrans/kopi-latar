@@ -43,6 +43,7 @@ public class Operasi_autocomplete {
      return modelo;
 
     }
+    
 
     public String[] buscar(String nombre){
 

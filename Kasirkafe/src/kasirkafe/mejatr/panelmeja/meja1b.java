@@ -18,9 +18,9 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import kasirkafe.Koneksi_mysql;
 import kasirkafe.Operasi_autocomplete;
@@ -35,7 +35,7 @@ public final class meja1b extends javax.swing.JPanel {
        String id_pegawa ="";
        String user;
        String no_meja = "1";
-//       Operasi_autocomplete operasi =new Operasi_autocomplete();
+       Operasi_autocomplete operasi =new Operasi_autocomplete();
       // MejaTransaksi m = new MejaTransaksi();
        
        /**
@@ -45,6 +45,7 @@ public final class meja1b extends javax.swing.JPanel {
             initComponents();
             lb_pegawai.setText("citra");
             tanggal_jam_sekarang();
+            lebarkolom();
                 cb_barang.requestFocus();
                 cb_barang.getEditor().getEditorComponent().addKeyListener(new KeyAdapter() {
 
@@ -61,7 +62,7 @@ public final class meja1b extends javax.swing.JPanel {
 
 
                         if (evt.getKeyCode() >= 65 && evt.getKeyCode() <= 90 || evt.getKeyCode() >= 96 && evt.getKeyCode() <= 105 || evt.getKeyCode() == 8) {
-                            cb_barang.setModel(getLista(barang));
+                            cb_barang.setModel(operasi.getLista(barang));
                             if (cb_barang.getItemCount() > 0) {
                                 cb_barang.getEditor().setItem(barang);
                                 cb_barang.showPopup();                     
@@ -84,103 +85,69 @@ public final class meja1b extends javax.swing.JPanel {
                 tf_total_tampil.disable();
                 tf_total_bayar.disable();
                 tf_kembali.disable();
+                ta_nota.setVisible(false);
         }
        public meja1b(String user){
         initComponents();
         this.user = user;
+        lebarkolom();
         lb_pegawai.setText(user);
         tanggal_jam_sekarang();
-                cb_barang.requestFocus();
-                cb_barang.getEditor().getEditorComponent().addKeyListener(new KeyAdapter() {
-
-                   @Override
-                    public void keyReleased(KeyEvent evt) {
-
-                         String barang = cb_barang.getEditor().getItem().toString();
-
-                        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-                           dapil(cb_barang.getEditor().getItem().toString());
-                            String menu = cb_barang.getEditor().getItem().toString();
-                           cb_barang.setSelectedItem(menu);
-                        }
-
-
-                        if (evt.getKeyCode() >= 65 && evt.getKeyCode() <= 90 || evt.getKeyCode() >= 96 && evt.getKeyCode() <= 105 || evt.getKeyCode() == 8) {
-                            cb_barang.setModel(getLista(barang));
-                            if (cb_barang.getItemCount() > 0) {
-                                cb_barang.getEditor().setItem(barang);
-                                cb_barang.showPopup();                     
-
-                            } else {
-                                cb_barang.addItem(barang);
-                            }
-                        }
+        cb_barang.requestFocus();
+        cb_barang.getEditor().getEditorComponent().addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent evt) {
+                String barang = cb_barang.getEditor().getItem().toString();
+                if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+                    dapil(cb_barang.getEditor().getItem().toString());
+                    String menu = cb_barang.getEditor().getItem().toString();
+                    cb_barang.setSelectedItem(menu);
+                }
+                if (evt.getKeyCode() >= 65 && evt.getKeyCode() <= 90 || evt.getKeyCode() >= 96 && evt.getKeyCode() <= 105 || evt.getKeyCode() == 8) {
+                    cb_barang.setModel(operasi.getLista(barang));
+                    if (cb_barang.getItemCount() > 0) {
+                        cb_barang.getEditor().setItem(barang);
+                        cb_barang.showPopup();                     
+                    } else {
+                        cb_barang.addItem(barang);
                     }
-                });
-               // tampil_menu();
-                id_auto();
-                tampil_pesanan();
-                tf_total_bayar.setText("0");
-                tf_total_tampil.setText("0");
-                tampil_total();
-
-                tf_harga.disable();
-                tf_total.disable();
-                tf_total_tampil.disable();
-                tf_total_bayar.disable();
-                tf_kembali.disable();
-    }
-       public DefaultComboBoxModel getLista(String cadenaEscrita){
-
-        DefaultComboBoxModel modelo = new DefaultComboBoxModel();
-        try {
-            java.sql.Connection konek = new Koneksi_mysql().getConnection();
-            String query = "SELECT * FROM menu WHERE nama_menu LIKE '" + cadenaEscrita + "%';";
-//            st = conexion.conectar();
-//            res = (ResultSet) st.executeQuery(query);
-            Statement stat= konek.createStatement();
-            ResultSet hasil = stat.executeQuery(query);
-            while (hasil.next()) {
-                modelo.addElement(hasil.getString("nama_menu"));
-            }
-         konek.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(Operasi_autocomplete.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-     return modelo;
-
-    }
-       public String[] buscar(String nombre){
-
-        String[] datos = new String[4];
-        try {
-            java.sql.Connection konek = new Koneksi_mysql().getConnection();
-            String query = "SELECT * FROM menu WHERE nama_menu='" + nombre + "'";
-//            st = conexion.conectar();
-//            res = (ResultSet) st.executeQuery(query);
-            Statement stat= konek.createStatement();
-            ResultSet hasil = stat.executeQuery(query);
-            
-            while (hasil.next()) {
-                for (int i = 0; i < datos.length; i++) {
-                    datos[i] = hasil.getString(i + 1);
                 }
             }
-            konek.close();
-        } catch (SQLException ex) {
-            return null;
-        }
-        return datos;
+        });
+        id_auto();
+        tampil_pesanan();
+        tf_total_bayar.setText("0");
+        tf_total_tampil.setText("0");
+        tampil_total();
+        tf_harga.disable();
+        tf_total.disable();
+        tf_total_tampil.disable();
+        tf_total_bayar.disable();
+        tf_kembali.disable();
+        ta_nota.hide();
     }
        public void dapil(String nombre) {
-        String data[] = buscar(nombre);
+        String data[] = operasi.buscar(nombre);
         if (data[0] != null) {
             tf_harga.setText(data[2]);
         } else {
             dapil(cb_barang.getItemAt(0));
                     cb_barang.setSelectedIndex(0);
         }
+    }
+       public void lebarkolom(){ 
+        TableColumn column;
+        tb_barang.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF); 
+        column = tb_barang.getColumnModel().getColumn(0); 
+        column.setPreferredWidth(100);
+        column = tb_barang.getColumnModel().getColumn(1); 
+        column.setPreferredWidth(250); 
+        column = tb_barang.getColumnModel().getColumn(2); 
+        column.setPreferredWidth(100);
+        column = tb_barang.getColumnModel().getColumn(3); 
+        column.setPreferredWidth(100); 
+        column = tb_barang.getColumnModel().getColumn(4); 
+        column.setPreferredWidth(100);
     }
        private void tampil_pesanan(){
         String id_tr = lb_transaksi.getText();
@@ -206,8 +173,7 @@ public final class meja1b extends javax.swing.JPanel {
         } catch(SQLException e){
             JOptionPane.showMessageDialog(null, "menampilkan data pesanan gagal", "informasi", JOptionPane.INFORMATION_MESSAGE);
         }
-        
-    }
+       }
        public void total_h_b(){
         String a = tf_harga.getText();
         String b = tf_unit.getText();
@@ -227,8 +193,7 @@ public final class meja1b extends javax.swing.JPanel {
          tf_kembali.setText(k);
        }
        public void ambil_id(){
-        
-        try{
+         try{
             String menu = cb_barang.getSelectedItem().toString();
             try (java.sql.Connection konek = new Koneksi_mysql().getConnection()) {
                 Statement stat= konek.createStatement();
@@ -240,19 +205,17 @@ public final class meja1b extends javax.swing.JPanel {
                     no = String.valueOf(id);                           
                 }konek.close();
             }
-        } catch(SQLException e){
+         } catch(SQLException e){
             JOptionPane.showMessageDialog(null, "menampilkan data gagal", "informasi", JOptionPane.INFORMATION_MESSAGE);
-        }
+         }
     }
        public void ambil_id_peg(){
-        
-        try{
+         try{
             String peg = lb_pegawai.getText() ;
             try (java.sql.Connection konek = new Koneksi_mysql().getConnection()) {
                 Statement stat= konek.createStatement();
                 String sql = "SELECT id_pegawai as id FROM pegawai WHERE `nama_pegawai`='"+peg+"'";
                 ResultSet hasil = stat.executeQuery(sql);
-                
                 while(hasil.next()){
                     int id = hasil.getInt(1);
                     id_pegawa = String.valueOf(id);                       
@@ -264,7 +227,7 @@ public final class meja1b extends javax.swing.JPanel {
         }
     }
        private void id_auto(){
-        try{
+         try{
             try (java.sql.Connection konek = new Koneksi_mysql().getConnection()) {
                 Statement stat= konek.createStatement();
                 String sql = "SELECT transaksi.id_transaksi, sementara.no_meja FROM transaksi,sementara WHERE sementara.id_transaksi = transaksi.id_transaksi AND sementara.no_meja='"+no_meja+"'  order by id_transaksi asc";
@@ -289,8 +252,7 @@ public final class meja1b extends javax.swing.JPanel {
         tf_unit.setText("");
         cb_barang.setSelectedItem("");
         tampil_pesanan();
-    
-    }
+       }
        public void bersih(){
            tf_total_bayar.setText("");
            tf_total_tampil.setText("");
@@ -299,13 +261,11 @@ public final class meja1b extends javax.swing.JPanel {
            ta_nota.setText("");
            tf_potongan.setText("0");
            cb_barang.setSelectedItem("");
-           //cb_barang.requestFocus();
            tf_p_meja.setText("");
            id_auto();
-        
        }
        private void tampil_total(){
-        int total_harga_bayar = 0, total_harga = 0;
+        int total_harga_bayar, total_harga = 0;
         String thb,th ;
         int jumlahBaris = tb_barang.getRowCount();
         int hargaBarang;
@@ -333,12 +293,10 @@ public final class meja1b extends javax.swing.JPanel {
                 String sql = "DELETE FROM `sementara` WHERE `id_menu` = '"+id_menu+"' AND `no_meja` = '"+no_meja+"' AND `id_transaksi` = '"+id_transaksi+"'";
                 PreparedStatement stat = (PreparedStatement) konek.prepareStatement(sql);
                 stat.executeUpdate();
-                //JOptionPane.showMessageDialog(null, "Berhasil Menghapus Data", "Informasi", JOptionPane.INFORMATION_MESSAGE);
                 reset();
                 konek.close();
             }
-        }catch(HeadlessException | SQLException e){
-           // JOptionPane.showMessageDialog(null, "Gagal Menghapus Data", "Informasi", JOptionPane.INFORMATION_MESSAGE);    
+        }catch(HeadlessException | SQLException e){ 
         }
           tampil_total();
        }
@@ -352,7 +310,6 @@ public final class meja1b extends javax.swing.JPanel {
         total = Integer.parseInt(tf_total.getText());
         jumlah_pesan = Integer.parseInt(tf_unit.getText());
         nama_menu =cb_barang.getSelectedItem().toString();
-        
         try{
             Statement stat= konek.createStatement();
             String query = "SELECT * FROM `detail` WHERE id_menu = '"+id_menu+"' AND id_transaksi ='"+id_transaksi+"'";
@@ -366,23 +323,18 @@ public final class meja1b extends javax.swing.JPanel {
                     String sql = "UPDATE `detail` SET `jumlah_pesanan`='"+jum_pen+"',`total`='"+tot_har+"' WHERE `id_menu`='"+id_menu+"' AND `id_transaksi`='"+id_transaksi+"' AND `no_meja`='"+no_meja+"'" ;
                     PreparedStatement Prstat = (PreparedStatement) konek.prepareStatement(sql);
                     Prstat.executeUpdate();
-                   // JOptionPane.showMessageDialog(null, "Berhasil Menyimpan Data", "Informasi", JOptionPane.INFORMATION_MESSAGE);
                     reset();
                     konek.close();
-                    }catch(HeadlessException | SQLException e){
-                     //   JOptionPane.showMessageDialog(null, "update Data", "Informasi", JOptionPane.INFORMATION_MESSAGE);    
+                    }catch(HeadlessException | SQLException e){ 
                     }
-                   
-                }else{
+            }else{
                      try{
                     String sql = "INSERT INTO `detail`(`no_meja`, `id_menu`, `nama_menu`,`id_transaksi`, `jumlah_pesanan`, `total`) VALUES ('"+no_meja+"','"+id_menu+"','"+nama_menu+"','"+id_transaksi+"','"+jumlah_pesan+"','"+total+"')";
                     PreparedStatement Pstat = (PreparedStatement) konek.prepareStatement(sql);
                     Pstat.executeUpdate();
-                    //JOptionPane.showMessageDialog(null, "Berhasil Menyimpan Data", "Informasi", JOptionPane.INFORMATION_MESSAGE);
                     reset();
                     konek.close();
                     }catch(HeadlessException | SQLException e){
-                       // JOptionPane.showMessageDialog(null, "insert Data", "Informasi", JOptionPane.INFORMATION_MESSAGE);    
                     }
                 }
             konek.close();
@@ -397,7 +349,7 @@ public final class meja1b extends javax.swing.JPanel {
         Calendar cal = new GregorianCalendar();
                     int hari = cal.get(Calendar.DAY_OF_MONTH);
                     int bulan = cal.get(Calendar.MONTH);
-                    int tahun = cal.get(Calendar.YEAR);
+                    int tahunn = cal.get(Calendar.YEAR);
         ambil_id_peg();
         id_pegawai = id_pegawa;
         id_transaksi = lb_transaksi.getText();
@@ -418,7 +370,7 @@ public final class meja1b extends javax.swing.JPanel {
         try{
                try (java.sql.Connection konek = new Koneksi_mysql().getConnection()) {
                    String sql = "INSERT INTO `transaksi`(`id_transaksi`, `id_pegawai`, `tgl_transaksi`,`tgl`,`bulan`,`tahun`,`jumlah_pesanan`, `total_harga`,`diskon`,`total`, `bayar`, `kembalian`) "
-                           + "VALUES ('"+id_transaksi+"','"+id_pegawai+"','"+tgl_transaksi+"','"+hari+"','"+(bulan+1)+"','"+tahun+"','"+jumlah_pesanan+"','"+total+"','"+diskon+"','"+total_harga+"','"+bayar+"','"+kembalian+"')";
+                           + "VALUES ('"+id_transaksi+"','"+id_pegawai+"','"+tgl_transaksi+"','"+hari+"','"+(bulan+1)+"','"+tahunn+"','"+jumlah_pesanan+"','"+total+"','"+diskon+"','"+total_harga+"','"+bayar+"','"+kembalian+"')";
                    PreparedStatement stat = (PreparedStatement) konek.prepareStatement(sql);
                    stat.executeUpdate();
                    JOptionPane.showMessageDialog(null, "Berhasil Menyimpan Data", "Informasi", JOptionPane.INFORMATION_MESSAGE);
@@ -432,8 +384,7 @@ public final class meja1b extends javax.swing.JPanel {
         }catch(HeadlessException | SQLException e){
             JOptionPane.showMessageDialog(null, "Gagal Menyimpan Data", "Informasi", JOptionPane.INFORMATION_MESSAGE);    
         }
-        
-       }
+        }
        public void generate_data(){
            ta_nota.setText("\tKOPI LATAR\n\n\n");
            ta_nota.setText(ta_nota.getText()+"NO\t: " + lb_transaksi.getText()+"\n");
@@ -456,8 +407,7 @@ public final class meja1b extends javax.swing.JPanel {
            ta_nota.setText(ta_nota.getText()+"\tBAYAR\t: " + tf_bayar.getText()+"\n");
            ta_nota.setText(ta_nota.getText()+"\tKEMBALI\t: " + tf_kembali.getText()+"\n\n\n");
             ta_nota.setText(ta_nota.getText()+"Terimakasih Atas Kunjungan Anda" +"\n");
-           
-       }
+        }
        public void pindah_meja(){
         java.sql.Connection konek = new Koneksi_mysql().getConnection();
         String id_menu, id_transaksi, meja_ganti;
@@ -479,19 +429,16 @@ public final class meja1b extends javax.swing.JPanel {
                     String sql = "UPDATE `sementara` SET `no_meja`='"+meja_ganti+"',`id_transaksi`='"+id+"' WHERE `no_meja`= '"+no_meja+"' AND `id_transaksi`='"+id_transaksi+"'" ;
                     PreparedStatement Prstat = (PreparedStatement) konek.prepareStatement(sql);
                     Prstat.executeUpdate();
-//                    JOptionPane.showMessageDialog(null, "Berhasil Menyimpan Data", "Informasi", JOptionPane.INFORMATION_MESSAGE);
                     reset();
                     konek.close();
                     }catch(HeadlessException | SQLException e){
                         JOptionPane.showMessageDialog(null, "update Data", "Informasi", JOptionPane.INFORMATION_MESSAGE);    
                     }
-                    //lb_transaksi.setText(id);   
                 }else{
                     try{
                     String sql = "UPDATE `sementara` SET `no_meja`='"+meja_ganti+"',`id_transaksi`='"+meja_ganti+"' WHERE `no_meja`='"+no_meja+"' AND `id_transaksi`='"+id_transaksi+"'" ;
                     PreparedStatement Prstat = (PreparedStatement) konek.prepareStatement(sql);
                     Prstat.executeUpdate();
-//                    JOptionPane.showMessageDialog(null, "Berhasil Menyimpan Data", "Informasi", JOptionPane.INFORMATION_MESSAGE);
                     reset();
                     konek.close();
                     }catch(HeadlessException | SQLException e){
@@ -517,13 +464,10 @@ public final class meja1b extends javax.swing.JPanel {
                     int bulan = cal.get(Calendar.MONTH);
                     int tahun = cal.get(Calendar.YEAR);
                     tanggal.setText(hari+"-"+(bulan+1)+"-"+tahun);
-                   
-                    
                     int jam = cal.get(Calendar.HOUR);
                     int menit = cal.get(Calendar.MINUTE);
                     int detik = cal.get(Calendar.SECOND);
                     int AM_PM = cal.get(Calendar.AM_PM);
-                    
                     String day_night ;
                     if (AM_PM == 1)
                     {
@@ -538,7 +482,6 @@ public final class meja1b extends javax.swing.JPanel {
                     }
                     String waktu = jam + ":" + menit + ":" + detik + "  " + day_night;
                     jammm.setText(waktu);
-                    
                     try{
                         sleep(1000);
                     }catch(InterruptedException ex){
@@ -560,7 +503,6 @@ public final class meja1b extends javax.swing.JPanel {
     private void initComponents() {
 
         bt_simpan = new javax.swing.JButton();
-        bt_keluar = new javax.swing.JButton();
         tf_kembali = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -598,8 +540,7 @@ public final class meja1b extends javax.swing.JPanel {
         tf_p_meja = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         bt_refresh = new javax.swing.JButton();
-        lb_tgl_kemarin = new javax.swing.JLabel();
-        tahun = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(205, 133, 63));
 
@@ -616,20 +557,8 @@ public final class meja1b extends javax.swing.JPanel {
             }
         });
 
-        bt_keluar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        bt_keluar.setText("Keluar");
-        bt_keluar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_keluarActionPerformed(evt);
-            }
-        });
-        bt_keluar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                bt_keluarKeyPressed(evt);
-            }
-        });
-
         tf_kembali.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        tf_kembali.setText("0");
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel9.setText("KEMBALIAN");
@@ -638,6 +567,15 @@ public final class meja1b extends javax.swing.JPanel {
         jLabel11.setText("BAYAR");
 
         tf_bayar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        tf_bayar.setText("0");
+        tf_bayar.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tf_bayarFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tf_bayarFocusLost(evt);
+            }
+        });
         tf_bayar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tf_bayarActionPerformed(evt);
@@ -664,15 +602,17 @@ public final class meja1b extends javax.swing.JPanel {
 
         tb_barang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5"
             }
         ));
+        tb_barang.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
         tb_barang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tb_barangMouseClicked(evt);
@@ -711,6 +651,25 @@ public final class meja1b extends javax.swing.JPanel {
             }
         });
 
+        tf_total.setText("0");
+        tf_total.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tf_totalFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tf_totalFocusLost(evt);
+            }
+        });
+
+        tf_unit.setText("0");
+        tf_unit.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tf_unitFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tf_unitFocusLost(evt);
+            }
+        });
         tf_unit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tf_unitActionPerformed(evt);
@@ -722,6 +681,16 @@ public final class meja1b extends javax.swing.JPanel {
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 tf_unitKeyTyped(evt);
+            }
+        });
+
+        tf_harga.setText("0");
+        tf_harga.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tf_hargaFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tf_hargaFocusLost(evt);
             }
         });
 
@@ -779,6 +748,14 @@ public final class meja1b extends javax.swing.JPanel {
 
         tf_potongan.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         tf_potongan.setText("0");
+        tf_potongan.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tf_potonganFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tf_potonganFocusLost(evt);
+            }
+        });
         tf_potongan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tf_potonganActionPerformed(evt);
@@ -859,9 +836,7 @@ public final class meja1b extends javax.swing.JPanel {
                 .addContainerGap(33, Short.MAX_VALUE))
         );
 
-        lb_tgl_kemarin.setText("tgl_kemarin");
-
-        tahun.setText("jLabel6");
+        jLabel6.setText("NOTA");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -871,35 +846,9 @@ public final class meja1b extends javax.swing.JPanel {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1016, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(71, 71, 71)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel9)
-                                                .addComponent(jLabel11))
-                                            .addGap(40, 40, 40))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel13)
-                                            .addGap(24, 24, 24)))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(tf_kembali, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(tf_bayar, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(tf_total_bayar, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(tf_potongan, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(bt_simpan, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(bt_keluar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addComponent(jLabel8)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel12)
@@ -910,136 +859,148 @@ public final class meja1b extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jammm, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lb_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel7))
+                            .addComponent(lb_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lb_pegawai, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(139, 139, 139)
+                        .addComponent(jLabel7)
                         .addGap(18, 18, 18)
                         .addComponent(tf_total_tampil, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel8)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(cb_barang, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cb_barang, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(tf_harga, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(tf_unit))
-                        .addGap(15, 15, 15)
-                        .addComponent(tf_total, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tf_harga, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(tf_unit, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tf_total, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(bt_tambah)
+                                .addGap(18, 18, 18)
+                                .addComponent(tb_hapus))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(bt_tambah)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tb_hapus))
-                    .addComponent(jScrollPane1))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lb_tgl_kemarin)
-                    .addComponent(tahun))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel11))
+                                .addGap(40, 40, 40))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel13)
+                                .addGap(24, 24, 24))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tf_kembali, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tf_bayar, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tf_total_bayar, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tf_potongan, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bt_simpan, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(tf_total_tampil, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cb_barang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tf_harga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tb_hapus)
+                            .addComponent(bt_tambah)
+                            .addComponent(tf_unit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tf_total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(13, 13, 13))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lb_transaksi)
-                                    .addComponent(jLabel7))
+                                .addComponent(lb_transaksi)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(lb_pegawai)
                                 .addGap(18, 18, 18)
                                 .addComponent(tanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jammm, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(tf_total_tampil, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addGap(14, 14, 14)
+                                .addComponent(jLabel5)
+                                .addGap(18, 18, 18)
+                                .addComponent(lb_tanggal)
+                                .addGap(18, 18, 18)
+                                .addComponent(lb_jam)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel3)
+                        .addGap(42, 42, 42)))
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 13, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(47, 47, 47))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tf_potongan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jLabel3)
-                                            .addComponent(jLabel4))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(9, 9, 9)
-                                        .addComponent(lb_tgl_kemarin)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(tf_total_bayar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel11)
+                                    .addComponent(tf_bayar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(cb_barang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tf_harga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tb_hapus)
-                                    .addComponent(bt_tambah)
-                                    .addComponent(tf_unit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tf_total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(13, 13, 13))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(tahun)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
-                            .addComponent(tf_potongan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(5, 5, 5)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel13)
-                            .addComponent(tf_total_bayar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tf_bayar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel11))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tf_kembali, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(bt_keluar)
-                            .addComponent(bt_simpan))
-                        .addGap(16, 16, 16))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel12)
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(lb_tanggal)
-                        .addGap(18, 18, 18)
-                        .addComponent(lb_jam)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(25, 25, 25))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2)
+                                    .addComponent(tf_kembali, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel9))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(bt_simpan))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_simpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_simpanActionPerformed
-
-        // TODO add your handling code here:
         int total_harga = Integer.parseInt(tf_total_bayar.getText());
         int bayar = Integer.parseInt(tf_bayar.getText());
-        String bay = Integer.toString(bayar);
-        String kem = tf_kembali.getText();
-        if(bay == null){
+        int kem = Integer.parseInt(tf_kembali.getText());
+        if(bayar == 0){
             JOptionPane.showMessageDialog(null, "Masukkan nilai pembayaran", "Informasi", JOptionPane.INFORMATION_MESSAGE);
         }else if(total_harga > bayar){
             JOptionPane.showMessageDialog(null, "Uang Pembayaran Kurang", "Informasi", JOptionPane.INFORMATION_MESSAGE);
-        }else if(kem == null){
-            JOptionPane.showMessageDialog(null, "Uang kembalian kosong", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+        }else if(kem == 0){
+            JOptionPane.showMessageDialog(null, "Enter Field Bayar", "Informasi", JOptionPane.INFORMATION_MESSAGE);
         }else{
         int hapusselected = JOptionPane.showConfirmDialog(null, "Simpan Data Transaksi?","Close Message", JOptionPane.YES_NO_OPTION);
         if(hapusselected == JOptionPane.YES_OPTION){
@@ -1055,27 +1016,33 @@ public final class meja1b extends javax.swing.JPanel {
     }//GEN-LAST:event_bt_simpanActionPerformed
 
     private void bt_simpanKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bt_simpanKeyPressed
-        // TODO add your handling code here:
         int total_harga = Integer.parseInt(tf_total_bayar.getText());
-        String bayar = tf_bayar.getText();
-        int bay = Integer.parseInt(bayar);
-        tahun.setText(bayar);
-        String kem = tf_kembali.getText();
-        if(bayar == null){
+        int bayar = Integer.parseInt(tf_bayar.getText());
+        int kem = Integer.parseInt(tf_kembali.getText());
+        if(bayar == 0){
             JOptionPane.showMessageDialog(null, "Masukkan nilai pembayaran", "Informasi", JOptionPane.INFORMATION_MESSAGE);
-        }else if(total_harga > bay){
+        }else if(total_harga > bayar){
             JOptionPane.showMessageDialog(null, "Uang Pembayaran Kurang", "Informasi", JOptionPane.INFORMATION_MESSAGE);
-        }else if(kem == null){
-            JOptionPane.showMessageDialog(null, "Uang kembalian kosong", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+        }else if(kem == 0){
+            JOptionPane.showMessageDialog(null, "Enter Field Bayar", "Informasi", JOptionPane.INFORMATION_MESSAGE);
         }else{
             int hapusselected = JOptionPane.showConfirmDialog(null, "Simpan Data Transaksi?","Close Message", JOptionPane.YES_NO_OPTION);
             if(hapusselected == JOptionPane.YES_OPTION){
+                generate_data();
+        
+                try {
+                    ta_nota.print();
+                } catch (PrinterException e) {
+                }
                 simpan_data();
             }
             }
         
          if(evt.getKeyCode() == KeyEvent.VK_K){
             tf_bayar.requestFocus();
+        }
+         if(evt.getKeyCode() == KeyEvent.VK_Y){
+            cb_barang.requestFocus();
         }
     }//GEN-LAST:event_bt_simpanKeyPressed
 
@@ -1086,21 +1053,16 @@ public final class meja1b extends javax.swing.JPanel {
     private void tf_bayarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_bayarKeyPressed
         // TODO add your handling code here:
              if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-                    String a =tf_bayar.getText();
-                    String b = tf_total_bayar.getText();
-                    int bay = Integer.parseInt(a);
-                    int tot = Integer.parseInt(b);
+                    int bay = Integer.parseInt(tf_bayar.getText());
+                    int tot = Integer.parseInt(tf_total_bayar.getText());
                     int kem = bay - tot;
                     String k = Integer.toString(kem);
-                    //tf_kembali.setText(k);
                     if (kem < 0){
                            JOptionPane.showMessageDialog(null, "Uang Pembayaran Kurang", "Informasi", JOptionPane.INFORMATION_MESSAGE);
                            }else{
                         kembalian();
                     }
                        }
-         
-         
         if(evt.getKeyCode() == KeyEvent.VK_K){
             tf_potongan.requestFocus();
         }
@@ -1153,7 +1115,10 @@ public final class meja1b extends javax.swing.JPanel {
     private void tb_hapusKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tb_hapusKeyPressed
         // TODO add your handling code here:
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-            hapus_data();
+            int hapusselected = JOptionPane.showConfirmDialog(null, "Hapus Data?","Close Message", JOptionPane.YES_NO_OPTION);
+            if(hapusselected == JOptionPane.YES_OPTION){
+                 hapus_data();
+            }
         }
         if(evt.getKeyCode() == KeyEvent.VK_T){
             tf_bayar.requestFocus();
@@ -1167,15 +1132,34 @@ public final class meja1b extends javax.swing.JPanel {
     }//GEN-LAST:event_tb_hapusKeyPressed
 
     private void bt_tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_tambahActionPerformed
-        // TODO add your handling code here:
-        tambah_data();
+        int harga = Integer.parseInt(tf_harga.getText());
+        int unit = Integer.parseInt(tf_unit.getText());
+        int total = Integer.parseInt(tf_total.getText());
+        if(unit == 0){
+            JOptionPane.showMessageDialog(null, "Masukkan Jumlah Pembelian", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+        }else if(harga == 0){
+            JOptionPane.showMessageDialog(null, "Enter Field Pilih Menu", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+        }else if(total == 0){
+            JOptionPane.showMessageDialog(null, "Enter Field Bayar", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+                tambah_data();
+            }
     }//GEN-LAST:event_bt_tambahActionPerformed
 
     private void bt_tambahKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bt_tambahKeyPressed
         // TODO add your handling code here:
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-            tambah_data();
-        }
+        int harga = Integer.parseInt(tf_harga.getText());
+        int unit = Integer.parseInt(tf_unit.getText());
+        int total = Integer.parseInt(tf_total.getText());
+        if(unit == 0){
+            JOptionPane.showMessageDialog(null, "Masukkan Jumlah Pembelian", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+        }else if(harga == 0){
+            JOptionPane.showMessageDialog(null, "Enter Field Pilih Menu", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+        }else if(total == 0){
+            JOptionPane.showMessageDialog(null, "Enter Field Bayar", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+           tambah_data();
+            }
         if(evt.getKeyCode() == KeyEvent.VK_T){
             tf_potongan.requestFocus();
         }
@@ -1187,9 +1171,6 @@ public final class meja1b extends javax.swing.JPanel {
         }
         if(evt.getKeyCode() == KeyEvent.VK_K){
             tf_unit.requestFocus();
-        }
-        if(evt.getKeyCode() == KeyEvent.VK_G){
-           bt_keluar.requestFocus();
         }
     }//GEN-LAST:event_bt_tambahKeyPressed
 
@@ -1238,31 +1219,13 @@ public final class meja1b extends javax.swing.JPanel {
                 String harga = hasil.getString("harga");
                 tf_harga.setText(harga);
             }
-
         } catch (SQLException e) {
         }
-
-        // tf_harga.setText(a);
     }//GEN-LAST:event_cb_barangActionPerformed
 
     private void cb_barangKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cb_barangKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_cb_barangKeyPressed
-
-    private void bt_keluarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bt_keluarKeyPressed
-        // TODO add your handling code here:
-       
-    }//GEN-LAST:event_bt_keluarKeyPressed
-
-    private void bt_keluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_keluarActionPerformed
-        // TODO add your handling code here:
-        generate_data();
-        
-        try {
-            ta_nota.print();
-        } catch (PrinterException e) {
-        }
-    }//GEN-LAST:event_bt_keluarActionPerformed
 
     private void tf_potonganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_potonganActionPerformed
         // TODO add your handling code here:
@@ -1317,9 +1280,78 @@ public final class meja1b extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton1KeyPressed
 
+    private void tf_bayarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tf_bayarFocusGained
+        // TODO add your handling code here:
+        if(tf_bayar.getText().equals("0")){
+            tf_bayar.setText("");
+        }
+    }//GEN-LAST:event_tf_bayarFocusGained
+
+    private void tf_bayarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tf_bayarFocusLost
+        // TODO add your handling code here:
+        if(tf_bayar.getText().equals("")){
+            tf_bayar.setText("0");
+        }
+    }//GEN-LAST:event_tf_bayarFocusLost
+
+    private void tf_potonganFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tf_potonganFocusGained
+        // TODO add your handling code here:
+        if(tf_potongan.getText().equals("0")){
+            tf_potongan.setText("");
+        }
+    }//GEN-LAST:event_tf_potonganFocusGained
+
+    private void tf_potonganFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tf_potonganFocusLost
+        // TODO add your handling code here:
+        if(tf_potongan.getText().equals("")){
+            tf_potongan.setText("0");
+        }
+    }//GEN-LAST:event_tf_potonganFocusLost
+
+    private void tf_hargaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tf_hargaFocusGained
+        // TODO add your handling code here:
+        if(tf_harga.getText().equals("0")){
+            tf_harga.setText("");
+        }
+    }//GEN-LAST:event_tf_hargaFocusGained
+
+    private void tf_hargaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tf_hargaFocusLost
+        // TODO add your handling code here:
+        if(tf_harga.getText().equals("")){
+            tf_harga.setText("0");
+        }
+    }//GEN-LAST:event_tf_hargaFocusLost
+
+    private void tf_unitFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tf_unitFocusGained
+        // TODO add your handling code here:
+        if(tf_unit.getText().equals("0")){
+            tf_unit.setText("");
+        }
+    }//GEN-LAST:event_tf_unitFocusGained
+
+    private void tf_unitFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tf_unitFocusLost
+        // TODO add your handling code here:
+        if(tf_unit.getText().equals("")){
+            tf_unit.setText("0");
+        }
+    }//GEN-LAST:event_tf_unitFocusLost
+
+    private void tf_totalFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tf_totalFocusGained
+        // TODO add your handling code here:
+        if(tf_total.getText().equals("0")){
+            tf_total.setText("");
+        }
+    }//GEN-LAST:event_tf_totalFocusGained
+
+    private void tf_totalFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tf_totalFocusLost
+        // TODO add your handling code here:
+        if(tf_total.getText().equals("")){
+            tf_total.setText("0");
+        }
+    }//GEN-LAST:event_tf_totalFocusLost
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bt_keluar;
     private javax.swing.JButton bt_refresh;
     private javax.swing.JButton bt_simpan;
     private javax.swing.JButton bt_tambah;
@@ -1334,6 +1366,7 @@ public final class meja1b extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -1344,10 +1377,8 @@ public final class meja1b extends javax.swing.JPanel {
     private javax.swing.JLabel lb_jam;
     private javax.swing.JLabel lb_pegawai;
     private javax.swing.JLabel lb_tanggal;
-    private javax.swing.JLabel lb_tgl_kemarin;
     private javax.swing.JLabel lb_transaksi;
     private javax.swing.JTextArea ta_nota;
-    private javax.swing.JLabel tahun;
     private javax.swing.JLabel tanggal;
     private javax.swing.JTable tb_barang;
     private javax.swing.JButton tb_hapus;

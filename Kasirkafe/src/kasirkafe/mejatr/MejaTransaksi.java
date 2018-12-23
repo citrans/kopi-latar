@@ -7,13 +7,10 @@ package kasirkafe.mejatr;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
-import Belum_terpakai.Transaksi;
 import kasirkafe.Halaman_utama;
 import kasirkafe.LaporanHarian;
 import kasirkafe.LaporanTransaksiKasir;
-import kasirkafe.LaporanTransaksiPemilik;
 import kasirkafe.crud;
 import kasirkafe.form_menu_makanan;
 import kasirkafe.login;
