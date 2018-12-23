@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
 import kasirkafe.mejatr.MejaTransaksi;
 import javax.swing.table.TableColumn;
 
-public class form_menu_makanan extends javax.swing.JFrame {
+public final class form_menu_makanan extends javax.swing.JFrame {
 
     private DefaultTableModel tabmode;
     String no = null;
@@ -46,7 +46,6 @@ public class form_menu_makanan extends javax.swing.JFrame {
         }
         
     }
-    
     private void tampil_kategori(){
         try{
             try (Connection konek = new Koneksi_mysql().getConnection()) {
@@ -63,7 +62,6 @@ public class form_menu_makanan extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "menampilkan data gagal", "informasi", JOptionPane.INFORMATION_MESSAGE);
         }
     }
-    
     private void id_auto(){
         try{
             try (Connection konek = new Koneksi_mysql().getConnection()) {
@@ -83,7 +81,6 @@ public class form_menu_makanan extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "menampilkan id menu gagal", "informasi", JOptionPane.INFORMATION_MESSAGE);
         }
     }
-    
     public void ambil_id(){
         
         try{
@@ -104,7 +101,6 @@ public class form_menu_makanan extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "menampilkan id kategori gagal", "informasi", JOptionPane.INFORMATION_MESSAGE);
         }
     }
-    
     public void reset(){
         tf_harga.setText("");
         tf_id_menu.setText("");
@@ -113,7 +109,6 @@ public class form_menu_makanan extends javax.swing.JFrame {
         id_auto();
         
     }
-    
     public void tambah_data(){
         String id_menu, nama_menu, id_kategori;
         int harga ;
@@ -136,7 +131,6 @@ public class form_menu_makanan extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Gagal Menyimpan Data", "Informasi", JOptionPane.INFORMATION_MESSAGE);    
         }
     }
-    
     public void update_data(){
         String id_menu, nama_menu, id_kategori;
         int harga ;
@@ -159,7 +153,6 @@ public class form_menu_makanan extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Gagal Merubah Data", "Informasi", JOptionPane.INFORMATION_MESSAGE);    
         }
     }
-    
     public void delete_data(){
          String id_menu;
         int harga = 0;
@@ -179,17 +172,15 @@ public class form_menu_makanan extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Gagal Menghapus Data", "Informasi", JOptionPane.INFORMATION_MESSAGE);    
         }
     }
-    
     public form_menu_makanan() {
-        initComponents();
-        tampil_menu();
-        tampil_kategori();
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        id_auto();
-        lebarkolom();
-        tf_nama_menu.requestFocus();
+//        initComponents();
+//        tampil_menu();
+//        tampil_kategori();
+//        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+//        id_auto();
+//        lebarkolom();
+//        tf_nama_menu.requestFocusInWindow();
     }
-    
     public form_menu_makanan (String User, String Status ){
          initComponents();
          this.user = User;
@@ -205,6 +196,7 @@ public class form_menu_makanan extends javax.swing.JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         id_auto();
         tf_nama_menu.requestFocus();
+        lebarkolom();
     }
     public void lebarkolom(){ 
         TableColumn column;
@@ -405,19 +397,9 @@ public class form_menu_makanan extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1404, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(132, 132, 132)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(btdelete, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton4))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(tbupdate, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(132, 132, 132)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6)
                                     .addComponent(jLabel5)
@@ -428,8 +410,21 @@ public class form_menu_makanan extends javax.swing.JFrame {
                                     .addComponent(tf_id_menu, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(tf_nama_menu, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
                                     .addComponent(tf_harga)
-                                    .addComponent(cb_kategori, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(70, 70, 70)
+                                    .addComponent(cb_kategori, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(70, 70, 70))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(btdelete, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jButton4))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(tbupdate, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(109, 109, 109)))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 659, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(383, Short.MAX_VALUE))
         );
@@ -456,7 +451,7 @@ public class form_menu_makanan extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tf_harga, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6))
-                        .addGap(105, 105, 105)
+                        .addGap(39, 39, 39)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton1)
                             .addComponent(tbupdate))
@@ -631,7 +626,7 @@ public class form_menu_makanan extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        Input_kategori n = new Input_kategori();
+        Input_kategori n = new Input_kategori(user, status);
         n.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton5ActionPerformed

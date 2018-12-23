@@ -27,9 +27,9 @@ public final class Halaman_utama extends javax.swing.JFrame {
     String user, status;
     
     public Halaman_utama() {
-        initComponents();
-        ganti_tanggal();
-        pindah_fav();
+//        initComponents();
+//        ganti_tanggal();
+//        pindah_fav();
         // this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
     public Halaman_utama(String User, String Status) {
@@ -38,21 +38,23 @@ public final class Halaman_utama extends javax.swing.JFrame {
          this.status=Status;
          ganti_tanggal();
          pindah_fav();
+         jLabel1.hide();
          jLabel1.setText(status);
     }
     
     public void ganti_tanggal(){
            java.sql.Connection konek = new Koneksi_mysql().getConnection();
            Calendar cal = new GregorianCalendar();
-           int hari = cal.get(Calendar.DAY_OF_MONTH);
+           int bulan = cal.get(Calendar.MONTH);
+           int hari = bulan + 1;
            int year = cal.get(Calendar.YEAR);
-           String sql = "SELECT * FROM transaksi WHERE tahun = '"+year+"' ORDER BY tgl DESC LIMIT 1 ";
-           try{
            
+           try{
+                String sql = "SELECT * FROM transaksi WHERE tahun = '"+year+"' ORDER BY bulan DESC LIMIT 1 ";
                 Statement stat= konek.createStatement();
                 ResultSet hasil = stat.executeQuery(sql);
                 while(hasil.next()){
-                    String date = hasil.getString("tgl");
+                    String date = hasil.getString("bulan");
                     int tgl = Integer.parseInt(date);
                     if (tgl != hari){
                          try{
@@ -68,13 +70,13 @@ public final class Halaman_utama extends javax.swing.JFrame {
                 } konek.close();
             
         } catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "menampilkan tanggal gagal", "informasi", JOptionPane.INFORMATION_MESSAGE);
+//            JOptionPane.showMessageDialog(null, "menampilkan tanggal gagal", "informasi", JOptionPane.INFORMATION_MESSAGE);
         }
        }
        public void pindah_fav(){
         java.sql.Connection konek = new Koneksi_mysql().getConnection();
-        String sql = "SELECT * FROM penampung_fav";
         try{
+                String sql = "SELECT * FROM penampung_fav";
                 Statement stat= konek.createStatement();
                 ResultSet hasil = stat.executeQuery(sql);
                 while(hasil.next()){
@@ -88,7 +90,7 @@ public final class Halaman_utama extends javax.swing.JFrame {
                     }
                 } konek.close();
         } catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "menampilkan data laku gagal", "informasi", JOptionPane.INFORMATION_MESSAGE);
+//            JOptionPane.showMessageDialog(null, "menampilkan data laku gagal", "informasi", JOptionPane.INFORMATION_MESSAGE);
         }
        }
 
@@ -324,18 +326,19 @@ public final class Halaman_utama extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(72, 72, 72)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jp_tr, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jp_du, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jp_kl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jp_lp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(89, 89, 89))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jp_tr, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jp_du, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jp_kl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jp_lp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(89, 89, 89))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -468,7 +471,7 @@ public final class Halaman_utama extends javax.swing.JFrame {
             this.setVisible(false);
         }
         else  {
-            LaporanTransaksiPemilik n = new LaporanTransaksiPemilik(user, status);
+            LaporanBulanan n = new LaporanBulanan(user, status);
             n.setVisible(true);
             this.setVisible(false);
         }
@@ -482,7 +485,7 @@ public final class Halaman_utama extends javax.swing.JFrame {
             this.setVisible(false);
         }
         else  {
-            LaporanTransaksiPemilik n = new LaporanTransaksiPemilik(user, status);
+            LaporanBulanan n = new LaporanBulanan(user, status);
             n.setVisible(true);
             this.setVisible(false);
         }
@@ -496,7 +499,7 @@ public final class Halaman_utama extends javax.swing.JFrame {
             this.setVisible(false);
         }
         else  {
-            LaporanTransaksiPemilik n = new LaporanTransaksiPemilik(user, status);
+            LaporanBulanan n = new LaporanBulanan(user, status);
             n.setVisible(true);
             this.setVisible(false);
         }
