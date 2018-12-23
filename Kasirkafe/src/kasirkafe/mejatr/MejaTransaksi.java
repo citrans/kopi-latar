@@ -206,7 +206,7 @@ public final class MejaTransaksi extends javax.swing.JFrame {
 
         p_tombol.setBackground(new java.awt.Color(205, 101, 38));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel2.setText("NOMOR MEJA");
 
         bt_1.setText("1");
@@ -721,7 +721,7 @@ public final class MejaTransaksi extends javax.swing.JFrame {
                         .addComponent(bt_55, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(bt_60, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(227, Short.MAX_VALUE))
+                .addContainerGap(228, Short.MAX_VALUE))
         );
 
         p_dinamic.setBackground(new java.awt.Color(205, 133, 63));
